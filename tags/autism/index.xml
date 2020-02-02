@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>autism | Tanner Koomar</title>
+    <link>/tags/autism/</link>
+      <atom:link href="/tags/autism/index.xml" rel="self" type="application/rss+xml" />
+    <description>autism</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>autism</title>
+      <link>/tags/autism/</link>
+    </image>
+    
+    <item>
+      <title>Genetic Intersections of Language and Neuropsychiatric Conditions</title>
+      <link>/publication/2020-language-review-paper/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/2020-language-review-paper/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Whole-genome sequencing in a family with twin boys with autism and intellectual disability suggests multimodal polygenic risk</title>
+      <link>/publication/2018-case-study-asd/</link>
+      <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
+      <guid>/publication/2018-case-study-asd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Forecasting autism gene discovery with machine learning and genome-scale data</title>
+      <link>/publication/2018-forecasd-preprint/</link>
+      <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>/publication/2018-forecasd-preprint/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

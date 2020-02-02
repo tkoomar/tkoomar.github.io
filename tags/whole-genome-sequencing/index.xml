@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>whole genome sequencing | Tanner Koomar</title>
+    <link>/tags/whole-genome-sequencing/</link>
+      <atom:link href="/tags/whole-genome-sequencing/index.xml" rel="self" type="application/rss+xml" />
+    <description>whole genome sequencing</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sat, 01 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>whole genome sequencing</title>
+      <link>/tags/whole-genome-sequencing/</link>
+    </image>
+    
+    <item>
+      <title>Whole-genome sequencing in a family with twin boys with autism and intellectual disability suggests multimodal polygenic risk</title>
+      <link>/publication/2018-case-study-asd/</link>
+      <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
+      <guid>/publication/2018-case-study-asd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Genetics of Language Ability</title>
+      <link>/project/language-wgs/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>/project/language-wgs/</guid>
+      <description>&lt;p&gt;In this NIDCD/NICHD-supported project, we are performing whole-genome sequencing of a cohort of Iowa children with language impairment (collected by UI collaborator Bruce Tomblin), where we hope to identify genes and mutations involved in the acquisition and use of language. We hope that research in this area will eventually help to further refine the categorization of language pathology so that therapies can be more targeted and effective.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

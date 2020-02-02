@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MRI | Tanner Koomar</title>
+    <link>/tags/mri/</link>
+      <atom:link href="/tags/mri/index.xml" rel="self" type="application/rss+xml" />
+    <description>MRI</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Thu, 10 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>MRI</title>
+      <link>/tags/mri/</link>
+    </image>
+    
+    <item>
+      <title>Ensemble Modeling of Neurocognitive Performance Using MRI-Derived Brain Structure Volumes</title>
+      <link>/publication/2019-miccai-paper/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/publication/2019-miccai-paper/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

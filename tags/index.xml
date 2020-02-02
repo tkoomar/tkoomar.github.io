@@ -5,12 +5,84 @@
     <link>/tags/</link>
       <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy 2020</copyright><lastBuildDate>Wed, 08 May 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Tags</title>
       <link>/tags/</link>
     </image>
+    
+    <item>
+      <title>adhd</title>
+      <link>/tags/adhd/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/tags/adhd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>autism</title>
+      <link>/tags/autism/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/tags/autism/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bipolar disorder</title>
+      <link>/tags/bipolar-disorder/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/tags/bipolar-disorder/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>language genetics</title>
+      <link>/tags/language-genetics/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/tags/language-genetics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>major depression</title>
+      <link>/tags/major-depression/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/tags/major-depression/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>schizophrenia</title>
+      <link>/tags/schizophrenia/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/tags/schizophrenia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ABCD</title>
+      <link>/tags/abcd/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/abcd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machie Learning</title>
+      <link>/tags/machie-learning/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/machie-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MRI</title>
+      <link>/tags/mri/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/mri/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>gif</title>
@@ -45,14 +117,6 @@
     </item>
     
     <item>
-      <title>Source Themes</title>
-      <link>/tags/source-themes/</link>
-      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/source-themes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>twitter</title>
       <link>/tags/twitter/</link>
       <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
@@ -73,6 +137,22 @@
       <link>/tags/web-scraping/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
       <guid>/tags/web-scraping/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>polygenic risk</title>
+      <link>/tags/polygenic-risk/</link>
+      <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/polygenic-risk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>whole genome sequencing</title>
+      <link>/tags/whole-genome-sequencing/</link>
+      <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/whole-genome-sequencing/</guid>
       <description></description>
     </item>
     
@@ -101,18 +181,50 @@
     </item>
     
     <item>
-      <title>Deep Learning</title>
-      <link>/tags/deep-learning/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/deep-learning/</guid>
+      <title>machine learning</title>
+      <link>/tags/machine-learning/</link>
+      <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/machine-learning/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Demo</title>
-      <link>/tags/demo/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/demo/</guid>
+      <title>preprint</title>
+      <link>/tags/preprint/</link>
+      <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/preprint/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>random forest</title>
+      <link>/tags/random-forest/</link>
+      <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/random-forest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cloud</title>
+      <link>/tags/cloud/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data visualization</title>
+      <link>/tags/data-visualization/</link>
+      <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
+      <guid>/tags/data-visualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gene expression</title>
+      <link>/tags/gene-expression/</link>
+      <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
+      <guid>/tags/gene-expression/</guid>
       <description></description>
     </item>
     
