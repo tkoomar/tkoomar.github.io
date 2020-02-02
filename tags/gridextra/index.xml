@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gridExtra | Tanner Koomar</title>
+    <link>/tags/gridextra/</link>
+      <atom:link href="/tags/gridextra/index.xml" rel="self" type="application/rss+xml" />
+    <description>gridExtra</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy 2020</copyright><lastBuildDate>Sun, 21 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>gridExtra</title>
+      <link>/tags/gridextra/</link>
+    </image>
+    
+    <item>
+      <title>Tidy Tuesday: How The Housing Price Index Flipped</title>
+      <link>/post/2019-04-21-tt-housing-prices/</link>
+      <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-04-21-tt-housing-prices/</guid>
+      <description>&lt;p&gt;A look at housing price trends over the last century with a compound infographic.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#format-data&#34;&gt;format data&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#a-new-theme&#34;&gt;A new theme&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#violin-plot&#34;&gt;violin plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#statebin-maps&#34;&gt;statebin maps&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#line-plots&#34;&gt;line plots&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#map-key&#34;&gt;map key&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#texts&#34;&gt;texts&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#title&#34;&gt;title&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#narrative&#34;&gt;narrative&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#footer&#34;&gt;footer&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#asemble&#34;&gt;Asemble&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#the-final-plot&#34;&gt;The final Plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+library(statebins)
+library(cowplot)
+library(magick)
+library(showtext) ## for google fonts
+font_add_google(&amp;quot;Staatliches&amp;quot;)
+font_add_google(&amp;quot;Oswald&amp;quot;)
+font_add_google(&amp;quot;Montserrat&amp;quot;, regular.wt = 300, bold.wt = 500)
+showtext_auto()
+
+
+## read in data
+hpi_dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-02-05/state_hpi.csvhttps://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-02-05/state_hpi.csv&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   year = col_integer(),
+##   month = col_integer(),
+##   state = col_character(),
+##   price_index = col_double(),
+##   us_avg = col_double()
+## )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;format-data&#34;&gt;format data&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hpi_dat &amp;lt;- hpi_dat %&amp;gt;% 
+  mutate(years =  cut(year, 
+                       breaks = c(1975, 1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015, 2018), 
+                       labels = c(1975, 1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015), 
+                       include.lowest = TRUE
+                       )
+         ) %&amp;gt;%
+  group_by(years) %&amp;gt;%
+  mutate(
+    price_ratio = price_index/us_avg,
+    price_sd = sd(price_index/us_avg)
+    ) %&amp;gt;% 
+  ungroup() %&amp;gt;%
+  left_join(tibble(state = state.abb, region = as.character(state.division))) %&amp;gt;%
+  mutate(region = replace_na(region, &amp;quot;Washington DC&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;state&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;a-new-theme&#34;&gt;A new theme&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;theme_house&amp;lt;- function(base_size = 11, base_family = &amp;quot;Oswald&amp;quot;, base_line_size = base_size/22, base_rect_size = base_size/22) {
+      theme_minimal(base_size = base_size, 
+               base_family = base_family,
+               base_line_size = base_line_size, 
+               base_rect_size = base_rect_size) %+replace% 
+    theme(axis.title = element_text(face = &#39;bold&#39;, hjust = 0, size = 14),
+          strip.text = element_text(hjust = 1))
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;violin-plot&#34;&gt;violin plot&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;violin &amp;lt;- hpi_dat %&amp;gt;%
+  ggplot(aes(x = years, y = (price_ratio), fill = price_sd)) + 
+  geom_hline(yintercept = 1 , lty = 2) + 
+  geom_violin(color = NA, alpha = 0.85) + 
+  scale_fill_gradientn(colors = c(&amp;quot;#F98400&amp;quot;,&amp;quot;#ECCBAE&amp;quot;), name = &#39;standard deviation of home prices&#39;) + 
+  labs(x = &amp;quot;5 year period&amp;quot;, 
+       y = &amp;quot;HPI relative to national average&amp;quot;
+       ) + 
+  guides(fill = guide_colorbar(title.position = &amp;quot;top&amp;quot;, 
+                               title.hjust = 0.5, 
+                               label.position = &#39;bottom&#39;, 
+                               barwidth = 15, 
+                               barheight = .5)
+         ) + 
+  scale_y_continuous(trans = &#39;log2&#39;, breaks = c(1/2, 1, 2), labels = c(&amp;quot;1/2x&amp;quot;, &amp;quot;1x&amp;quot;, &amp;quot;2x&amp;quot;), limits = c(1/2,2)) + 
+  #scale_fill_viridis_c(direction = -1, option = &amp;quot;E&amp;quot;) + 
+  theme_house() + 
+  theme(legend.direction = &#39;horizontal&#39;, 
+        legend.justification = c(.5, 0),
+        legend.position = c(0.5, 0.78)
+        )
+
+violin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing non-finite values (stat_ydensity).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-02-05_files/figure-markdown_github/unnamed-chunk-3-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;statebin-maps&#34;&gt;statebin maps&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bin_maps &amp;lt;- hpi_dat %&amp;gt;%
+  filter(years %in% c(1975, 1995, 2015)) %&amp;gt;%
+  ggplot(aes(state = state, 
+             fill = cut(log2(price_ratio), 
+                        breaks = c(-Inf, -.625, -.375, -.125, .125, .375, .625, Inf), include.lowest = TRUE,
+                        labels = c(&amp;quot;-1&amp;quot;, &amp;quot;-1/2&amp;quot;, &amp;quot;-1/4&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;1/4&amp;quot;, &amp;quot;1/2&amp;quot;, &amp;quot;1&amp;quot;)
+                        )
+             ) 
+         ) + 
+  geom_statebins(border_size = 0, dark_lbl = NA, light_lbl = NA) + 
+  facet_wrap(~years, nrow = 3) + 
+  coord_equal() + 
+  guides(fill = guide_legend(title.position = &#39;top&#39;,
+                             title.hjust = 0.5, 
+                             label.position = &#39;bottom&#39;, 
+                             direction = &#39;horizontal&#39;, 
+                             nrow = 1, 
+                             keyheight = .75, 
+                             keywidth = c(2, 1, 1, 2, 1, 1, 2)
+                             )
+         ) + 
+  scale_fill_manual(values = colorRampPalette(c(&amp;quot;#FF0000&amp;quot;, &amp;quot;#fbf4ee&amp;quot;, &amp;quot;#00A08A&amp;quot;))(7),  
+                    name = &amp;quot;HPI relative to national average&amp;quot;, 
+                    labels = c(&amp;quot;1/2x&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;1x&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot; 2x&amp;quot;)) + 
+  ggtitle(&amp;quot;Home Prices in Flyover\nCountry Can&#39;t Keep Up&amp;quot;) + 
+  theme_void() + 
+  theme(plot.title=element_text(family = &amp;quot;Oswald&amp;quot;, 
+                                size=20, 
+                                hjust=1, 
+                                lineheight = 0.85), 
+        plot.margin = margin(0,10,0,10), 
+        strip.text = element_text(family = &amp;quot;Oswald&amp;quot;, 
+                                  size = 24,
+                                  hjust = 0),
+        legend.position = &#39;top&#39;, 
+        legend.justification = 0.5,
+        legend.direction = &#39;horizontal&#39;, 
+        legend.text = element_text(family = &amp;quot;Oswald&amp;quot;)
+       )
+
+bin_maps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-02-05_files/figure-markdown_github/unnamed-chunk-4-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;line-plots&#34;&gt;line plots&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lines &amp;lt;- hpi_dat %&amp;gt;%
+  group_by(year, region) %&amp;gt;%
+  ggplot(aes(x = year, y = price_ratio, color = region, group = region)) + 
+  geom_hline(yintercept = 1, lty = 2, lwd = 0.25) + 
+  scale_y_continuous(trans = &#39;log2&#39;, breaks = c(1/2, 1, 2), labels = c(&amp;quot;1/2x&amp;quot;, &amp;quot;1x&amp;quot;, &amp;quot;2x&amp;quot;), limits = c(1/2,2)) + 
+  labs(y = &amp;quot;HPI relative to national average&amp;quot;) + 
+  geom_line(alpha = 0.85, size = 4, show.legend = FALSE) + 
+  facet_wrap(~region, ncol = 2) + 
+  scale_color_manual(values = c(&amp;quot;#FF0000&amp;quot;, &amp;quot;#00A08A&amp;quot;, &amp;quot;#F2AD00&amp;quot;, &amp;quot;#F98400&amp;quot;, &amp;quot;#5bd679&amp;quot;, &amp;quot;#ECCBAE&amp;quot;, &amp;quot;#046C9A&amp;quot;, &amp;quot;#000000&amp;quot;, &amp;quot;#ABDDDE&amp;quot;, &amp;quot;#D69C4E&amp;quot; )) +
+  theme_house() + 
+  theme(axis.title = element_text(size = 22))
+lines
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing missing values (geom_path).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-02-05_files/figure-markdown_github/unnamed-chunk-5-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;map-key&#34;&gt;map key&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bin_map_key &amp;lt;- hpi_dat %&amp;gt;%
+  left_join(tibble(state = state.abb, region = state.division)) %&amp;gt;%
+  ggplot(aes(state = state, fill = region)) + 
+  geom_statebins(border_size = 0, family = &amp;quot;Montserrat&amp;quot; ) + 
+  scale_fill_manual(values = c(&amp;quot;#FF0000&amp;quot;, &amp;quot;#00A08A&amp;quot;, &amp;quot;#F2AD00&amp;quot;, &amp;quot;#F98400&amp;quot;, &amp;quot;#5bd679&amp;quot;, &amp;quot;#ECCBAE&amp;quot;, &amp;quot;#046C9A&amp;quot;, &amp;quot;#000000&amp;quot;, &amp;quot;#ABDDDE&amp;quot;, &amp;quot;#D69C4E&amp;quot;)) + 
+  coord_equal() + 
+  ggtitle(&amp;quot;Regions of the United States&amp;quot;) + 
+  theme_void() + 
+  theme(plot.title=element_text(family = &amp;quot;Oswald&amp;quot;, size=20, hjust=0), 
+        plot.margin = margin(10,10,10,10), 
+        legend.position = &#39;none&#39;
+        ) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = c(&amp;quot;state&amp;quot;, &amp;quot;region&amp;quot;)
+
+## Warning: Column `region` joining character vector and factor, coercing into
+## character vector
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bin_map_key
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-02-05_files/figure-markdown_github/unnamed-chunk-6-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;texts&#34;&gt;texts&lt;/h2&gt;
+&lt;h4 id=&#34;title&#34;&gt;title&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;header &amp;lt;- ggplot() + 
+ annotate(geom = &amp;quot;text&amp;quot;, 
+          y = -0.1, 
+          x = 0.5, 
+          size = 10,
+          family = &amp;quot;Staatliches&amp;quot;,
+          color = &#39;white&#39;,
+          alpha = 1,
+          lineheight = 0.7,
+          hjust = 1,
+          label=&amp;quot;HOW THE HOUSING\nPRICE INDEX&amp;quot;
+          ) + 
+   annotate(geom = &amp;quot;text&amp;quot;, 
+          y = -0.1, 
+          x = .79, 
+          size = 12,
+          family = &amp;quot;Staatliches&amp;quot;, 
+          color = &#39;white&#39;,
+          alpha = 1,
+          lineheight = 0.9,
+          hjust = 0,
+          label=&amp;quot;FLIPPED&amp;quot; 
+          ) + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &amp;quot;white&amp;quot;,
+                                   fill = &amp;quot;transparent&amp;quot;, 
+                                   size = 5)
+  )
+
+
+ggdraw() + draw_image(&amp;quot;house.png&amp;quot;) + draw_plot(header)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-02-05_files/figure-markdown_github/unnamed-chunk-7-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;narrative&#34;&gt;narrative&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;narr &amp;lt;- ggplot() + 
+ annotate(geom = &amp;quot;text&amp;quot;, 
+          y = 0, 
+          x= -2, 
+          size = 5.5, 
+          family = &amp;quot;Montserrat&amp;quot;, 
+          color = &#39;black&#39;,
+          alpha = 0.75, 
+          lineheight = 0.9,
+          hjust = 0,
+          label=str_wrap(&amp;quot;In the 1970&#39;s, many individual states had average home prices (HPI) above the national average. The spread of house prices narrowed, until the mid 1990&#39;s. After this inflection point, house prices again grew more extreme. Less populous states drive this trend, with home prices in these regions going from above average to below it.&amp;quot;, 30)
+          ) + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &amp;quot;white&amp;quot;,
+                                   fill = &#39;#e5e5ff&#39;, 
+                                   size = 5)
+  )
+
+narr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-02-05_files/figure-markdown_github/unnamed-chunk-8-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;footer&#34;&gt;footer&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foot &amp;lt;- ggplot() + 
+ annotate(geom = &amp;quot;text&amp;quot;, 
+          y = 0, 
+          x= 0, 
+          size = 3, 
+          family = &amp;quot;Montserrat&amp;quot;, 
+          color = &#39;black&#39;,
+          alpha = 0.5,
+          hjust = 0.5,
+          label= &amp;quot;◊ A #TidyTuesday adventure by @TannerKoomar ◊ Data from Freddie Mac ◊ Photo from pexels.com ◊&amp;quot;
+          ) + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &amp;quot;white&amp;quot;,
+                                   fill = &#39;#e5e5ff&#39;, 
+                                   size = 3)
+  )
+
+foot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-02-05_files/figure-markdown_github/unnamed-chunk-9-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;asemble&#34;&gt;Asemble&lt;/h2&gt;
+&lt;p&gt;let&amp;rsquo;s try cowplot this time&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;final_plot &amp;lt;- plot_grid(
+  (ggdraw() + draw_image(&amp;quot;house.png&amp;quot;) + draw_plot(header)), 
+  plot_grid(violin, 
+            narr, 
+            rel_widths = c(5,3)
+            ),
+  plot_grid(
+            plot_grid(bin_maps + theme(plot.background = element_rect(fill = alpha(&#39;#e5e5ff&#39;, 0.25), 
+                                                                      color = &#39;white&#39;, 
+                                                                      size = 2)
+                                       ),
+                      bin_map_key, 
+                      ncol = 1,
+                      rel_heights = c(3,1)
+                      ), 
+            lines, 
+            rel_widths = c(3, 5)
+            ),
+  foot,
+  ncol = 1, 
+  rel_heights = c(1, 2, 6, 0.15)
+)
+
+png(&amp;quot;final_plot.png&amp;quot;, width = 1000, height = 2000, res = 144, bg = &amp;quot;white&amp;quot;)
+final_plot
+dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## png 
+##   2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;the-final-plot&#34;&gt;The final Plot&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;./featured.png&#34; alt=&#34;The final plot&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tidy Tuesday: Thanksgiving Gravy</title>
+      <link>/post/2018-11-20-tt-gravy/</link>
+      <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>/post/2018-11-20-tt-gravy/</guid>
+      <description>&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-20/thanksgiving_meals.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   id = col_double()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Boy is this data messy! Lets relabel and organize it a bit.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- dat %&amp;gt;% 
+  filter(is.na(dat) %&amp;gt;% rowSums() &amp;lt; 50) %&amp;gt;% 
+  select(-id, -pie13, -dessert11, -side15, -contains(&amp;quot;Other&amp;quot;)) %&amp;gt;% 
+  mutate(
+    &amp;quot;number of\nkinds of pie&amp;quot; = select(., contains(&amp;quot;pie&amp;quot;)) %&amp;gt;% {!is.na(.)} %&amp;gt;% rowSums(),
+    &amp;quot;total number\nof sides&amp;quot; = select(., contains(&amp;quot;side&amp;quot;)) %&amp;gt;% {!is.na(.)} %&amp;gt;% rowSums(), 
+    &amp;quot;number of\n non-pie desserts&amp;quot; = select(., contains(&amp;quot;dessert&amp;quot;)) %&amp;gt;% {!is.na(.)} %&amp;gt;% rowSums()
+    ) %&amp;gt;% mutate(
+      family_income = factor(family_income,
+                             levels = c(&amp;quot;$0 to $9,999&amp;quot; , &amp;quot;$10,000 to $24,999&amp;quot;, &amp;quot;$25,000 to $49,999&amp;quot;, &amp;quot;$50,000 to $74,999&amp;quot;, &amp;quot;$75,000 to $99,999&amp;quot;, &amp;quot;$100,000 to $124,999&amp;quot;, &amp;quot;$150,000 to $174,999&amp;quot;, &amp;quot;$175,000 to $199,999&amp;quot;, &amp;quot;$200,000 and up&amp;quot;, &amp;quot;Prefer not to answer&amp;quot;, &amp;quot;NA&amp;quot;),
+                             ordered = T)
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;odds-ratio&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Odds Ratio&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_or &amp;lt;- dat %&amp;gt;% 
+  transmute(
+    urban = community_type == &amp;quot;Urban&amp;quot;,
+    not_urban = community_type != &amp;quot;Urban&amp;quot;,
+    parade = !is.na(watch_program), 
+    under30 = dat$age == &amp;quot;18 - 29&amp;quot;,
+    over60 = dat$age == &amp;quot;60+&amp;quot;,
+    female = dat$gender == &amp;quot;Female&amp;quot;,
+    pray = dat$prayer == &amp;quot;Yes&amp;quot;
+    ) %&amp;gt;%
+  #select(prayer, female, friendsgiving, urban, not_urban, parade, under30, over60) %&amp;gt;%
+map(function(x){
+    out &amp;lt;- table(gravy = dat$gravy, foo = x) %&amp;gt;%  fisher.test(conf.level = 0.6827) 
+    out &amp;lt;- c(out$estimate, lower = out$conf.int[1], upper = out$conf.int[2])
+    return(out)
+  }) %&amp;gt;%
+  as.data.frame() %&amp;gt;%
+  rownames_to_column() %&amp;gt;%
+  gather(key, value, -rowname) %&amp;gt;%
+  spread(rowname, value) %&amp;gt;%
+  ggplot(aes(y = key, x = `odds ratio`))+ 
+  geom_errorbarh(aes(xmin = lower, xmax = upper), size = .45, color = &amp;quot;#899DA4&amp;quot;, height = 0.75) + 
+  geom_point(size = 4, color = &amp;quot;#DC863B&amp;quot;) + 
+  geom_vline(xintercept = 1, lty = 2, lwd = 1, color = &amp;quot;#C93312&amp;quot;) + 
+  scale_x_continuous(
+    sec.axis = sec_axis(~ ., breaks = c(0.65, 1.8), labels = c(&amp;quot;less likely\nto have gravy&amp;quot;, &amp;quot;more likely\nto have gravy&amp;quot;))
+    ) + 
+  scale_y_discrete(labels = c(&amp;quot;pray&amp;quot; = &amp;quot;pray at dinner&amp;quot;,
+                              &amp;quot;urban&amp;quot; = &amp;quot;city dwellers&amp;quot;,
+                              &amp;quot;not_urban&amp;quot; = &amp;quot;suburban or\ncountry dwellers&amp;quot;,
+                              &amp;quot;female&amp;quot; = &amp;quot;women&amp;quot;,
+                              &amp;quot;under30&amp;quot; = &amp;quot;people under 30&amp;quot;,
+                              &amp;quot;over60&amp;quot; = &amp;quot;people over 60&amp;quot;,
+                              &amp;quot;parade&amp;quot; = &amp;quot;watch the\nMacy&amp;#39;s parade&amp;quot;)
+  ) + 
+  ylab(&amp;quot;&amp;quot;) + 
+  xlab(&amp;quot;odds ratio&amp;quot;) + 
+  theme_minimal() + 
+  theme(
+    text = element_text(family = &amp;quot;Poppins&amp;quot;),
+    axis.text.x.top = element_text(size = 15, lineheight = 0.75), 
+    axis.text.y = element_text(size = 10, lineheight = 0.7), 
+    axis.ticks.x.top = element_blank(),
+    plot.background = element_rect(color = NA, fill = &amp;quot;#fcf7e8&amp;quot;),
+    panel.background = element_rect(color = NA, &amp;quot;#faefd1&amp;quot;), 
+    panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
+    panel.grid.minor = element_blank()
+  )
+plot_or&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;violin-plots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Violin Plots&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_totals &amp;lt;- dat %&amp;gt;% 
+  filter(!is.na(gravy)) %&amp;gt;% 
+  select(contains(&amp;quot;number&amp;quot;), gravy) %&amp;gt;%
+  gather(key, value, -gravy) %&amp;gt;%
+  mutate(gravy = case_when(
+    gravy == &amp;quot;Yes&amp;quot; ~ &amp;quot;gravy&amp;quot;,
+    gravy == &amp;quot;No&amp;quot; ~ &amp;quot;no gravy&amp;quot;
+  )) %&amp;gt;%
+  ggplot(aes(x = gravy, y = value, fill = gravy)) + 
+  scale_fill_manual(values = c(&amp;quot;gravy&amp;quot; = &amp;quot;#DC863B&amp;quot;, &amp;quot;no gravy&amp;quot; = &amp;quot;#F8AFA8&amp;quot;)) + 
+  geom_violin(alpha = 0.75, color = NA) +
+  stat_summary(fun.y = mean, 
+               fun.ymin = function(x){ quantile(x, probs = 0.25) }, 
+               fun.ymax = function(x){ quantile(x, probs = 0.75) }, 
+               color = &amp;quot;#74A089&amp;quot;, 
+               size = 0.5
+                 ) + 
+  facet_wrap(~ key) + 
+  theme_minimal() + 
+  theme(legend.position = &amp;#39;none&amp;#39;,
+    text = element_text(family = &amp;quot;Poppins&amp;quot;),
+    strip.text = element_text(size = 12, lineheight = 0.75),
+    axis.text.x.top = element_text(size = 15), 
+    axis.text.x = element_text(size = 12), 
+    axis.title.x = element_blank(),
+    axis.ticks.x.top = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    plot.background = element_rect(color = NA, fill = &amp;quot;#fcf7e8&amp;quot;),
+    panel.background = element_rect(color = NA, &amp;quot;#faefd1&amp;quot;), 
+    panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
+    panel.grid.minor = element_blank()
+    )
+plot_totals&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;line-chart-of-income&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Line Chart of Income&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_income &amp;lt;- dat %&amp;gt;% 
+  filter(family_income != &amp;quot;NA&amp;quot; &amp;amp; family_income != &amp;quot;Prefer not to answer&amp;quot;) %&amp;gt;%
+  group_by(family_income) %&amp;gt;%
+  summarize(
+    gravy = mean(gravy == &amp;quot;Yes&amp;quot;, na.rm = T),
+    gravy_sd = sqrt(gravy*(1-gravy)/n())
+    ) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  ggplot(aes(y = gravy, x = family_income, group = 1, color = family_income)) + 
+  geom_line(size = 3) + 
+  geom_point(size = 6) + 
+  geom_errorbar(aes(ymin = gravy - gravy_sd, ymax = gravy + gravy_sd), size = .25, width = .15) + 
+  scale_color_manual(values = wesanderson::wes_palette(&amp;quot;Royal2&amp;quot;, n = 9, type = &amp;quot;c&amp;quot;) ) + 
+  scale_x_discrete(breaks = c(&amp;quot;$0 to $9,999&amp;quot; ,&amp;quot;$75,000 to $99,999&amp;quot;,   &amp;quot;$200,000 and up&amp;quot;), labels = c(&amp;quot;$0 to\n$9,999&amp;quot; ,&amp;quot;$75,000 to\n$99,999&amp;quot;,   &amp;quot;$200,000\n and up&amp;quot;)) + 
+  ggtitle(&amp;quot;annual family income&amp;quot;) + 
+  ylab(&amp;quot;probability of having gravy&amp;quot;) + 
+  theme_minimal() + 
+  theme(
+    legend.position = &amp;#39;none&amp;#39;,
+    text = element_text(family = &amp;quot;Poppins&amp;quot;),
+    axis.text.x = element_text(size = 12), 
+    axis.title.x = element_blank(),
+    axis.ticks.x.top = element_blank(),
+    axis.text.y = element_text(size = 12),
+    axis.title.y = element_text(size = 15),
+    plot.background = element_rect(color = NA, fill = &amp;quot;#fcf7e8&amp;quot;),
+    panel.background = element_rect(color = NA, fill = &amp;quot;#faefd1&amp;quot;), 
+    panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(size = 15, hjust = 0.5)
+  ) 
+plot_income&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;text-boxes&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Text Boxes&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;header &amp;lt;- ggplot() + 
+     annotate(geom = &amp;quot;text&amp;quot;, y = 3.15, x = 2, size = 50, family = &amp;quot;Pacifico&amp;quot;, color = &amp;quot;#fcf7e8&amp;quot;,
+          label=&amp;quot;gravy&amp;quot;) + 
+ annotate(geom = &amp;quot;text&amp;quot;, y = 3.25, x = 2, size = 5, family = &amp;quot;Poppins&amp;quot;, color = &amp;quot;#74A089&amp;quot;,
+          label = &amp;quot;what your thanksgiving&amp;quot; ) + 
+ annotate(geom = &amp;quot;text&amp;quot;, y = 2.5, x= 2, size = 25, family = &amp;quot;Pacifico&amp;quot;, color = &amp;quot;#DC863B&amp;quot;,
+          label=&amp;quot;gravy&amp;quot;) + 
+annotate(geom = &amp;quot;text&amp;quot;, y = .35, x = 2, size = 5,family = &amp;quot;Poppins&amp;quot;, color = &amp;quot;#74A089&amp;quot;, hjust = .6,
+         label = &amp;quot;says about you&amp;quot;) + 
+  ylim(0,4) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &amp;quot;#fcf7e8&amp;quot;, fill = &amp;quot;#faefd1&amp;quot;, size = 5)
+  )
+header&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;midbar1 &amp;lt;- ggplot() + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+ annotate(&amp;quot;text&amp;quot;, x = -2, y = -2, hjust = 0, vjust = 0, lineheight = 0.75, family = &amp;quot;Poppins&amp;quot;, size = 4, color = &amp;quot;#899DA4&amp;quot;,
+           label = str_wrap(&amp;quot;A dinner accompanied by congealed broth is a symbol of status and abundance. Below, the presence of gravy at a Thanksgiving meal goes hand-in-hand with a greater variety of both side dishes and pies.&amp;quot;, 70)
+) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;, color = NA)
+  )
+midbar2 &amp;lt;- ggplot() + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+   annotate(&amp;quot;text&amp;quot;, x = -2, y = -2, hjust = 0, vjust = 0, lineheight = 0.75, family = &amp;quot;Poppins&amp;quot;, size = 4, color = &amp;quot;#899DA4&amp;quot;,
+           label = str_wrap(&amp;quot;Eating concentrated meat juice is also a luxurious marker of wealth. The probability that a family will have gravy at a Thanksgiving meal increases markedly with annual income.&amp;quot;, 70)) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;, color = NA)
+  )
+  
+  midbar1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;  midbar2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-7-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sidebar &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+   annotate(&amp;quot;text&amp;quot;, x = -2, y = 2, hjust = 0, vjust = 1, lineheight = 1.05, family = &amp;quot;Poppins&amp;quot;, size = 4.4, color = &amp;quot;#899DA4&amp;quot;,
+           label = str_wrap(&amp;quot;Gravy is truly the bellwether of the thanksgiving table. If you abstain from gravy, you are much more likely to live in a city, identify as a woman, and be younger than 30. Gravy-eaters, on the other hand, are much more likely to have an AARP membership, watch the Thanksgiving day parade, pray before dinner, and live outside or an urban center.&amp;quot;, 29)) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#faefd1&amp;quot;, color = NA)
+  )
+sidebar&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;footnote &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+     annotate(&amp;quot;text&amp;quot;, x = 2, y = -2, hjust = 1, vjust = 0, lineheight = 0.75, family = &amp;quot;Poppins&amp;quot;, size = 2.75, color = &amp;quot;#899DA4&amp;quot;,
+           label = paste(&amp;quot;a #TidyTuesday adventure\ndesign by @TannerKoomar\ndata from FiveThirtyEight\ncolor scheme from karthik/wesanderson&amp;quot;)) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;, color = NA)
+  )
+footnote&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-8-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plots-assemble&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plots Assemble!&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;final_plot &amp;lt;- grid.arrange(header, 
+               midbar1, 
+               midbar2, 
+               ggplotGrob(plot_totals), 
+               ggplotGrob(plot_income), 
+               ggplotGrob(plot_or), 
+               sidebar, 
+               footnote,
+               heights = c(.15, .075, .35, .025, .325, .075),
+               layout_matrix = rbind(c(1,1,1,1),
+                                     c(2,2,3,3),
+                                     c(4,4,5,5),
+                                     c(NA,NA,NA,NA),
+                                     c(6,6,6,7),
+                                     c(6,6,6,8))
+               )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/final-plot-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Get rid of that ugly white bar in the middle. . .
+cowplot::ggdraw(final_plot) + 
+    theme(plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/final-plot-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

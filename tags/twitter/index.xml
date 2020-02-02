@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>twitter | Tanner Koomar</title>
+    <link>/tags/twitter/</link>
+      <atom:link href="/tags/twitter/index.xml" rel="self" type="application/rss+xml" />
+    <description>twitter</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy 2020</copyright><lastBuildDate>Wed, 13 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>twitter</title>
+      <link>/tags/twitter/</link>
+    </image>
+    
+    <item>
+      <title>Tidy Tuesday: R Tweets</title>
+      <link>/post/2019-02-13-tt-rstats-tweets/</link>
+      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-02-13-tt-rstats-tweets/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#make-some-new-columns&#34;&gt;make some new columns&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#set-lables-of-variables-of-interest&#34;&gt;Set lables of variables of interest&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#main-plot&#34;&gt;Main plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#morning&#34;&gt;Morning&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#afternoon&#34;&gt;afternoon&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#sidebar&#34;&gt;sidebar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#footer&#34;&gt;footer&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#the-final-plot&#34;&gt;The final Plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
+
+## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.7
+## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0
+
+## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(lubridate)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &#39;lubridate&#39;
+
+## The following object is masked from &#39;package:base&#39;:
+## 
+##     date
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(gridExtra)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &#39;gridExtra&#39;
+
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;source(&amp;quot;https://raw.githubusercontent.com/tkoomar/ggplot2_themes/master/theme_cc.R&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: showtext
+
+## Loading required package: sysfonts
+
+## Loading required package: showtextdb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tidytuesday_tweets &amp;lt;- readRDS(&amp;quot;../data/2019/2019-01-01/tidytuesday_tweets.rds&amp;quot;)
+rstats_tweets &amp;lt;- readRDS(&amp;quot;../data/2019/2019-01-01/rstats_tweets.rds&amp;quot;)
+
+
+## helper function for formatting correlation output
+slope_conf &amp;lt;- function(x, y){
+  res &amp;lt;- lm(y ~ x)
+  conf &amp;lt;- confint(res, &amp;quot;x&amp;quot;, 0.95)
+  paste0(&amp;quot;95% confidence interval: &amp;quot;, round(conf[1], 3), &amp;quot;-&amp;quot;, round(conf[2], 3))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;make-some-new-columns&#34;&gt;make some new columns&lt;/h2&gt;
+&lt;p&gt;We want to get the day of the week, and claculate the number of hastags per tweet.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rstats_tweets &amp;lt;-rstats_tweets %&amp;gt;% 
+  mutate(w_day = wday(created_at, label = TRUE),
+         hour = hour(created_at)) %&amp;gt;%
+  rowwise() %&amp;gt;%
+  mutate(n_hash = length(hashtags))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;set-lables-of-variables-of-interest&#34;&gt;Set lables of variables of interest&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat &amp;lt;- rstats_tweets %&amp;gt;%
+  mutate(&amp;quot;retweet per hastag enrichment&amp;quot; = log2(retweet_count/n_hash), 
+         &amp;quot;number of hastags&amp;quot; = n_hash, 
+         &amp;quot;number of retweets&amp;quot; = retweet_count ) %&amp;gt;%
+  gather(key, value, &amp;quot;retweet per hastag enrichment&amp;quot;, &amp;quot;number of hastags&amp;quot;, &amp;quot;number of retweets&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;main-plot&#34;&gt;Main plot&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;morning_col &amp;lt;- alpha(&amp;quot;#ffd92f&amp;quot;, 0.35)
+noon_col &amp;lt;- alpha(&amp;quot;#e5c494&amp;quot;, 0.4)
+
+p_week &amp;lt;-  dat %&amp;gt;% ggplot(aes(x = hour, y = value, color = key)) + 
+  annotate(&#39;rect&#39;, size = 0,
+           xmin = 5, xmax = 9, 
+           ymin = -1, ymax = 5, 
+            fill = morning_col) + 
+  annotate(&#39;rect&#39;, size = 0,
+           xmin = 12, xmax = 20, 
+           ymin = -1, ymax = 5, 
+            fill = noon_col) + 
+  stat_smooth(alpha = 0.1, size = 1.5) + 
+  geom_hline(yintercept = 0, lty = 3) + 
+  scale_color_brewer(palette = &amp;quot;Set2&amp;quot;) + 
+  facet_wrap(~ w_day, nrow = 1) + 
+  coord_cartesian(ylim = c(-1,5)) + 
+  ylab(&amp;quot;&amp;quot;) + 
+  theme_cc(base_size = 12) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;, 
+        plot.title = element_text(size = 26)) + 
+  ggtitle(&amp;quot;#rstats aren&#39;t early morning grinders&amp;quot;, &amp;quot;the average number of retweets and hashtags per #rstats tweet, by day and time&amp;quot;)
+p_week
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &amp;quot;cs&amp;quot;)&#39;
+
+## Warning: Removed 243274 rows containing non-finite values (stat_smooth).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-01-01_files/figure-markdown_github/unnamed-chunk-4-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;morning&#34;&gt;Morning&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;p_morning &amp;lt;- dat %&amp;gt;% 
+  filter(hour &amp;gt;= 5 &amp;amp; hour &amp;lt;= 9 ) %&amp;gt;% 
+  filter(retweet_count &amp;lt; 500) %&amp;gt;%    ## there are a couple big outliers here
+  {
+    ggplot(., aes(x = as.factor(n_hash), y = retweet_count)) + 
+      #geom_jitter(color = alpha(noon_col, 0.05)) + 
+      geom_boxplot(color = &amp;quot;#b3b3b3&amp;quot;, fill = morning_col, outlier.colour = alpha(&amp;quot;#b3b3b3&amp;quot;, 0.02)) + 
+      stat_smooth(method = &amp;quot;lm&amp;quot;, color = &amp;quot;#e78ac3&amp;quot;, size = 2, 
+                  aes(x = (n_hash), y = retweet_count)) + 
+      coord_cartesian(xlim = c(0, 19.75 ), ylim = c(0, 19.75)) + 
+      ggtitle(slope_conf(.$n_hash, .$retweet_count)) + 
+      theme_cc(base_size = 12) + 
+      xlab(&amp;quot;number of hashtags&amp;quot;) + 
+      ylab(&amp;quot;number of retweets&amp;quot;)
+  }
+p_morning
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-01-01_files/figure-markdown_github/unnamed-chunk-5-1.png&#34; alt=&#34; &#34;&gt; ### sidebar&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;morning_sidebar &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) +    
+  annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = 2, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Poppins&amp;quot;, 
+            size = 5, 
+            color = &amp;quot;grey50&amp;quot;,
+           label = str_wrap(string = &amp;quot;In general, more hashtags = more retweets. Early morning tweets usually contain more hashtags than tweets later in the day. Fewer people are on twitter at this time, so the apparent effectiveness of hashtags at provoking retweets is reduced. This begs the question: Why do people use more hashtags in the morning?&amp;quot;, 
+                            width = 18)
+  ) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(
+      fill = morning_col,color = &amp;quot;white&amp;quot;, size = 2
+      )
+  )
+
+morning_sidebar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-01-01_files/figure-markdown_github/unnamed-chunk-6-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;afternoon&#34;&gt;afternoon&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;p_noon &amp;lt;- dat %&amp;gt;% 
+  filter(hour &amp;gt;= 12 &amp;amp; hour &amp;lt;= 20 ) %&amp;gt;% 
+  filter(retweet_count &amp;lt; 500) %&amp;gt;%    ## there are a couple big outliers here
+  {
+    ggplot(., aes(x = as.factor(n_hash), y = retweet_count)) + 
+      #geom_jitter(color = alpha(noon_col, 0.05)) + 
+      geom_boxplot(color = &amp;quot;#b3b3b3&amp;quot;, fill = noon_col, outlier.colour = alpha(&amp;quot;#b3b3b3&amp;quot;, 0.02)) + 
+      stat_smooth(method = &amp;quot;lm&amp;quot;, color = &amp;quot;#e78ac3&amp;quot;, size = 2, 
+                  aes(x = (n_hash), y = retweet_count)) + 
+      coord_cartesian(xlim = c(0, 19.75 ), ylim = c(0, 19.75)) + 
+      ggtitle(slope_conf(.$n_hash, .$retweet_count)) + 
+      theme_cc(base_size = 12) + 
+      xlab(&amp;quot;number of hashtags&amp;quot;) + 
+      ylab(&amp;quot;number of retweets&amp;quot;)
+  }
+
+p_noon
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-01-01_files/figure-markdown_github/unnamed-chunk-7-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;sidebar&#34;&gt;sidebar&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;noon_sidebar &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) +    
+  annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = 2, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Poppins&amp;quot;, 
+            size = 5,
+            color = &amp;quot;grey50&amp;quot;,
+           label = str_wrap(string = &amp;quot;Hashtags used in the mid-afternoon, when most people are on twitter, are almost twice as effective at provoking retweets! Also, while most days see a single pronounced increase in tweets, Sunday afternoon sees two distinct bumps in #rstats tweets.&amp;quot;, 
+                            width = 18)
+  ) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(
+      fill = noon_col, color = &amp;quot;white&amp;quot;, size = 2
+      ), 
+    plot.margin = unit(c(.01,.01,.01,.01), &#39;npc&#39;)
+  )
+
+noon_sidebar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-01-01_files/figure-markdown_github/unnamed-chunk-8-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;footer&#34;&gt;footer&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;footer &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) +    
+  annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = 2, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Poppins&amp;quot;, 
+            size = 2.5, 
+            color = &amp;quot;grey50&amp;quot;,
+           label = paste0(&amp;quot;A #TidyTuesday adventure\n&amp;quot;,
+             &amp;quot;Data from rtweet.info\n&amp;quot;,
+             &amp;quot;Analysis @Tanner Koomar\n&amp;quot;,
+             &amp;quot;Design @Tanner Koomar\n&amp;quot;,
+             &amp;quot;https://github.com/tkoomar/\ntidytuesday/blob/master/\nwork/2019-01-01.md&amp;quot;)
+  ) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(
+      fill = alpha(&amp;quot;#b3b3b3&amp;quot;, 0.5), color = &amp;quot;white&amp;quot;, size = 2
+      ), 
+    plot.margin = unit(c(.01,.01,.01,.01), &#39;npc&#39;)
+  )
+
+footer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-01-01_files/figure-markdown_github/unnamed-chunk-9-1.png&#34; alt=&#34;&amp;rdquo; &amp;ldquo;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Assemble! #### legend&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_leg &amp;lt;-  cowplot::get_legend(p_week +
+                        theme(legend.title = element_blank(), 
+                              legend.justification = &#39;right&#39;))
+plot_leg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## TableGrob (5 x 5) &amp;quot;guide-box&amp;quot;: 2 grobs
+##                                     z     cells                  name
+## 99_e27293391d92b7a74a1c708851c8c43e 1 (3-3,3-3)                guides
+##                                     0 (2-4,2-4) legend.box.background
+##                                               grob
+## 99_e27293391d92b7a74a1c708851c8c43e gtable[layout]
+##                                     zeroGrob[NULL]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;png(&amp;quot;featured.png&amp;quot;, width = 1200, height = 900, res = 144, bg = &amp;quot;white&amp;quot;)
+
+grid.arrange(
+  p_week + theme(legend.position = &#39;none&#39;), 
+  morning_sidebar, 
+  p_morning + theme(axis.text.x = element_blank()), 
+  p_noon + theme(axis.text.x = element_blank()), 
+  noon_sidebar, 
+  footer, 
+  plot_leg,
+  heights = c(.55,.15, .25,.25,.15),
+  widths = c(.5, 1, 1, .5),
+  layout_matrix = rbind(c(1,1,1,1),
+                        c(2,7,7,5),
+                        c(2,3,4,5),
+                        c(2,3,4,5),
+                        c(2,3,4,6)
+    
+  )
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &amp;quot;cs&amp;quot;)&#39;
+
+## Warning: Removed 243274 rows containing non-finite values (stat_smooth).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## png 
+##   2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;the-final-plot&#34;&gt;The final Plot&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;./featured.png&#34; alt=&#34;The final plot&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

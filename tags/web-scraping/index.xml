@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>web scraping | Tanner Koomar</title>
+    <link>/tags/web-scraping/</link>
+      <atom:link href="/tags/web-scraping/index.xml" rel="self" type="application/rss+xml" />
+    <description>web scraping</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy 2020</copyright><lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>web scraping</title>
+      <link>/tags/web-scraping/</link>
+    </image>
+    
+    <item>
+      <title>Tidy Tuesday: Infinitives in Medium Posts</title>
+      <link>/post/2019-01-05-tt-medium/</link>
+      <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-01-05-tt-medium/</guid>
+      <description>&lt;p&gt;Some light web-scraping and natual language processing reveals how different parts of speech may hint at an author&amp;rsquo;s intent (and impact).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#tidy-the-text&#34;&gt;Tidy the text&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#infinitives&#34;&gt;infinitives&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#all-verbs&#34;&gt;all verbs&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#some-plots&#34;&gt;some plots&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#scatter-plots&#34;&gt;scatter plots&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#tables&#34;&gt;tables&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#break-vs-build&#34;&gt;break vs build&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#topics-tags-plot&#34;&gt;topics / tags plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#time-to-harvest-some-posts&#34;&gt;time to (ha)rvest some posts!&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#sentiment-plot&#34;&gt;sentiment plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#violin-plot&#34;&gt;violin plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#legend&#34;&gt;legend&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#text-boxes&#34;&gt;text boxes&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#header&#34;&gt;header&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#definition-sidebar&#34;&gt;definition sidebar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#top-sidebar&#34;&gt;top sidebar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#bottom-sidebar&#34;&gt;bottom sidebar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#footer&#34;&gt;footer&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#stitch-it-together&#34;&gt;stitch it together&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#the-final-plot&#34;&gt;The final Plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;tidy-the-text&#34;&gt;Tidy the text&lt;/h2&gt;
+&lt;p&gt;following along with this: &lt;a href=&#34;https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html&#34;&gt;https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;infinitives&#34;&gt;infinitives&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat_infin &amp;lt;- dat %&amp;gt;% unnest_tokens(infin, title, token = &amp;quot;ngrams&amp;quot;, n = 2) %&amp;gt;%
+  filter(str_detect(pattern = &amp;quot;to &amp;quot;, string = infin)) %&amp;gt;%
+  mutate(word = str_remove(infin, &amp;quot;to &amp;quot;)) %&amp;gt;% 
+  left_join(parts_of_speech) %&amp;gt;%
+  mutate(word_stem = wordStem(word, &amp;quot;english&amp;quot;)) %&amp;gt;%
+  filter(str_detect(pos, regex(&amp;quot;Verb&amp;quot;, ignore_case = F)), 
+         !duplicated(x1)) %&amp;gt;% 
+  group_by(word_stem) %&amp;gt;%
+  mutate(n = n()) %&amp;gt;%
+  group_by(word_stem, n) %&amp;gt;%
+  summarize(mean_claps = mean(claps),
+            sum_claps = sum(claps), 
+            infin = first(infin)
+            )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;all-verbs&#34;&gt;all verbs&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat_verb &amp;lt;- dat %&amp;gt;% unnest_tokens(word, title) %&amp;gt;%
+  left_join(parts_of_speech) %&amp;gt;%
+  filter(str_detect(pos, regex(&amp;quot;Verb&amp;quot;, ignore_case = F)), 
+         !duplicated(x1)) %&amp;gt;% 
+  mutate(word_stem = wordStem(word, &amp;quot;english&amp;quot;)) %&amp;gt;%
+  group_by(word_stem) %&amp;gt;%
+  mutate(n = n()) %&amp;gt;%
+  group_by(word_stem, n) %&amp;gt;%
+  summarize(mean_claps = mean(claps),
+            sum_claps = sum(claps),
+            word = first(word)
+            )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;some-plots&#34;&gt;some plots&lt;/h2&gt;
+&lt;h4 id=&#34;scatter-plots&#34;&gt;scatter plots&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_point_infin &amp;lt;- dat_infin %&amp;gt;%
+  filter(n &amp;gt; 5) %&amp;gt;%
+  ggplot(aes(x = n, y = mean_claps, 
+             color = case_when(
+               mean_claps &amp;gt; 500 ~ &amp;quot;high impact infinitives&amp;quot;, 
+               n &amp;gt; 100 ~ &amp;quot;overused infinitives&amp;quot;,
+               TRUE ~ &amp;quot;low impact infinitives&amp;quot;
+             ), 
+             label = case_when(
+               mean_claps &amp;gt; 500 | n &amp;gt; 100 ~ infin, 
+               mean_claps &amp;gt; 200 &amp;amp; n &amp;gt; 50 ~ infin,
+               TRUE ~ &amp;quot;&amp;quot;)
+             )
+         ) + 
+  scale_colour_manual(values = c(colors_merb[3], colors_merb[1], colors_merb[2]), 
+                     guide = guide_legend(title = NULL, override.aes = list(size = 4)) )+ 
+  geom_point() + 
+  geom_vline(xintercept = 100,
+             lwd = 2, 
+             lty = 2,
+             alpha = 0.3,
+             color = &amp;quot;grey90&amp;quot;) + 
+  geom_hline(yintercept = 500, 
+             lwd = 2,
+             lty = 2, 
+             alpha = 0.3,
+             color = &amp;quot;grey90&amp;quot;) + 
+  geom_text_repel(force = 15,
+                  show.legend = FALSE) + 
+  theme_merb() +
+  xlab(&amp;quot;number of times used&amp;quot;) +
+  ylab(&amp;quot;mean number of claps&amp;quot;) + 
+
+  theme(
+    legend.text = element_text(size = 12),
+    legend.box.just = &amp;quot;right&amp;quot;
+    )
+
+plot_point_infin 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./2018-12-04_files/figure-markdown_github/unnamed-chunk-3-1.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat_verb %&amp;gt;%
+  filter(n &amp;gt; 5) %&amp;gt;%
+  ggplot(aes(x = n, y = mean_claps, 
+             color = case_when(
+               mean_claps &amp;gt; 500 ~ &amp;quot;high_impact&amp;quot;, 
+               n &amp;gt; 100 ~ &amp;quot;overused&amp;quot;,
+               TRUE ~ &amp;quot;misc&amp;quot;
+             ), 
+             label = case_when(
+    mean_claps &amp;gt; 500 | n &amp;gt; 100 ~ word, 
+    mean_claps &amp;gt; 200 &amp;amp;  n &amp;gt; 50 ~ word, 
+    TRUE ~ &amp;quot;&amp;quot;))) + 
+  scale_colour_manual(values = c(colors_merb[3], colors_merb[1], colors_merb[2])) + 
+  geom_point() + 
+  geom_vline(xintercept = 100,
+             lwd = 2, 
+             lty = 2,
+             alpha = 0.3,
+             color = &amp;quot;grey90&amp;quot;) + 
+  geom_hline(yintercept = 500, 
+             lwd = 2,
+             lty = 2, 
+             alpha = 0.3,
+             color = &amp;quot;grey90&amp;quot;) + 
+  geom_text_repel(force = 15) + 
+  theme_merb() +
+  xlab(&amp;quot;number of times used&amp;quot;) +
+  ylab(&amp;quot;mean number of claps&amp;quot;) + 
+  theme(
+    legend.position = &amp;quot;none&amp;quot;
+    )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-4-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;tables&#34;&gt;tables&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gtable_theme &amp;lt;- ttheme_minimal(
+               core = list(fontfamily = &amp;quot;Share Tech Mono&amp;quot;,
+                           bg_params = list(fill = c(&amp;quot;#414C3B&amp;quot;, &amp;quot;#191919&amp;quot;)),
+                           fg_params = list(
+                             col = matrix(c(&amp;quot;white&amp;quot;, colors_merb[2], colors_merb[3]), 
+                                          nrow = 10,
+                                          ncol = 3, 
+                                          byrow = T),
+                             fontsize = 12
+                                            )
+                           ),
+               colhead = list(
+                 bg_params = list(fill = &amp;quot;#222220&amp;quot;),
+                 fg_params = list(col = &amp;quot;white&amp;quot;, 
+                                  fontsize = 12)
+               ),
+               rowhead = list(),
+               default = list(),
+            padding =  unit(c(2, 3), &amp;quot;mm&amp;quot;) 
+             )
+
+infin_list &amp;lt;- dat_infin %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  filter(n &amp;gt; 5) %&amp;gt;% 
+  arrange(desc(mean_claps)) %&amp;gt;%
+  select(infin, n, mean_claps) %&amp;gt;%
+  mutate(mean_claps = round(mean_claps)) %&amp;gt;%
+  rename(&amp;quot;infinitive&amp;quot; = &amp;quot;infin&amp;quot;, 
+         &amp;quot;times used&amp;quot; = &amp;quot;n&amp;quot;, 
+         &amp;quot;mean claps&amp;quot; = &amp;quot;mean_claps&amp;quot;) %&amp;gt;%
+  head(10) %&amp;gt;%
+  tableGrob(rows = NULL, 
+             theme = gtable_theme
+            )
+
+verb_list &amp;lt;- dat_verb %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  filter(n &amp;gt; 5) %&amp;gt;% 
+  arrange(desc(mean_claps)) %&amp;gt;%
+  select(word, n, mean_claps) %&amp;gt;%
+  mutate(mean_claps = round(mean_claps)) %&amp;gt;%
+  rename(&amp;quot;verb&amp;quot; = &amp;quot;word&amp;quot;, 
+         &amp;quot;times used&amp;quot; = &amp;quot;n&amp;quot;, 
+         &amp;quot;mean claps&amp;quot; = &amp;quot;mean_claps&amp;quot;) %&amp;gt;%
+  head(10) %&amp;gt;%
+  tableGrob(rows = NULL,
+             theme = gtable_theme)
+
+plot(infin_list)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-5-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot(verb_list)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-5-2.png&#34; alt=&#34; &#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;break-vs-build&#34;&gt;break vs build&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat_bb &amp;lt;- dat %&amp;gt;% unnest_tokens(infin, title, token = &amp;quot;ngrams&amp;quot;, n = 2, drop = FALSE) %&amp;gt;%
+  filter(str_detect(pattern = &amp;quot;to &amp;quot;, string = infin)) %&amp;gt;%
+  filter(infin %in% c(&amp;quot;to break&amp;quot;, &amp;quot;to disrupt&amp;quot;, &amp;quot;to destroy&amp;quot;, &amp;quot;to create&amp;quot;, &amp;quot;to make&amp;quot;, &amp;quot;to build&amp;quot;)) %&amp;gt;%
+  mutate(
+    type = case_when(
+      infin %in% c(&amp;quot;to break&amp;quot;, &amp;quot;to disrupt&amp;quot;, &amp;quot;to destroy&amp;quot;) ~ &amp;quot;break&amp;quot;,
+      TRUE ~ &amp;quot;build&amp;quot;
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;topics--tags-plot&#34;&gt;topics / tags plot&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_topic &amp;lt;- dat_bb %&amp;gt;% 
+  gather(tag, tag_true, contains(&amp;quot;tag_&amp;quot;)) %&amp;gt;%
+  mutate(tag = str_remove(tag, &amp;quot;tag_&amp;quot;)) %&amp;gt;%
+  group_by(type, tag) %&amp;gt;%
+  summarize(
+    tag_prop = mean(tag_true),
+    tag_sd = sd(tag_true),
+    tag_se = tag_sd/sqrt(n())
+    ) %&amp;gt;%
+  ggplot(aes(
+    x = factor(tag) %&amp;gt;% reorder(tag_prop, FUN = mean), 
+    y = tag_prop, 
+    fill = type)
+    ) + 
+  geom_col(position=&amp;quot;dodge&amp;quot;, stat=&amp;quot;identity&amp;quot;) + 
+  scale_fill_manual(values = c(pink, olive), 
+                    labels = c(&amp;quot;posts about breaking\nor disrupting&amp;quot;, &amp;quot;posts about building\nor creating&amp;quot;),
+                    guide = guide_legend(title = NULL)) + 
+  geom_errorbar(aes(ymin = tag_prop - tag_se, ymax = tag_prop + tag_se),
+                position = position_dodge(0.9), 
+                size = 0.3, 
+                width = 0.5,
+                color = &amp;quot;white&amp;quot;
+                ) + 
+  xlab(&amp;quot;tag on post&amp;quot;)+ 
+  ylab(&amp;quot;proportion with tag&amp;quot;) + 
+  theme_merb() + 
+  theme(
+    axis.text.x = element_text(hjust = .75, angle = 10)
+  )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Ignoring unknown parameters: stat
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_topic
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-7-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;time-to-harvest-some-posts&#34;&gt;time to (ha)rvest some posts!&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;read_post &amp;lt;- function(url){
+  tryCatch(
+  read_html(url, options = &amp;quot;NOERROR&amp;quot;) %&amp;gt;% 
+  html_nodes(&amp;quot;.graf--p&amp;quot;) %&amp;gt;%
+  html_text() %&amp;gt;%
+  str_flatten(&amp;quot; &amp;quot;), 
+  error = function(e){NA}, 
+  warning  = function(w){NA}
+  )
+}
+
+dat_bb &amp;lt;- dat_bb %&amp;gt;%
+  mutate(
+full_text = map(url, read_post)
+)
+
+dat_bb &amp;lt;- unnest(dat_bb)
+
+## don&#39;t want to have to repeat that later, so save it now
+save(dat_bb, file = &amp;quot;2018-12-04_scraped_posts.RData&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sentiment-plot&#34;&gt;sentiment plot&lt;/h4&gt;
+&lt;p&gt;Not sure if stemming is needed here, given the way the sentiment dictionaries are constructed . . .&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sent &amp;lt;- get_sentiments(&amp;quot;loughran&amp;quot;) 
+
+dat_sent &amp;lt;- dat_bb %&amp;gt;%  
+  filter(!is.na(full_text)) %&amp;gt;%
+  unnest_tokens(word, full_text) %&amp;gt;%
+  left_join(sent)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_sent &amp;lt;- dat_sent %&amp;gt;%
+  group_by(x1, sentiment, type) %&amp;gt;%
+  tally() %&amp;gt;%
+  group_by(x1) %&amp;gt;% 
+  mutate(
+    proportion = n / sum(n)
+  ) %&amp;gt;%
+  filter(!is.na(sentiment)) %&amp;gt;%
+  group_by(type, sentiment) %&amp;gt;%
+  summarise(
+    median_prop = median(proportion),
+    sd = sd(proportion), 
+    se = (1.2533 * sd) / sqrt(n())) %&amp;gt;%
+  ggplot(aes(x = factor(sentiment) %&amp;gt;% reorder(median_prop), 
+             y = median_prop, 
+             fill = type)) + 
+    geom_col(position = &amp;quot;dodge&amp;quot;) + 
+    scale_fill_manual(values = c(pink, olive)) + 
+    geom_errorbar(aes(ymin = median_prop - se, ymax = median_prop + se),
+                position = position_dodge(0.9), 
+                size = 0.3, 
+                width = 0.5,
+                color = &amp;quot;white&amp;quot;
+                ) + 
+  xlab(&amp;quot;sentiment&amp;quot;)+ 
+  ylab(&amp;quot;proportion of words in with sentiment&amp;quot;) + 
+  theme_merb() + 
+  theme(axis.text.x = element_text(angle = 15, hjust = .75))
+
+plot_sent
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-10-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;violin-plot&#34;&gt;violin plot&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_violin &amp;lt;- dat_bb %&amp;gt;% 
+  ggplot(aes(x = type, y= reading_time, fill = type, color = type)) + 
+  geom_violin(alpha = 0.85) + 
+  coord_cartesian(ylim = c(0,10)) +
+  #geom_jitter(alpha = 0.3) + ## too busy
+  stat_summary(fun.y = mean, 
+               fun.ymin = function(x){ quantile(x, probs = 0.25) }, 
+               fun.ymax = function(x){ quantile(x, probs = 0.75) }, 
+               size = 0.75, color = &amp;quot;black&amp;quot;
+                 ) +
+  xlab(&amp;quot;post theme&amp;quot;) + 
+  ylab(&amp;quot;time to read post&amp;quot;) + 
+  scale_fill_manual(values = c(pink, olive)) + 
+  scale_color_manual(values = c(pink, olive)) + 
+  theme_merb()  + 
+  theme(#legend.position = &amp;quot;none&amp;quot;, 
+        axis.text = element_text(size = 15), 
+        axis.title = element_text(size = 20))
+
+plot_violin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-11-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;legend&#34;&gt;legend&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_leg &amp;lt;- grid.arrange(cowplot::get_legend(plot_topic), 
+             cowplot::get_legend(plot_point_infin), 
+             widths = c(15, 85),
+             layout_matrix = rbind(c(3, 2),
+                                   c(3, 1))
+             )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-12-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;text-boxes&#34;&gt;text boxes&lt;/h2&gt;
+&lt;h4 id=&#34;header&#34;&gt;header&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;header &amp;lt;- ggplot() + 
+ annotate(geom = &amp;quot;text&amp;quot;, 
+          y = 3.25, 
+          x = 1, 
+          size = 10, 
+          hjust = .8,
+          family = &amp;quot;Roboto&amp;quot;, 
+          color = colors_merb_seq[2],
+          label = &amp;quot;what the use of&amp;quot; 
+          ) + 
+ annotate(geom = &amp;quot;text&amp;quot;, 
+          y = 2, 
+          x= 1, 
+          size = 30, 
+          family = &amp;quot;Share Tech Mono&amp;quot;, 
+          color = pink,
+          alpha = 0.05,
+          hjust = 0.5,
+          label=&amp;quot;infinitives&amp;quot;
+          ) + 
+   annotate(geom = &amp;quot;text&amp;quot;, 
+          y = 2, 
+          x= 1, 
+          size = 15, 
+          family = &amp;quot;Share Tech Mono&amp;quot;, 
+          color = colors_merb_seq[5],
+          hjust = 0.5,
+          label=&amp;quot;infinitives&amp;quot;
+          ) + 
+annotate(geom = &amp;quot;text&amp;quot;, 
+         y = 1, 
+         x = 1, 
+         size = 10,
+         family = &amp;quot;Roboto&amp;quot;, 
+         color = colors_merb_seq[2], 
+         hjust = .2,
+         label = &amp;quot;says about a Medium post&amp;quot;
+         ) + 
+  ylim(0,4) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &amp;quot;#191919&amp;quot;,
+                                   fill = olive, 
+                                   size = 5)
+  )
+
+header
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-13-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;definition-sidebar&#34;&gt;definition sidebar&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;def_sidebar &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+       annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = 1.5, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Roboto&amp;quot;, 
+            size = 20,
+            alpha = 0.1,
+            color = &amp;quot;#D9B0AC&amp;quot;,
+           label = &amp;quot;infinitive&amp;quot;) +
+         annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = -1, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Roboto&amp;quot;, 
+            size = 20,
+            alpha = 0.1,
+            color = &amp;quot;#D9B0AC&amp;quot;,
+           label = &amp;quot;Medium&amp;quot;) +
+   annotate(&amp;quot;text&amp;quot;, 
+            x = -1.5, 
+            y = 2, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Roboto&amp;quot;, 
+            size = 4.8, 
+            color = &amp;quot;white&amp;quot;,
+           label = paste0(
+              str_wrap(&amp;quot;infinitive: a verb form found in many languages that functions as a noun or is used with auxiliary verbs, and that names the action or state without specifying the subject: “to come”, “to be”, “to want”&amp;quot;, 29), 
+             &amp;quot;\n&amp;quot;, &amp;quot;\n&amp;quot;, &amp;quot;\n&amp;quot;,
+            str_wrap(&amp;quot;Medium: an online publishing platform developed as a long-form alternative to twitter.&amp;quot;, 29))
+           ) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#222220&amp;quot; , color = &amp;quot;#191919&amp;quot;, size = 2)
+  )
+
+def_sidebar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-14-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;top-sidebar&#34;&gt;top sidebar&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;top_sidebar &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) +    
+  annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = 2, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Roboto&amp;quot;, 
+            size = 5, 
+            color = &amp;quot;white&amp;quot;,
+           label = paste0(
+              str_wrap(&amp;quot;Infinitives are used to express wants and desires. When an author uses an infinitive in the title of an article, they are making a promise to the reader about what the reader will learn: &#39;to build&#39;, &#39;to solve&#39;, &#39;to disrupt&#39;. The figure to the left shows the relationship between how often an infinitive is used in the titles of Medium posts (on the topics of data science) and the number of claps (likes) the post received.&amp;quot;, 32),
+              &amp;quot;\n&amp;quot;,&amp;quot;\n&amp;quot;,
+              str_wrap(&amp;quot;Compared to verbs alone, infinitives say a lot more about the content of an article, which you can see in the lists below. They show the &#39;most-clapped&#39; verbs or infinitives that are found in at least 5 article titles:&amp;quot;, 32)
+           )
+  )+
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#20261d&amp;quot; , color = &amp;quot;#191919&amp;quot;, size = 2)
+  )
+top_sidebar 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-15-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;bottom-sidebar&#34;&gt;bottom sidebar&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bot_sidebar &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) +    
+    annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = 2, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Share Tech Mono&amp;quot;, 
+            size = 6, 
+            color = &amp;quot;#D9B0AC&amp;quot;,
+           label = &amp;quot;build vs break&amp;quot;
+  ) +
+  annotate(&amp;quot;text&amp;quot;, 
+            x = -2, 
+            y = 1.5, 
+            hjust = 0, 
+            vjust = 1, 
+            lineheight = 0.75, 
+            family = &amp;quot;Roboto&amp;quot;, 
+            size = 5, 
+            color = &amp;quot;white&amp;quot;,
+           label = paste0(
+             str_wrap(&amp;quot;Infinitives like &#39;build&#39; and &#39;create&#39; are overused in Medium post titles, and have little impact, while &#39;disrupt&#39; and &#39;break&#39; see far more claps on average. Comparing these types of posts one can see that &#39;breaking&#39; posts are usually shorter (a), have more emotional content (b), and are less likely to have highly specific tags (c)&amp;quot;, 32)
+           )
+  ) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#222220&amp;quot; , color = &amp;quot;#191919&amp;quot;, size = 2)
+  )
+bot_sidebar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-16-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;footer&#34;&gt;footer&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;footer &amp;lt;-  ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) +    
+  annotate(&amp;quot;text&amp;quot;, 
+            x = 0, 
+            y = 0, 
+            hjust = .5, 
+            vjust = .5, 
+            lineheight = 0.75, 
+            family = &amp;quot;Roboto&amp;quot;, 
+            size = 4, 
+            color = &amp;quot;#191919&amp;quot;,
+           label = paste0(
+             &amp;quot;A #TidyTuesday adventure + Data from Kaggle.com + Design and and analysis by @TannerKoomar&amp;quot;, 
+             &amp;quot;\n&amp;quot;,  
+             &amp;quot;Code at https://github.com/tkoomar/tidytuesday/blob/master/work/2018-12-04.md&amp;quot;
+             )
+             ) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = olive , color = &amp;quot;#191919&amp;quot;, size = 2)
+  )
+
+  
+footer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-12-04_files/figure-markdown_github/unnamed-chunk-17-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;stitch-it-together&#34;&gt;stitch it together&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;png(&amp;quot;2018-12-04_final_plot.png&amp;quot;, width = 1200, height = 1600, res = 144, bg = &amp;quot;#191919&amp;quot;)
+
+grid.arrange(header, 
+             def_sidebar,
+             plot_point_infin + theme(legend.position = &#39;none&#39;),
+             top_sidebar,
+             plot_leg,
+             infin_list,
+             verb_list,
+             plot_violin + theme(legend.position = &#39;none&#39;) + labs(tag = &amp;quot;(a)&amp;quot;),
+             plot_sent + theme(legend.position = &#39;none&#39;) + labs(tag = &amp;quot;(b)&amp;quot;),
+             plot_topic + theme(legend.position = &#39;none&#39;)+ labs(tag = &amp;quot;(c)&amp;quot;),
+             bot_sidebar,
+             footer,
+             heights = c(15, 30, 20, 30, 30, 5),
+             layout_matrix = rbind(c(1,1,1,1),
+                                   c(2,3,3,4),
+                                   c(5,3,3,4),
+                                   c(11,9,9,6),
+                                   c(8,10,10,7),
+                                   c(12,12,12,12))
+               )
+
+dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## png 
+##   2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;the-final-plot&#34;&gt;The final Plot&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;./featured.png&#34; alt=&#34;The final plot&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

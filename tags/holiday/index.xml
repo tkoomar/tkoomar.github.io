@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>holiday | Tanner Koomar</title>
+    <link>/tags/holiday/</link>
+      <atom:link href="/tags/holiday/index.xml" rel="self" type="application/rss+xml" />
+    <description>holiday</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy 2020</copyright><lastBuildDate>Tue, 20 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>holiday</title>
+      <link>/tags/holiday/</link>
+    </image>
+    
+    <item>
+      <title>Tidy Tuesday: Thanksgiving Gravy</title>
+      <link>/post/2018-11-20-tt-gravy/</link>
+      <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>/post/2018-11-20-tt-gravy/</guid>
+      <description>&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-20/thanksgiving_meals.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   id = col_double()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Boy is this data messy! Lets relabel and organize it a bit.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- dat %&amp;gt;% 
+  filter(is.na(dat) %&amp;gt;% rowSums() &amp;lt; 50) %&amp;gt;% 
+  select(-id, -pie13, -dessert11, -side15, -contains(&amp;quot;Other&amp;quot;)) %&amp;gt;% 
+  mutate(
+    &amp;quot;number of\nkinds of pie&amp;quot; = select(., contains(&amp;quot;pie&amp;quot;)) %&amp;gt;% {!is.na(.)} %&amp;gt;% rowSums(),
+    &amp;quot;total number\nof sides&amp;quot; = select(., contains(&amp;quot;side&amp;quot;)) %&amp;gt;% {!is.na(.)} %&amp;gt;% rowSums(), 
+    &amp;quot;number of\n non-pie desserts&amp;quot; = select(., contains(&amp;quot;dessert&amp;quot;)) %&amp;gt;% {!is.na(.)} %&amp;gt;% rowSums()
+    ) %&amp;gt;% mutate(
+      family_income = factor(family_income,
+                             levels = c(&amp;quot;$0 to $9,999&amp;quot; , &amp;quot;$10,000 to $24,999&amp;quot;, &amp;quot;$25,000 to $49,999&amp;quot;, &amp;quot;$50,000 to $74,999&amp;quot;, &amp;quot;$75,000 to $99,999&amp;quot;, &amp;quot;$100,000 to $124,999&amp;quot;, &amp;quot;$150,000 to $174,999&amp;quot;, &amp;quot;$175,000 to $199,999&amp;quot;, &amp;quot;$200,000 and up&amp;quot;, &amp;quot;Prefer not to answer&amp;quot;, &amp;quot;NA&amp;quot;),
+                             ordered = T)
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;odds-ratio&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Odds Ratio&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_or &amp;lt;- dat %&amp;gt;% 
+  transmute(
+    urban = community_type == &amp;quot;Urban&amp;quot;,
+    not_urban = community_type != &amp;quot;Urban&amp;quot;,
+    parade = !is.na(watch_program), 
+    under30 = dat$age == &amp;quot;18 - 29&amp;quot;,
+    over60 = dat$age == &amp;quot;60+&amp;quot;,
+    female = dat$gender == &amp;quot;Female&amp;quot;,
+    pray = dat$prayer == &amp;quot;Yes&amp;quot;
+    ) %&amp;gt;%
+  #select(prayer, female, friendsgiving, urban, not_urban, parade, under30, over60) %&amp;gt;%
+map(function(x){
+    out &amp;lt;- table(gravy = dat$gravy, foo = x) %&amp;gt;%  fisher.test(conf.level = 0.6827) 
+    out &amp;lt;- c(out$estimate, lower = out$conf.int[1], upper = out$conf.int[2])
+    return(out)
+  }) %&amp;gt;%
+  as.data.frame() %&amp;gt;%
+  rownames_to_column() %&amp;gt;%
+  gather(key, value, -rowname) %&amp;gt;%
+  spread(rowname, value) %&amp;gt;%
+  ggplot(aes(y = key, x = `odds ratio`))+ 
+  geom_errorbarh(aes(xmin = lower, xmax = upper), size = .45, color = &amp;quot;#899DA4&amp;quot;, height = 0.75) + 
+  geom_point(size = 4, color = &amp;quot;#DC863B&amp;quot;) + 
+  geom_vline(xintercept = 1, lty = 2, lwd = 1, color = &amp;quot;#C93312&amp;quot;) + 
+  scale_x_continuous(
+    sec.axis = sec_axis(~ ., breaks = c(0.65, 1.8), labels = c(&amp;quot;less likely\nto have gravy&amp;quot;, &amp;quot;more likely\nto have gravy&amp;quot;))
+    ) + 
+  scale_y_discrete(labels = c(&amp;quot;pray&amp;quot; = &amp;quot;pray at dinner&amp;quot;,
+                              &amp;quot;urban&amp;quot; = &amp;quot;city dwellers&amp;quot;,
+                              &amp;quot;not_urban&amp;quot; = &amp;quot;suburban or\ncountry dwellers&amp;quot;,
+                              &amp;quot;female&amp;quot; = &amp;quot;women&amp;quot;,
+                              &amp;quot;under30&amp;quot; = &amp;quot;people under 30&amp;quot;,
+                              &amp;quot;over60&amp;quot; = &amp;quot;people over 60&amp;quot;,
+                              &amp;quot;parade&amp;quot; = &amp;quot;watch the\nMacy&amp;#39;s parade&amp;quot;)
+  ) + 
+  ylab(&amp;quot;&amp;quot;) + 
+  xlab(&amp;quot;odds ratio&amp;quot;) + 
+  theme_minimal() + 
+  theme(
+    text = element_text(family = &amp;quot;Poppins&amp;quot;),
+    axis.text.x.top = element_text(size = 15, lineheight = 0.75), 
+    axis.text.y = element_text(size = 10, lineheight = 0.7), 
+    axis.ticks.x.top = element_blank(),
+    plot.background = element_rect(color = NA, fill = &amp;quot;#fcf7e8&amp;quot;),
+    panel.background = element_rect(color = NA, &amp;quot;#faefd1&amp;quot;), 
+    panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
+    panel.grid.minor = element_blank()
+  )
+plot_or&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;violin-plots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Violin Plots&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_totals &amp;lt;- dat %&amp;gt;% 
+  filter(!is.na(gravy)) %&amp;gt;% 
+  select(contains(&amp;quot;number&amp;quot;), gravy) %&amp;gt;%
+  gather(key, value, -gravy) %&amp;gt;%
+  mutate(gravy = case_when(
+    gravy == &amp;quot;Yes&amp;quot; ~ &amp;quot;gravy&amp;quot;,
+    gravy == &amp;quot;No&amp;quot; ~ &amp;quot;no gravy&amp;quot;
+  )) %&amp;gt;%
+  ggplot(aes(x = gravy, y = value, fill = gravy)) + 
+  scale_fill_manual(values = c(&amp;quot;gravy&amp;quot; = &amp;quot;#DC863B&amp;quot;, &amp;quot;no gravy&amp;quot; = &amp;quot;#F8AFA8&amp;quot;)) + 
+  geom_violin(alpha = 0.75, color = NA) +
+  stat_summary(fun.y = mean, 
+               fun.ymin = function(x){ quantile(x, probs = 0.25) }, 
+               fun.ymax = function(x){ quantile(x, probs = 0.75) }, 
+               color = &amp;quot;#74A089&amp;quot;, 
+               size = 0.5
+                 ) + 
+  facet_wrap(~ key) + 
+  theme_minimal() + 
+  theme(legend.position = &amp;#39;none&amp;#39;,
+    text = element_text(family = &amp;quot;Poppins&amp;quot;),
+    strip.text = element_text(size = 12, lineheight = 0.75),
+    axis.text.x.top = element_text(size = 15), 
+    axis.text.x = element_text(size = 12), 
+    axis.title.x = element_blank(),
+    axis.ticks.x.top = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    plot.background = element_rect(color = NA, fill = &amp;quot;#fcf7e8&amp;quot;),
+    panel.background = element_rect(color = NA, &amp;quot;#faefd1&amp;quot;), 
+    panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
+    panel.grid.minor = element_blank()
+    )
+plot_totals&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;line-chart-of-income&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Line Chart of Income&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_income &amp;lt;- dat %&amp;gt;% 
+  filter(family_income != &amp;quot;NA&amp;quot; &amp;amp; family_income != &amp;quot;Prefer not to answer&amp;quot;) %&amp;gt;%
+  group_by(family_income) %&amp;gt;%
+  summarize(
+    gravy = mean(gravy == &amp;quot;Yes&amp;quot;, na.rm = T),
+    gravy_sd = sqrt(gravy*(1-gravy)/n())
+    ) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  ggplot(aes(y = gravy, x = family_income, group = 1, color = family_income)) + 
+  geom_line(size = 3) + 
+  geom_point(size = 6) + 
+  geom_errorbar(aes(ymin = gravy - gravy_sd, ymax = gravy + gravy_sd), size = .25, width = .15) + 
+  scale_color_manual(values = wesanderson::wes_palette(&amp;quot;Royal2&amp;quot;, n = 9, type = &amp;quot;c&amp;quot;) ) + 
+  scale_x_discrete(breaks = c(&amp;quot;$0 to $9,999&amp;quot; ,&amp;quot;$75,000 to $99,999&amp;quot;,   &amp;quot;$200,000 and up&amp;quot;), labels = c(&amp;quot;$0 to\n$9,999&amp;quot; ,&amp;quot;$75,000 to\n$99,999&amp;quot;,   &amp;quot;$200,000\n and up&amp;quot;)) + 
+  ggtitle(&amp;quot;annual family income&amp;quot;) + 
+  ylab(&amp;quot;probability of having gravy&amp;quot;) + 
+  theme_minimal() + 
+  theme(
+    legend.position = &amp;#39;none&amp;#39;,
+    text = element_text(family = &amp;quot;Poppins&amp;quot;),
+    axis.text.x = element_text(size = 12), 
+    axis.title.x = element_blank(),
+    axis.ticks.x.top = element_blank(),
+    axis.text.y = element_text(size = 12),
+    axis.title.y = element_text(size = 15),
+    plot.background = element_rect(color = NA, fill = &amp;quot;#fcf7e8&amp;quot;),
+    panel.background = element_rect(color = NA, fill = &amp;quot;#faefd1&amp;quot;), 
+    panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(size = 15, hjust = 0.5)
+  ) 
+plot_income&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;text-boxes&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Text Boxes&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;header &amp;lt;- ggplot() + 
+     annotate(geom = &amp;quot;text&amp;quot;, y = 3.15, x = 2, size = 50, family = &amp;quot;Pacifico&amp;quot;, color = &amp;quot;#fcf7e8&amp;quot;,
+          label=&amp;quot;gravy&amp;quot;) + 
+ annotate(geom = &amp;quot;text&amp;quot;, y = 3.25, x = 2, size = 5, family = &amp;quot;Poppins&amp;quot;, color = &amp;quot;#74A089&amp;quot;,
+          label = &amp;quot;what your thanksgiving&amp;quot; ) + 
+ annotate(geom = &amp;quot;text&amp;quot;, y = 2.5, x= 2, size = 25, family = &amp;quot;Pacifico&amp;quot;, color = &amp;quot;#DC863B&amp;quot;,
+          label=&amp;quot;gravy&amp;quot;) + 
+annotate(geom = &amp;quot;text&amp;quot;, y = .35, x = 2, size = 5,family = &amp;quot;Poppins&amp;quot;, color = &amp;quot;#74A089&amp;quot;, hjust = .6,
+         label = &amp;quot;says about you&amp;quot;) + 
+  ylim(0,4) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &amp;quot;#fcf7e8&amp;quot;, fill = &amp;quot;#faefd1&amp;quot;, size = 5)
+  )
+header&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;midbar1 &amp;lt;- ggplot() + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+ annotate(&amp;quot;text&amp;quot;, x = -2, y = -2, hjust = 0, vjust = 0, lineheight = 0.75, family = &amp;quot;Poppins&amp;quot;, size = 4, color = &amp;quot;#899DA4&amp;quot;,
+           label = str_wrap(&amp;quot;A dinner accompanied by congealed broth is a symbol of status and abundance. Below, the presence of gravy at a Thanksgiving meal goes hand-in-hand with a greater variety of both side dishes and pies.&amp;quot;, 70)
+) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;, color = NA)
+  )
+midbar2 &amp;lt;- ggplot() + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+   annotate(&amp;quot;text&amp;quot;, x = -2, y = -2, hjust = 0, vjust = 0, lineheight = 0.75, family = &amp;quot;Poppins&amp;quot;, size = 4, color = &amp;quot;#899DA4&amp;quot;,
+           label = str_wrap(&amp;quot;Eating concentrated meat juice is also a luxurious marker of wealth. The probability that a family will have gravy at a Thanksgiving meal increases markedly with annual income.&amp;quot;, 70)) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;, color = NA)
+  )
+  
+  midbar1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;  midbar2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-7-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sidebar &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+   annotate(&amp;quot;text&amp;quot;, x = -2, y = 2, hjust = 0, vjust = 1, lineheight = 1.05, family = &amp;quot;Poppins&amp;quot;, size = 4.4, color = &amp;quot;#899DA4&amp;quot;,
+           label = str_wrap(&amp;quot;Gravy is truly the bellwether of the thanksgiving table. If you abstain from gravy, you are much more likely to live in a city, identify as a woman, and be younger than 30. Gravy-eaters, on the other hand, are much more likely to have an AARP membership, watch the Thanksgiving day parade, pray before dinner, and live outside or an urban center.&amp;quot;, 29)) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#faefd1&amp;quot;, color = NA)
+  )
+sidebar&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;footnote &amp;lt;- ggplot()  +
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+     annotate(&amp;quot;text&amp;quot;, x = 2, y = -2, hjust = 1, vjust = 0, lineheight = 0.75, family = &amp;quot;Poppins&amp;quot;, size = 2.75, color = &amp;quot;#899DA4&amp;quot;,
+           label = paste(&amp;quot;a #TidyTuesday adventure\ndesign by @TannerKoomar\ndata from FiveThirtyEight\ncolor scheme from karthik/wesanderson&amp;quot;)) +
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;, color = NA)
+  )
+footnote&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-8-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plots-assemble&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plots Assemble!&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;final_plot &amp;lt;- grid.arrange(header, 
+               midbar1, 
+               midbar2, 
+               ggplotGrob(plot_totals), 
+               ggplotGrob(plot_income), 
+               ggplotGrob(plot_or), 
+               sidebar, 
+               footnote,
+               heights = c(.15, .075, .35, .025, .325, .075),
+               layout_matrix = rbind(c(1,1,1,1),
+                                     c(2,2,3,3),
+                                     c(4,4,5,5),
+                                     c(NA,NA,NA,NA),
+                                     c(6,6,6,7),
+                                     c(6,6,6,8))
+               )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/final-plot-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Get rid of that ugly white bar in the middle. . .
+cowplot::ggdraw(final_plot) + 
+    theme(plot.background = element_rect(fill = &amp;quot;#fcf7e8&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/final-plot-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

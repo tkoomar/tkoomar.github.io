@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gif | Tanner Koomar</title>
+    <link>/tags/gif/</link>
+      <atom:link href="/tags/gif/index.xml" rel="self" type="application/rss+xml" />
+    <description>gif</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy 2020</copyright><lastBuildDate>Wed, 08 May 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>gif</title>
+      <link>/tags/gif/</link>
+    </image>
+    
+    <item>
+      <title>Tidy Tuesday: University Research Funding</title>
+      <link>/post/2019-05-08-tt-uni-funding/</link>
+      <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-05-08-tt-uni-funding/</guid>
+      <description>&lt;p&gt;Animated GIFs showing changes to funding of university research, broken down by speciality.&lt;/p&gt;
+&lt;p&gt;If you take a look at this table raw, it really is quite the mess. It is kind of hard to imagine data that is &lt;em&gt;less&lt;/em&gt; tidy:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+library(gganimate)
+library(showtext) ## for google fonts
+font_add_google(&amp;quot;Dosis&amp;quot;)
+font_add_google(&amp;quot;Comfortaa&amp;quot;)
+showtext_auto()
+
+download.file(&amp;quot;https://www.aaas.org/sites/default/files/2018-11/UniDisc1.xlsx&amp;quot;, 
+              &amp;quot;2019-05-08_UniDisc1.xlsx&amp;quot;)
+readxl::read_excel(&amp;quot;2019-05-08_UniDisc1.xlsx&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 103 x 13
+##    `University R&amp;amp;D…  X__1  X__2  X__3  X__4  X__5  X__6  X__7  X__8  X__9
+##    &amp;lt;chr&amp;gt;            &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+##  1 (budget authori…   NA    NA    NA    NA    NA    NA    NA    NA    NA 
+##  2 &amp;lt;NA&amp;gt;             2007  2008  2009  2010  2011  2012  2013  2014  2015 
+##  3 Computer Scienc… 1696. 1709. 1837  1864. 1943. 1996. 2228. 2040. 2051.
+##  4 &amp;lt;NA&amp;gt;               NA    NA    NA    NA    NA    NA    NA    NA    NA 
+##  5 Environmental S…   NA    NA    NA    NA    NA    NA    NA    NA    NA 
+##  6 Atmospheric Sci…  529.  491.  478.  488.  537.  522.  531.  531.  600.
+##  7 Earth Sciences   1080. 1104. 1170. 1233. 1274. 1280. 1253. 1226. 1164.
+##  8 Oceanography     1176. 1220. 1237. 1163. 1170. 1123  1132. 1133. 1098.
+##  9 Other Environme…  393.  434.  470   520.  535.  550.  524.  524.  533.
+## 10 Total Environme… 3178. 3250. 3356. 3404  3516. 3475. 3441. 3414. 3394.
+## # ... with 93 more rows, and 3 more variables: X__10 &amp;lt;dbl&amp;gt;, X__11 &amp;lt;dbl&amp;gt;,
+## #   X__12 &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have a couple header rows and then disciplines, followed by several sub-disciplines (or none). In Excel, this looks rather inteligible because of bold formating, etc. We have none of that here and have to get a litle creative to separate and assign disciplines to sub-disciplines.&lt;/p&gt;
+&lt;p&gt;The main pattern we have here is that every discipline row is preceded by an NA value. Combining &lt;code&gt;dplyr::lag()&lt;/code&gt;, which gets the last value in a vector with &lt;code&gt;zoo::locf()&lt;/code&gt;, which replaces NA&amp;rsquo;s with the most recent non-missing value.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tot_dat &amp;lt;- readxl::read_excel(&amp;quot;2019-05-08_UniDisc1.xlsx&amp;quot;, 
+                   skip = 2,  ## header junk
+                   n_max = 47 ## 2nd table appears after here
+                   ) %&amp;gt;%
+  mutate(discipline = case_when( is.na(lag(X__1)) ~ X__1)) %&amp;gt;%  ## get the category columns
+  select(X__1, discipline, everything()) %T&amp;gt;% ## these two lines are just for printing out the
+  {print(head(.))} %&amp;gt;%                      ## intermediary results
+  mutate(discipline = zoo::na.locf(discipline), 
+         funding_source = &amp;quot;total&amp;quot;) %T&amp;gt;%
+  {print(head(.))} %&amp;gt;% 
+  filter(!is.na((X__1)), 
+         !is.na(`2007`),
+         !str_detect(X__1, &amp;quot;Total&amp;quot;)
+         ) %&amp;gt;%
+  rename(&#39;sub_discipline&#39; = &#39;X__1&#39;) %T&amp;gt;%
+  {print(head(.))} %&amp;gt;%
+  select(-`&#39;07 - &#39;17`) %&amp;gt;%
+  gather(`2007`:`2017`, 
+         key = year,
+         value = budget) %T&amp;gt;%
+  {print(head(.))} %&amp;gt;%
+  mutate(budget = budget*1e6)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 14
+##   X__1  discipline `2007` `2008` `2009` `2010` `2011` `2012` `2013` `2014`
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;       &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1 Comp… Computer …  1696.  1709.  1837   1864.  1943.  1996.  2228.  2040.
+## 2 &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;          NA     NA     NA     NA     NA     NA     NA     NA 
+## 3 Envi… Environme…    NA     NA     NA     NA     NA     NA     NA     NA 
+## 4 Atmo… &amp;lt;NA&amp;gt;         529.   491.   478.   488.   537.   522.   531.   531.
+## 5 Eart… &amp;lt;NA&amp;gt;        1080.  1104.  1170.  1233.  1274.  1280.  1253.  1226.
+## 6 Ocea… &amp;lt;NA&amp;gt;        1176.  1220.  1237.  1163.  1170.  1123   1132.  1133.
+## # ... with 4 more variables: `2015` &amp;lt;dbl&amp;gt;, `2016` &amp;lt;dbl&amp;gt;, `2017` &amp;lt;dbl&amp;gt;,
+## #   `&#39;07 - &#39;17` &amp;lt;dbl&amp;gt;
+## # A tibble: 6 x 15
+##   X__1  discipline `2007` `2008` `2009` `2010` `2011` `2012` `2013` `2014`
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;       &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1 Comp… Computer …  1696.  1709.  1837   1864.  1943.  1996.  2228.  2040.
+## 2 &amp;lt;NA&amp;gt;  Computer …    NA     NA     NA     NA     NA     NA     NA     NA 
+## 3 Envi… Environme…    NA     NA     NA     NA     NA     NA     NA     NA 
+## 4 Atmo… Environme…   529.   491.   478.   488.   537.   522.   531.   531.
+## 5 Eart… Environme…  1080.  1104.  1170.  1233.  1274.  1280.  1253.  1226.
+## 6 Ocea… Environme…  1176.  1220.  1237.  1163.  1170.  1123   1132.  1133.
+## # ... with 5 more variables: `2015` &amp;lt;dbl&amp;gt;, `2016` &amp;lt;dbl&amp;gt;, `2017` &amp;lt;dbl&amp;gt;,
+## #   `&#39;07 - &#39;17` &amp;lt;dbl&amp;gt;, funding_source &amp;lt;chr&amp;gt;
+## # A tibble: 6 x 15
+##   sub_discipline discipline `2007` `2008` `2009` `2010` `2011` `2012`
+##   &amp;lt;chr&amp;gt;          &amp;lt;chr&amp;gt;       &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1 Computer Scie… Computer …  1696.  1709.  1837   1864.  1943.  1996.
+## 2 Atmospheric S… Environme…   529.   491.   478.   488.   537.   522.
+## 3 Earth Sciences Environme…  1080.  1104.  1170.  1233.  1274.  1280.
+## 4 Oceanography   Environme…  1176.  1220.  1237.  1163.  1170.  1123 
+## 5 Other Environ… Environme…   393.   434.   470    520.   535.   550.
+## 6 Agricultural … Life Scie…  3453   3478.  3507.  3426   3476.  3614 
+## # ... with 7 more variables: `2013` &amp;lt;dbl&amp;gt;, `2014` &amp;lt;dbl&amp;gt;, `2015` &amp;lt;dbl&amp;gt;,
+## #   `2016` &amp;lt;dbl&amp;gt;, `2017` &amp;lt;dbl&amp;gt;, `&#39;07 - &#39;17` &amp;lt;dbl&amp;gt;, funding_source &amp;lt;chr&amp;gt;
+## # A tibble: 6 x 5
+##   sub_discipline            discipline          funding_source year  budget
+##   &amp;lt;chr&amp;gt;                     &amp;lt;chr&amp;gt;               &amp;lt;chr&amp;gt;          &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1 Computer Sciences         Computer Sciences   total          2007   1696.
+## 2 Atmospheric Sciences      Environmental Scie… total          2007    529.
+## 3 Earth Sciences            Environmental Scie… total          2007   1080.
+## 4 Oceanography              Environmental Scie… total          2007   1176.
+## 5 Other Environmental Scie… Environmental Scie… total          2007    393.
+## 6 Agricultural Sciences     Life Sciences       total          2007   3453
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That looks much tidyr! Let&amp;rsquo;s do the same with the other table, a little bit more efficiently:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;try(
+readxl::read_excel(&amp;quot;2019-05-08_UniDisc1.xlsx&amp;quot;, 
+                   skip = 53, 
+                   n_max = 47 
+                   ) %&amp;gt;%
+  mutate(discipline = case_when( is.na(lag(X__1)) ~ X__1), 
+         discipline = zoo::na.locf(discipline), 
+         funding_source = &amp;quot;federal&amp;quot;
+         ) %&amp;gt;%
+  select(X__1, discipline, everything()) %&amp;gt;%
+  filter(!is.na((X__1)), 
+         !is.na(`2007`),
+         !str_detect(X__1, &amp;quot;Total&amp;quot;)
+         ) %&amp;gt;%
+  rename(&#39;sub_discipline&#39; = &#39;X__1&#39;) %&amp;gt;%
+  select(-`&#39;07 - &#39;17`) %&amp;gt;%
+  gather(`2007`:`2017`, 
+         key = year,
+         value = budget)  %&amp;gt;% 
+  mutate(budget = budget*1e6)
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;OH NO! There is an empty row after the header that wasn&amp;rsquo;t in the other table, and it is throwing us off. Let&amp;rsquo;s just remov that pesky row and pretend this never happened.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;fed_dat &amp;lt;- readxl::read_excel(&amp;quot;2019-05-08_UniDisc1.xlsx&amp;quot;, 
+                   skip = 53, 
+                   n_max = 47 
+                   ) %&amp;gt;%
+  filter(!row_number() == 1) %&amp;gt;%
+  mutate(discipline = case_when( is.na(lag(X__1)) ~ X__1), 
+         discipline = zoo::na.locf(discipline), 
+         funding_source = &amp;quot;federal&amp;quot;
+         )  %&amp;gt;%
+  select(X__1, discipline, everything()) %&amp;gt;%
+  filter(!is.na((X__1)), 
+         !is.na(`2007`),
+         !str_detect(X__1, &amp;quot;Total&amp;quot;)
+         ) %&amp;gt;%
+  rename(&#39;sub_discipline&#39; = &#39;X__1&#39;) %&amp;gt;%
+  select(-`&#39;07 - &#39;17`) %&amp;gt;%
+  gather(`2007`:`2017`, 
+         key = year,
+         value = budget) %&amp;gt;% 
+  mutate(budget = budget*1e6)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, lets combine this all into one big tibble&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat &amp;lt;- bind_rows(fed_dat, tot_dat) %&amp;gt;% 
+    spread(funding_source, budget) %&amp;gt;%
+  mutate(other = total-federal) %&amp;gt;%
+  gather(funding_source, budget, federal, other) %&amp;gt;%
+  mutate(year = as.numeric(year),
+         budget = ifelse(funding_source==&#39;federal&#39;, budget, -budget)) %&amp;gt;%
+    arrange(discipline) %&amp;gt;%
+  mutate(
+    sub_discipline = factor(sub_discipline, ordered = T, levels = unique(sub_discipline))
+    )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;a-new-theme&#34;&gt;A new theme&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;theme_fnd &amp;lt;- function(base_size = 11, 
+         base_family = &amp;quot;Comfortaa&amp;quot;, 
+         base_line_size = base_size/22, 
+         base_rect_size = base_size/22) {
+      theme_minimal(base_size = base_size, 
+               base_family = base_family,
+               base_line_size = base_line_size, 
+               base_rect_size = base_rect_size) %+replace% 
+    theme(plot.background = element_rect(fill = &#39;#e5d3ac&#39;), 
+          panel.background = element_rect(fill = &#39;#efe5c8&#39;, color = NA),
+          panel.grid = element_line(color = &#39;#640c14&#39;, 
+                                    size = 0.15)) + 
+    theme(plot.margin = margin(20,20,5,25),
+          text = element_text(colour = &#39;#640c14&#39;),
+          axis.text = element_text(colour = &#39;#640c14&#39;),
+          axis.text.y = element_text(margin = margin(2,2,2,20)),
+          axis.text.x.top = element_text(size = 11), 
+          axis.ticks.x.top = element_blank(),
+          plot.title = element_text(family = &amp;quot;Dosis&amp;quot;, size = 18, face = &#39;bold&#39;), 
+          plot.subtitle = element_text(family = &amp;quot;Dosis&amp;quot;, 
+                                       hjust = 1)
+          )
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_1 &amp;lt;- dat %&amp;gt;%
+ filter( discipline != &amp;quot;Life Sciences&amp;quot;) %&amp;gt;%
+  ggplot(aes(y = sub_discipline, color = funding_source)) +
+  geom_segment(aes(x = 0, xend = budget, yend = sub_discipline, color = funding_source), 
+               size = 2.5) +
+  geom_point(aes(x = budget, y = sub_discipline, fill = discipline),
+             pch = 21, size = 8 , stroke = 0)  + 
+  scale_fill_manual(values = c(&#39;Physical Sciences&#39;  = &#39;#fcaf43&#39;,
+                               &#39;Computer Sciences&#39; = &#39;#e61e28&#39;, 
+                               &#39;Environmental Sciences&#39; = &#39;#71a234&#39;, 
+                               &#39;Social Sciences&#39; = &#39;#207e76&#39;, 
+                              &#39;Psychology&#39; = &#39;#8dc642&#39;, 
+                               &#39;Mathematical Sciences&#39; = &#39;#26bdb2&#39;, 
+                               &#39;Engineering&#39; = &#39;#f26630&#39;,  
+                               &#39;Other Sciences&#39; = &#39;#c21a24&#39;), 
+                    guide = guide_legend(title.position = &#39;top&#39;, 
+                                         title.hjust = 0.5, 
+                                         ncol = 2 )) + 
+  scale_color_manual(values = c(&#39;#5e2b15&#39;, &#39;#9d4823&#39;),
+                     guide = &#39;none&#39;) + 
+  scale_x_continuous(breaks = c(-1.5e9,0,2e9), 
+                     minor_breaks = c(-.5e9,-1e9,.5e9,1e9,1.5e9),
+                     limits = c(-1.5e9,2e9), 
+                     labels = c(&amp;quot;$1.5 Mil&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;$2 Mil&amp;quot;), 
+                     position  =&#39;bottom&#39;, 
+                     sec.axis = sec_axis(~., 
+                                         breaks = c(-0.75e9,1e9),  
+                                         labels = c(&amp;quot;all other funding&amp;quot;, &amp;quot;federal funding&amp;quot;)
+                                         )
+                     ) + 
+  labs(y = element_blank(),
+       x = element_blank(),
+       title = &amp;quot;funding for university research in {closest_state}&amp;quot;,
+       subtitle = &amp;quot;(excluding life sciences)&amp;quot;, 
+       caption = &amp;quot;A #TidyTuesday Adventure by @TannerKoomar\nsource: American Association for the Advancement of Science&amp;quot;) + 
+  theme_fnd() + 
+  theme(legend.position = &#39;bottom&#39;,
+        legend.text = element_text(margin = margin(5,40,5,0)),
+        panel.grid.major.y = element_blank()) +
+  transition_states(
+    year,
+    transition_length = 2,
+    state_length = 1
+  ) 
+
+anim_save(animation = plot_1, filename = &amp;quot;final_plot_1.gif&amp;quot;, width = 700, height = 700)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./featured.gif&#34; alt=&#34;The first final plot&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_2 &amp;lt;- dat %&amp;gt;%
+  filter( discipline == &amp;quot;Life Sciences&amp;quot;) %&amp;gt;%
+  ggplot(aes(y = sub_discipline, color = funding_source)) +
+  geom_segment(aes(x = 0, xend = budget, yend = sub_discipline, color = funding_source), 
+               size = 3) +
+  geom_point(aes(x = budget, y = sub_discipline),
+             pch = 21, size = 7 , stroke = 0, fill = &#39;#71a234&#39;)  + 
+  scale_color_manual(values = c(&#39;#5e2b15&#39;, &#39;#9d4823&#39;),
+                     guide = &#39;none&#39;) + 
+  scale_x_continuous(breaks = c(-12e9,0,16e9), 
+                     minor_breaks = c(-4e9,-8e9,4e9,8e9),
+                     limits = c(-12e9,16e9), 
+                     labels = c(&amp;quot;$12 Mil&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;$16 Mil&amp;quot;), 
+                     position  =&#39;bottom&#39;, 
+                     sec.axis = sec_axis(~., 
+                                         breaks = c(-6e9,8e9),  
+                                         labels = c(&amp;quot;all other funding&amp;quot;, &amp;quot;federal funding&amp;quot;)
+                                         )
+                     ) + 
+  labs(y = element_blank(),
+       x = element_blank(),
+       title = &amp;quot;funding for university research in {closest_state}&amp;quot;,
+       caption = &amp;quot;A #TidyTuesday Adventure by @TannerKoomar\nsource: American Association for the Advancement of Science&amp;quot;) + 
+  theme_fnd() + 
+  theme(legend.position = &#39;bottom&#39;,
+        panel.grid.major.y = element_blank()) +
+  transition_states(
+    year,
+    transition_length = 2,
+    state_length = 1
+  ) 
+
+anim_save(animation = plot_2, filename = &amp;quot;final_plot_2.gif&amp;quot;, width = 700, height = 350)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./final_plot_2.gif&#34; alt=&#34;The second final plot&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tidy Tuesday: Milk Production</title>
+      <link>/post/2019-03-02-tt-milk-gif/</link>
+      <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-03-02-tt-milk-gif/</guid>
+      <description>&lt;p&gt;A simple animated gif map.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#make-a-map&#34;&gt;MAKE A MAP&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;#animate-map&#34;&gt;Animate map&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;#the-final-plot&#34;&gt;The final Plot&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────
+
+## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.7
+## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0
+
+## ── Conflicts ─── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;require(transformr)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: transformr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(urbnmapr)
+library(gridExtra)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &#39;gridExtra&#39;
+
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(gganimate)
+library(patchwork)
+
+source(&#39;https://raw.githubusercontent.com/tkoomar/ggplot2_themes/master/theme_black.R&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: showtext
+
+## Loading required package: sysfonts
+
+## Loading required package: showtextdb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;milk_state &amp;lt;- read_csv(&amp;quot;../data/2019/2019-01-29/state_milk_production.csv&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   region = col_character(),
+##   state = col_character(),
+##   year = col_integer(),
+##   milk_produced = col_double()
+## )
+
+## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)
+
+## Warning: 50 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected           actual file                                expected   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;              &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;                               actual 1  1501 year  no trailing chara… e3     &#39;../data/2019/2019-01-29/state_mil… file 2  1502 year  no trailing chara… e3     &#39;../data/2019/2019-01-29/state_mil… row 3  1503 year  no trailing chara… e3     &#39;../data/2019/2019-01-29/state_mil… col 4  1504 year  no trailing chara… e3     &#39;../data/2019/2019-01-29/state_mil… expected 5  1505 year  no trailing chara… e3     &#39;../data/2019/2019-01-29/state_mil…
+## ... ................. ... ........................................................................... ........ ........................................................................... ...... ........................................................................... .... ........................................................................... ... ........................................................................... ... ........................................................................... ........ ...........................................................................
+## See problems(...) for more details.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;milk_state &amp;lt;- milk_state %&amp;gt;% 
+  rename(&#39;state_name&#39; = &#39;state&#39;) 
+  
+
+data(&#39;states&#39;)
+
+milk_map &amp;lt;- left_join(milk_state, states)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;state_name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;make-a-map&#34;&gt;MAKE A MAP&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;map_plot &amp;lt;- milk_map %&amp;gt;% 
+  group_by(year) %&amp;gt;%
+  mutate(milk_total = sum(milk_produced),
+    milk_scaled = milk_produced/milk_total
+    ) %&amp;gt;%
+  ggplot(aes(x = long, y = lat, fill = milk_scaled, group = group)) + 
+  geom_polygon(size = 0.25, color = &#39;black&#39;) + 
+  coord_map(projection = &amp;quot;albers&amp;quot;, lat0 = 39, lat1 = 45) +
+  scale_fill_viridis_c(option = &amp;quot;inferno&amp;quot;)+
+  #scale_fill_distiller(palette = &#39;PuBuGn&#39;, direction = 1) + 
+  theme_black() + 
+  theme(legend.position = &#39;none&#39;, 
+        axis.text = element_blank(), 
+        axis.ticks = element_blank(), 
+        axis.line = element_blank(), 
+        axis.title = element_blank(), 
+        panel.grid = element_blank()) + 
+  ggtitle(&amp;quot;portion of milk production by year&amp;quot;, &amp;quot;{closest_state}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;animate-map&#34;&gt;Animate map&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;map_anim &amp;lt;- map_plot + transition_states(states = year, 
+                                         transition_length = 5, 
+                                         state_length = 5, 
+                                         wrap = TRUE)
+
+anim_save(animation = map_anim, 
+          filename = &amp;quot;final_plot.gif&amp;quot;, 
+          width = 640
+          )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in lapply(row_vars$states, as.integer): NAs introduced by coercion
+
+## Warning in f(..., self = self): NAs introduced by coercion
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;the-final-plot&#34;&gt;The final Plot&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;./featured.gif&#34; alt=&#34;The final plot&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

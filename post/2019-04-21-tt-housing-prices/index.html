@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Tanner Koomar">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A look at housing price trends over the last century with a compound infographic.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="../../post/2019-04-21-tt-housing-prices/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#4caf50">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="../../css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="../../index.webmanifest">
+  <link rel="icon" type="image/png" href="../../images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="../../images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="../../post/2019-04-21-tt-housing-prices/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@tannerkoomar">
+  <meta property="twitter:creator" content="@tannerkoomar">
+  
+  <meta property="og:site_name" content="Tanner Koomar">
+  <meta property="og:url" content="/post/2019-04-21-tt-housing-prices/">
+  <meta property="og:title" content="Tidy Tuesday: How The Housing Price Index Flipped | Tanner Koomar">
+  <meta property="og:description" content="A look at housing price trends over the last century with a compound infographic."><meta property="og:image" content="/post/2019-04-21-tt-housing-prices/featured.png">
+  <meta property="twitter:image" content="/post/2019-04-21-tt-housing-prices/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-04-21T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-04-21T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/2019-04-21-tt-housing-prices/"
+  },
+  "headline": "Tidy Tuesday: How The Housing Price Index Flipped",
+  
+  "image": [
+    "/post/2019-04-21-tt-housing-prices/featured.png"
+  ],
+  
+  "datePublished": "2019-04-21T00:00:00Z",
+  "dateModified": "2019-04-21T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Tanner Koomar"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Tanner Koomar",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "\u003cp\u003eA look at housing price trends over the last century with a compound infographic.\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Tidy Tuesday: How The Housing Price Index Flipped | Tanner Koomar</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="../../">Tanner Koomar</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="../../">Tanner Koomar</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../#tidytuesday-gallery"><span>Tidy Tuesday</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../about"><span>About Me</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Tidy Tuesday: How The Housing Price Index Flipped</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Apr 21, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="../../categories/tidytuesday/">tidytuesday</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 1440px;">
+  <div style="position: relative">
+    <img src="../../post/2019-04-21-tt-housing-prices/featured_hu836389f0a7735a6662cd6010a5b0901c_500778_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>A look at housing price trends over the last century with a compound infographic.</p>
+<ul>
+<li>
+<a href="#format-data">format data</a>
+</li>
+<li>
+<a href="#a-new-theme">A new theme</a>
+</li>
+<li>
+<a href="#violin-plot">violin plot</a>
+</li>
+<li>
+<a href="#statebin-maps">statebin maps</a>
+</li>
+<li>
+<a href="#line-plots">line plots</a>
+</li>
+<li>
+<a href="#map-key">map key</a>
+</li>
+<li>
+<a href="#texts">texts</a>
+
+<ul>
+<li>
+<a href="#title">title</a>
+</li>
+<li>
+<a href="#narrative">narrative</a>
+</li>
+<li>
+<a href="#footer">footer</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#asemble">Asemble</a>
+</li>
+<li>
+<a href="#the-final-plot">The final Plot</a>
+</li>
+</ul>
+<pre><code class="language-r">library(tidyverse)
+library(statebins)
+library(cowplot)
+library(magick)
+library(showtext) ## for google fonts
+font_add_google(&quot;Staatliches&quot;)
+font_add_google(&quot;Oswald&quot;)
+font_add_google(&quot;Montserrat&quot;, regular.wt = 300, bold.wt = 500)
+showtext_auto()
+
+
+## read in data
+hpi_dat &lt;- read_csv(&quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-02-05/state_hpi.csvhttps://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-02-05/state_hpi.csv&quot;)
+</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   year = col_integer(),
+##   month = col_integer(),
+##   state = col_character(),
+##   price_index = col_double(),
+##   us_avg = col_double()
+## )
+</code></pre>
+<h2 id="format-data">format data</h2>
+<pre><code class="language-r">hpi_dat &lt;- hpi_dat %&gt;% 
+  mutate(years =  cut(year, 
+                       breaks = c(1975, 1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015, 2018), 
+                       labels = c(1975, 1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015), 
+                       include.lowest = TRUE
+                       )
+         ) %&gt;%
+  group_by(years) %&gt;%
+  mutate(
+    price_ratio = price_index/us_avg,
+    price_sd = sd(price_index/us_avg)
+    ) %&gt;% 
+  ungroup() %&gt;%
+  left_join(tibble(state = state.abb, region = as.character(state.division))) %&gt;%
+  mutate(region = replace_na(region, &quot;Washington DC&quot;))
+</code></pre>
+<pre><code>## Joining, by = &quot;state&quot;
+</code></pre>
+<h2 id="a-new-theme">A new theme</h2>
+<pre><code class="language-r">theme_house&lt;- function(base_size = 11, base_family = &quot;Oswald&quot;, base_line_size = base_size/22, base_rect_size = base_size/22) {
+      theme_minimal(base_size = base_size, 
+               base_family = base_family,
+               base_line_size = base_line_size, 
+               base_rect_size = base_rect_size) %+replace% 
+    theme(axis.title = element_text(face = 'bold', hjust = 0, size = 14),
+          strip.text = element_text(hjust = 1))
+    }
+</code></pre>
+<h2 id="violin-plot">violin plot</h2>
+<pre><code class="language-r">violin &lt;- hpi_dat %&gt;%
+  ggplot(aes(x = years, y = (price_ratio), fill = price_sd)) + 
+  geom_hline(yintercept = 1 , lty = 2) + 
+  geom_violin(color = NA, alpha = 0.85) + 
+  scale_fill_gradientn(colors = c(&quot;#F98400&quot;,&quot;#ECCBAE&quot;), name = 'standard deviation of home prices') + 
+  labs(x = &quot;5 year period&quot;, 
+       y = &quot;HPI relative to national average&quot;
+       ) + 
+  guides(fill = guide_colorbar(title.position = &quot;top&quot;, 
+                               title.hjust = 0.5, 
+                               label.position = 'bottom', 
+                               barwidth = 15, 
+                               barheight = .5)
+         ) + 
+  scale_y_continuous(trans = 'log2', breaks = c(1/2, 1, 2), labels = c(&quot;1/2x&quot;, &quot;1x&quot;, &quot;2x&quot;), limits = c(1/2,2)) + 
+  #scale_fill_viridis_c(direction = -1, option = &quot;E&quot;) + 
+  theme_house() + 
+  theme(legend.direction = 'horizontal', 
+        legend.justification = c(.5, 0),
+        legend.position = c(0.5, 0.78)
+        )
+
+violin
+</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_ydensity).
+</code></pre>
+<p><img src="2019-02-05_files/figure-markdown_github/unnamed-chunk-3-1.png" alt=" "></p>
+<h2 id="statebin-maps">statebin maps</h2>
+<pre><code class="language-r">bin_maps &lt;- hpi_dat %&gt;%
+  filter(years %in% c(1975, 1995, 2015)) %&gt;%
+  ggplot(aes(state = state, 
+             fill = cut(log2(price_ratio), 
+                        breaks = c(-Inf, -.625, -.375, -.125, .125, .375, .625, Inf), include.lowest = TRUE,
+                        labels = c(&quot;-1&quot;, &quot;-1/2&quot;, &quot;-1/4&quot;, &quot;0&quot;, &quot;1/4&quot;, &quot;1/2&quot;, &quot;1&quot;)
+                        )
+             ) 
+         ) + 
+  geom_statebins(border_size = 0, dark_lbl = NA, light_lbl = NA) + 
+  facet_wrap(~years, nrow = 3) + 
+  coord_equal() + 
+  guides(fill = guide_legend(title.position = 'top',
+                             title.hjust = 0.5, 
+                             label.position = 'bottom', 
+                             direction = 'horizontal', 
+                             nrow = 1, 
+                             keyheight = .75, 
+                             keywidth = c(2, 1, 1, 2, 1, 1, 2)
+                             )
+         ) + 
+  scale_fill_manual(values = colorRampPalette(c(&quot;#FF0000&quot;, &quot;#fbf4ee&quot;, &quot;#00A08A&quot;))(7),  
+                    name = &quot;HPI relative to national average&quot;, 
+                    labels = c(&quot;1/2x&quot;, &quot;&quot;, &quot;&quot;, &quot;1x&quot;, &quot;&quot;, &quot;&quot;, &quot; 2x&quot;)) + 
+  ggtitle(&quot;Home Prices in Flyover\nCountry Can't Keep Up&quot;) + 
+  theme_void() + 
+  theme(plot.title=element_text(family = &quot;Oswald&quot;, 
+                                size=20, 
+                                hjust=1, 
+                                lineheight = 0.85), 
+        plot.margin = margin(0,10,0,10), 
+        strip.text = element_text(family = &quot;Oswald&quot;, 
+                                  size = 24,
+                                  hjust = 0),
+        legend.position = 'top', 
+        legend.justification = 0.5,
+        legend.direction = 'horizontal', 
+        legend.text = element_text(family = &quot;Oswald&quot;)
+       )
+
+bin_maps
+</code></pre>
+<p><img src="2019-02-05_files/figure-markdown_github/unnamed-chunk-4-1.png" alt=" "></p>
+<h2 id="line-plots">line plots</h2>
+<pre><code class="language-r">lines &lt;- hpi_dat %&gt;%
+  group_by(year, region) %&gt;%
+  ggplot(aes(x = year, y = price_ratio, color = region, group = region)) + 
+  geom_hline(yintercept = 1, lty = 2, lwd = 0.25) + 
+  scale_y_continuous(trans = 'log2', breaks = c(1/2, 1, 2), labels = c(&quot;1/2x&quot;, &quot;1x&quot;, &quot;2x&quot;), limits = c(1/2,2)) + 
+  labs(y = &quot;HPI relative to national average&quot;) + 
+  geom_line(alpha = 0.85, size = 4, show.legend = FALSE) + 
+  facet_wrap(~region, ncol = 2) + 
+  scale_color_manual(values = c(&quot;#FF0000&quot;, &quot;#00A08A&quot;, &quot;#F2AD00&quot;, &quot;#F98400&quot;, &quot;#5bd679&quot;, &quot;#ECCBAE&quot;, &quot;#046C9A&quot;, &quot;#000000&quot;, &quot;#ABDDDE&quot;, &quot;#D69C4E&quot; )) +
+  theme_house() + 
+  theme(axis.title = element_text(size = 22))
+lines
+</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_path).
+</code></pre>
+<p><img src="2019-02-05_files/figure-markdown_github/unnamed-chunk-5-1.png" alt=" "></p>
+<h2 id="map-key">map key</h2>
+<pre><code class="language-r">bin_map_key &lt;- hpi_dat %&gt;%
+  left_join(tibble(state = state.abb, region = state.division)) %&gt;%
+  ggplot(aes(state = state, fill = region)) + 
+  geom_statebins(border_size = 0, family = &quot;Montserrat&quot; ) + 
+  scale_fill_manual(values = c(&quot;#FF0000&quot;, &quot;#00A08A&quot;, &quot;#F2AD00&quot;, &quot;#F98400&quot;, &quot;#5bd679&quot;, &quot;#ECCBAE&quot;, &quot;#046C9A&quot;, &quot;#000000&quot;, &quot;#ABDDDE&quot;, &quot;#D69C4E&quot;)) + 
+  coord_equal() + 
+  ggtitle(&quot;Regions of the United States&quot;) + 
+  theme_void() + 
+  theme(plot.title=element_text(family = &quot;Oswald&quot;, size=20, hjust=0), 
+        plot.margin = margin(10,10,10,10), 
+        legend.position = 'none'
+        ) 
+</code></pre>
+<pre><code>## Joining, by = c(&quot;state&quot;, &quot;region&quot;)
+
+## Warning: Column `region` joining character vector and factor, coercing into
+## character vector
+</code></pre>
+<pre><code class="language-r">bin_map_key
+</code></pre>
+<p><img src="2019-02-05_files/figure-markdown_github/unnamed-chunk-6-1.png" alt=" "></p>
+<h2 id="texts">texts</h2>
+<h4 id="title">title</h4>
+<pre><code class="language-r">header &lt;- ggplot() + 
+ annotate(geom = &quot;text&quot;, 
+          y = -0.1, 
+          x = 0.5, 
+          size = 10,
+          family = &quot;Staatliches&quot;,
+          color = 'white',
+          alpha = 1,
+          lineheight = 0.7,
+          hjust = 1,
+          label=&quot;HOW THE HOUSING\nPRICE INDEX&quot;
+          ) + 
+   annotate(geom = &quot;text&quot;, 
+          y = -0.1, 
+          x = .79, 
+          size = 12,
+          family = &quot;Staatliches&quot;, 
+          color = 'white',
+          alpha = 1,
+          lineheight = 0.9,
+          hjust = 0,
+          label=&quot;FLIPPED&quot; 
+          ) + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &quot;white&quot;,
+                                   fill = &quot;transparent&quot;, 
+                                   size = 5)
+  )
+
+
+ggdraw() + draw_image(&quot;house.png&quot;) + draw_plot(header)
+</code></pre>
+<p><img src="2019-02-05_files/figure-markdown_github/unnamed-chunk-7-1.png" alt=" "></p>
+<h4 id="narrative">narrative</h4>
+<pre><code class="language-r">narr &lt;- ggplot() + 
+ annotate(geom = &quot;text&quot;, 
+          y = 0, 
+          x= -2, 
+          size = 5.5, 
+          family = &quot;Montserrat&quot;, 
+          color = 'black',
+          alpha = 0.75, 
+          lineheight = 0.9,
+          hjust = 0,
+          label=str_wrap(&quot;In the 1970's, many individual states had average home prices (HPI) above the national average. The spread of house prices narrowed, until the mid 1990's. After this inflection point, house prices again grew more extreme. Less populous states drive this trend, with home prices in these regions going from above average to below it.&quot;, 30)
+          ) + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &quot;white&quot;,
+                                   fill = '#e5e5ff', 
+                                   size = 5)
+  )
+
+narr
+</code></pre>
+<p><img src="2019-02-05_files/figure-markdown_github/unnamed-chunk-8-1.png" alt=" "></p>
+<h3 id="footer">footer</h3>
+<pre><code class="language-r">foot &lt;- ggplot() + 
+ annotate(geom = &quot;text&quot;, 
+          y = 0, 
+          x= 0, 
+          size = 3, 
+          family = &quot;Montserrat&quot;, 
+          color = 'black',
+          alpha = 0.5,
+          hjust = 0.5,
+          label= &quot;◊ A #TidyTuesday adventure by @TannerKoomar ◊ Data from Freddie Mac ◊ Photo from pexels.com ◊&quot;
+          ) + 
+  ylim(-2,2) + 
+  xlim(-2,2) + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(color = &quot;white&quot;,
+                                   fill = '#e5e5ff', 
+                                   size = 3)
+  )
+
+foot
+</code></pre>
+<p><img src="2019-02-05_files/figure-markdown_github/unnamed-chunk-9-1.png" alt=" "></p>
+<h2 id="asemble">Asemble</h2>
+<p>let&rsquo;s try cowplot this time</p>
+<pre><code class="language-r">final_plot &lt;- plot_grid(
+  (ggdraw() + draw_image(&quot;house.png&quot;) + draw_plot(header)), 
+  plot_grid(violin, 
+            narr, 
+            rel_widths = c(5,3)
+            ),
+  plot_grid(
+            plot_grid(bin_maps + theme(plot.background = element_rect(fill = alpha('#e5e5ff', 0.25), 
+                                                                      color = 'white', 
+                                                                      size = 2)
+                                       ),
+                      bin_map_key, 
+                      ncol = 1,
+                      rel_heights = c(3,1)
+                      ), 
+            lines, 
+            rel_widths = c(3, 5)
+            ),
+  foot,
+  ncol = 1, 
+  rel_heights = c(1, 2, 6, 0.15)
+)
+
+png(&quot;final_plot.png&quot;, width = 1000, height = 2000, res = 144, bg = &quot;white&quot;)
+final_plot
+dev.off()
+</code></pre>
+<pre><code>## png 
+##   2
+</code></pre>
+<h2 id="the-final-plot">The final Plot</h2>
+<p><img src="./featured.png" alt="The final plot"></p>
+    </div>
+
+    
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="../../tags/r/">R</a>
+  
+  <a class="badge badge-light" href="../../tags/map/">map</a>
+  
+  <a class="badge badge-light" href="../../tags/gridextra/">gridExtra</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2019-04-21-tt-housing-prices/&amp;text=Tidy%20Tuesday:%20How%20The%20Housing%20Price%20Index%20Flipped" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2019-04-21-tt-housing-prices/&amp;t=Tidy%20Tuesday:%20How%20The%20Housing%20Price%20Index%20Flipped" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Tidy%20Tuesday:%20How%20The%20Housing%20Price%20Index%20Flipped&amp;body=/post/2019-04-21-tt-housing-prices/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2019-04-21-tt-housing-prices/&amp;title=Tidy%20Tuesday:%20How%20The%20Housing%20Price%20Index%20Flipped" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Tidy%20Tuesday:%20How%20The%20Housing%20Price%20Index%20Flipped%20/post/2019-04-21-tt-housing-prices/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/2019-04-21-tt-housing-prices/&amp;title=Tidy%20Tuesday:%20How%20The%20Housing%20Price%20Index%20Flipped" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="../../authors/tanner/avatar_hu1a005f78e8b7375a91a9a9622a85bdce_82119_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="../../">Tanner Koomar</a></h5>
+      <h6 class="card-subtitle">PhD Candidate</h6>
+      <p class="card-text">My research interests include computational genetics, machine learning and science communication</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/tannerkoomar" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/tkoomar" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=opu7O1AAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0003-0777-8678" target="_blank" rel="noopener">
+        <i class="fab fa-orcid"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.researchgate.net/profile/Tanner_Koomar2" target="_blank" rel="noopener">
+        <i class="fab fa-researchgate"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=tanner&#43;koomar" target="_blank" rel="noopener">
+        <i class="fas fa-book-medical"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="../../post/2018-12-12-tt-malaria/">Tidy Tuesday: Malaria</a></li>
+      
+      <li><a href="../../post/2018-11-20-tt-gravy/">Tidy Tuesday: Thanksgiving Gravy</a></li>
+      
+      <li><a href="../../post/2018-11-06-tt-wind-power/">Tidy Tuesday: USA Wind Power</a></li>
+      
+      <li><a href="../../post/2019-03-02-tt-milk-gif/">Tidy Tuesday: Milk Production</a></li>
+      
+      <li><a href="../../post/2019-02-13-tt-rstats-tweets/">Tidy Tuesday: R Tweets</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="../../js/academic.min.0630fec5958cb075a5a38f042b3ddde6.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="../../privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="../../terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    &amp;copy 2020 &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories | Academic</title>
+    <title>Categories | Tanner Koomar</title>
     <link>/categories/</link>
       <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <description>Categories</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 20 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>&amp;copy 2020</copyright><lastBuildDate>Wed, 08 May 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Categories</title>
@@ -13,18 +13,10 @@
     </image>
     
     <item>
-      <title>Demo</title>
-      <link>/categories/demo/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/categories/demo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/categories/r/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      <guid>/categories/r/</guid>
+      <title>tidytuesday</title>
+      <link>/categories/tidytuesday/</link>
+      <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
+      <guid>/categories/tidytuesday/</guid>
       <description></description>
     </item>
     
