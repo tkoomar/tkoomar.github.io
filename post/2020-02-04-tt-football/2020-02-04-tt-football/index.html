@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Tanner Koomar">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Tidy Tuesday: NFL Stadium Attendance
+Tanner Koomar
+2020-02-04
+
+
+Load in data
+
+
+The question: to super bowl winners have harder schedules?
+
+
+Summarize data
+
+
+Test the difference in schedule strength
+
+
+Plot
+
+
+Bonus: Color by Team Name
+
+
+Bonus: What is the bump in attendance the year after winning a superbowl?
+
+
+">
+
+  
+  <link rel="alternate" hreflang="en-us" href="../../../post/2020-02-04-tt-football/2020-02-04-tt-football/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#4caf50">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="../../../css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="../../../index.webmanifest">
+  <link rel="icon" type="image/png" href="../../../images/icon_hu5364287f43a913080533c93be6775690_13359_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="../../../images/icon_hu5364287f43a913080533c93be6775690_13359_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="../../../post/2020-02-04-tt-football/2020-02-04-tt-football/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@tannerkoomar">
+  <meta property="twitter:creator" content="@tannerkoomar">
+  
+  <meta property="og:site_name" content="Tanner Koomar">
+  <meta property="og:url" content="/post/2020-02-04-tt-football/2020-02-04-tt-football/">
+  <meta property="og:title" content=" | Tanner Koomar">
+  <meta property="og:description" content="Tidy Tuesday: NFL Stadium Attendance
+Tanner Koomar
+2020-02-04
+
+
+Load in data
+
+
+The question: to super bowl winners have harder schedules?
+
+
+Summarize data
+
+
+Test the difference in schedule strength
+
+
+Plot
+
+
+Bonus: Color by Team Name
+
+
+Bonus: What is the bump in attendance the year after winning a superbowl?
+
+
+"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+    
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/2020-02-04-tt-football/2020-02-04-tt-football/"
+  },
+  "headline": "",
+  
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Tanner Koomar"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Tanner Koomar",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "\u003ch1 id=\"tidy-tuesday-nfl-stadium-attendance\"\u003eTidy Tuesday: NFL Stadium Attendance\u003c/h1\u003e\n\u003cp\u003eTanner Koomar\n2020-02-04\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#load-in-data\"\u003eLoad in data\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#the-question-to-super-bowl-winners-have-harder-schedules\"\u003eThe question: to super bowl winners have harder schedules?\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#summarize-data\"\u003eSummarize data\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#test-the-difference-in-schedule-strength\"\u003eTest the difference in schedule strength\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#plot\"\u003ePlot\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#bonus-color-by-team-name\"\u003eBonus: Color by Team Name\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#bonus-what-is-the-bump-in-attendance-the-year-after-winning-a-superbowl\"\u003eBonus: What is the bump in attendance the year after winning a superbowl?\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cimg src=\"./featured.png\" alt=\"final plot\"\u003e\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title> | Tanner Koomar</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="../../../">Tanner Koomar</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="../../../">Tanner Koomar</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../../#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../../#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../../#tidytuesday-gallery"><span>Tidy Tuesday</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="../../../about"><span>About Me</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1></h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jan 1, 0001
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    6 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="tidy-tuesday-nfl-stadium-attendance">Tidy Tuesday: NFL Stadium Attendance</h1>
+<p>Tanner Koomar
+2020-02-04</p>
+<ul>
+<li>
+<a href="#load-in-data">Load in data</a>
+</li>
+<li>
+<a href="#the-question-to-super-bowl-winners-have-harder-schedules">The question: to super bowl winners have harder schedules?</a>
+</li>
+<li>
+<a href="#summarize-data">Summarize data</a>
+</li>
+<li>
+<a href="#test-the-difference-in-schedule-strength">Test the difference in schedule strength</a>
+</li>
+<li>
+<a href="#plot">Plot</a>
+</li>
+<li>
+<a href="#bonus-color-by-team-name">Bonus: Color by Team Name</a>
+</li>
+<li>
+<a href="#bonus-what-is-the-bump-in-attendance-the-year-after-winning-a-superbowl">Bonus: What is the bump in attendance the year after winning a superbowl?</a>
+</li>
+</ul>
+<p><img src="./featured.png" alt="final plot"></p>
+<h2 id="load-in-data">Load in data</h2>
+<pre><code class="language-r">attendance &lt;- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/attendance.csv', 
+                       col_types = cols())
+
+glimpse(attendance)
+</code></pre>
+<pre><code>## Observations: 10,846
+## Variables: 8
+## $ team              &lt;chr&gt; &quot;Arizona&quot;, &quot;Arizona&quot;, &quot;Arizona&quot;, &quot;Arizona&quot;, &quot;Arizon…
+## $ team_name         &lt;chr&gt; &quot;Cardinals&quot;, &quot;Cardinals&quot;, &quot;Cardinals&quot;, &quot;Cardinals&quot;,…
+## $ year              &lt;dbl&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 200…
+## $ total             &lt;dbl&gt; 893926, 893926, 893926, 893926, 893926, 893926, 893…
+## $ home              &lt;dbl&gt; 387475, 387475, 387475, 387475, 387475, 387475, 387…
+## $ away              &lt;dbl&gt; 506451, 506451, 506451, 506451, 506451, 506451, 506…
+## $ week              &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, …
+## $ weekly_attendance &lt;dbl&gt; 77434, 66009, NA, 71801, 66985, 44296, 38293, 62981…
+</code></pre>
+<pre><code class="language-r">standings &lt;- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/standings.csv', 
+                      col_types = cols())
+glimpse(standings)
+</code></pre>
+<pre><code>## Observations: 638
+## Variables: 15
+## $ team                 &lt;chr&gt; &quot;Miami&quot;, &quot;Indianapolis&quot;, &quot;New York&quot;, &quot;Buffalo&quot;, …
+## $ team_name            &lt;chr&gt; &quot;Dolphins&quot;, &quot;Colts&quot;, &quot;Jets&quot;, &quot;Bills&quot;, &quot;Patriots&quot;…
+## $ year                 &lt;dbl&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, …
+## $ wins                 &lt;dbl&gt; 11, 10, 9, 8, 5, 13, 12, 9, 7, 4, 3, 12, 11, 7, …
+## $ loss                 &lt;dbl&gt; 5, 6, 7, 8, 11, 3, 4, 7, 9, 12, 13, 4, 5, 9, 10,…
+## $ points_for           &lt;dbl&gt; 323, 429, 321, 315, 276, 346, 333, 321, 367, 185…
+## $ points_against       &lt;dbl&gt; 226, 326, 321, 350, 338, 191, 165, 255, 327, 359…
+## $ points_differential  &lt;dbl&gt; 97, 103, 0, -35, -62, 155, 168, 66, 40, -174, -2…
+## $ margin_of_victory    &lt;dbl&gt; 6.1, 6.4, 0.0, -2.2, -3.9, 9.7, 10.5, 4.1, 2.5, …
+## $ strength_of_schedule &lt;dbl&gt; 1.0, 1.5, 3.5, 2.2, 1.4, -1.3, -2.5, -0.2, -1.4,…
+## $ simple_rating        &lt;dbl&gt; 7.1, 7.9, 3.5, 0.0, -2.5, 8.3, 8.0, 3.9, 1.1, -1…
+## $ offensive_ranking    &lt;dbl&gt; 0.0, 7.1, 1.4, 0.5, -2.7, 1.5, 0.0, 0.6, 3.2, -8…
+## $ defensive_ranking    &lt;dbl&gt; 7.1, 0.8, 2.2, -0.5, 0.2, 6.8, 8.0, 3.3, -2.1, -…
+## $ playoffs             &lt;chr&gt; &quot;Playoffs&quot;, &quot;Playoffs&quot;, &quot;No Playoffs&quot;, &quot;No Playo…
+## $ sb_winner            &lt;chr&gt; &quot;No Superbowl&quot;, &quot;No Superbowl&quot;, &quot;No Superbowl&quot;, …
+</code></pre>
+<h2 id="the-question-to-super-bowl-winners-have-harder-schedules">The question: to super bowl winners have harder schedules?</h2>
+<p>I am curious if teams that win the super bowl have an easier or harder schedule than the other teams that make it to the playoffs. The <code>strength_of_schedule</code> variable provides a simple way to test this.</p>
+<p>The only data manipulation we need to do is combine <code>playoffs</code> and <code>sb_winner</code>:</p>
+<pre><code class="language-r">standings &lt;- standings %&gt;%
+  mutate(final_position = if_else(sb_winner == &quot;Won Superbowl&quot;, sb_winner, playoffs))
+</code></pre>
+<h2 id="summarize-data">Summarize data</h2>
+<pre><code class="language-r">standing_summary &lt;- standings %&gt;%
+  group_by(final_position) %&gt;%
+  summarize(less_zero = sum(strength_of_schedule &lt; 0), 
+            total = n(), 
+            percent_less_zero = less_zero / total, 
+            median_strength = median(strength_of_schedule)
+            )
+
+standing_summary
+</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   final_position less_zero total percent_less_zero median_strength
+##   &lt;chr&gt;              &lt;int&gt; &lt;int&gt;             &lt;dbl&gt;           &lt;dbl&gt;
+## 1 No Playoffs          170   398             0.427             0.2
+## 2 Playoffs             132   220             0.6              -0.5
+## 3 Won Superbowl          8    20             0.4               0.2
+</code></pre>
+<p>It looks like most teams that make it to the playoffs have an easier schedule (60% of them hace an average opponent rating less than zero) than those that win the super bowl (only 40% have average opponent rating less than zero). Teams that don&rsquo;t make the playoffs also seem to have more difficult schedule.</p>
+<h2 id="test-the-difference-in-schedule-strength">Test the difference in schedule strength</h2>
+<p>The Kruskal-Wallis is suitable for multiple rank-based comparisons of groups:</p>
+<pre><code class="language-r">standings %&gt;%
+  kruskal.test(strength_of_schedule ~ final_position, data = .)
+</code></pre>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  strength_of_schedule by final_position
+## Kruskal-Wallis chi-squared = 27.31, df = 2, p-value = 1.174e-06
+</code></pre>
+<p>But sometimes, doing pairwise Wilcox tests can be more interpretable.</p>
+<pre><code class="language-r">standings %&gt;%
+ filter(final_position != &quot;Won Superbowl&quot;) %&gt;%
+  wilcox.test(strength_of_schedule ~ final_position, data = .)
+</code></pre>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  strength_of_schedule by final_position
+## W = 54732, p-value = 2.549e-07
+## alternative hypothesis: true location shift is not equal to 0
+</code></pre>
+<pre><code class="language-r">standings %&gt;%
+  filter(final_position != &quot;No Playoffs&quot;) %&gt;%
+  wilcox.test(strength_of_schedule ~ final_position, data = .)
+</code></pre>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  strength_of_schedule by final_position
+## W = 1599, p-value = 0.04333
+## alternative hypothesis: true location shift is not equal to 0
+</code></pre>
+<h2 id="plot">Plot</h2>
+<p>Manually specify some colors (taken from the fun <code>wesanderson</code> package)</p>
+<pre><code class="language-r">final_position_pal = c(
+  &quot;No Playoffs&quot; = &quot;#F2AD00&quot;, 
+  &quot;Playoffs&quot; = &quot;#00A08A&quot;, 
+  &quot;Won Superbowl&quot;  = &quot;#FF0000&quot;
+)
+</code></pre>
+<p>We will use the features of the great new <code>ggtext</code> package to color text in the subtitle of the plot, obviating the need for a figure legend.</p>
+<pre><code class="language-r">library(ggtext)
+
+standings %&gt;%
+  ggplot(aes(x = final_position, y = strength_of_schedule, fill = final_position)) + 
+  geom_hline(yintercept = 0, lwd = 0.5, lty = 2, color = 'grey 50') + 
+  geom_boxplot() +
+  #geom_jitter(width = 0.25) + 
+  geom_text(data = standing_summary, 
+            inherit.aes = FALSE, 
+            nudge_y = 0.22, 
+            mapping = aes(x = final_position, y = median_strength, label = median_strength)) + 
+  scale_fill_manual(values = final_position_pal,
+                      guide = 'none'
+                      ) + 
+  theme_minimal() + 
+  theme(axis.title = element_blank(), 
+        axis.text.x = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        plot.title = element_textbox(), 
+        plot.subtitle = element_markdown(linewidth = 20)
+        ) +
+  labs(title = &quot;**No Easy Road to Super Bowl Victory**&quot;, 
+       subtitle = &quot;Since 2000, NFL &lt;b style='color:#F2AD00'&gt;teams that miss the playoffs&lt;/b&gt; have a harder schedule (an average opponent  
+rating greater than the dashed line at zero) than &lt;b style='color:#00A08A'&gt;teams that make it to the playoffs&lt;/b&gt;.  
+A &lt;b style='color:#FF0000'&gt;Super Bowl winner's&lt;/b&gt;  schedule is much tougher by comparison.&quot;
+) + 
+  ggsave(filename = 'featured.png', width = 7, height = 7)
+</code></pre>
+<p><img src="2020-02-04-tt-football_files/figure-markdown_github/unnamed-chunk-6-1.png" alt=""></p>
+<h2 id="bonus-color-by-team-name">Bonus: Color by Team Name</h2>
+<p>How does it look to plot individual points for each team, coloring them accoring to their team colors (thanks to the <code>teamcolors</code> package)?</p>
+<pre><code class="language-r">team_fill = teamcolors::league_pal('nfl', which = 2)
+team_color = teamcolors::league_pal('nfl', which = 1)
+
+## Use just team name, not the home city (which changes for a couple teams)
+names(team_fill)  &lt;- str_remove(names(team_fill), &quot;^.* &quot;)
+names(team_color)  &lt;- str_remove(names(team_color), &quot;^.* &quot;)
+
+standings %&gt;%
+  ggplot(aes(x = final_position, y = strength_of_schedule, fill = team_name, color = team_name)) + 
+  geom_jitter(width = 0.4, pch = 23, size  = 3) + 
+  scale_fill_manual(values = team_fill, 
+                    guide = 'none'
+                    ) + 
+  scale_color_manual(values = team_color,
+                     guide = 'none'
+                    )   + 
+  theme_minimal() + 
+  theme(axis.title = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        plot.title = element_textbox(), 
+        plot.subtitle = element_markdown(linewidth = 20)
+        ) 
+</code></pre>
+<p><img src="2020-02-04-tt-football_files/figure-markdown_github/unnamed-chunk-7-1.png" alt=""></p>
+<p>Ugly. Too many of the teams have colors that are close to one another.</p>
+<h2 id="bonus-what-is-the-bump-in-attendance-the-year-after-winning-a-superbowl">Bonus: What is the bump in attendance the year after winning a superbowl?</h2>
+<p>Making use of the <code>lag()</code> function, if you account for the fact that each team has a different &ldquo;baseline&rdquo; of attendance, it looks like the year after a superbowl win, attendence to away games may go up a bit. Home games and total attendance doesn&rsquo;t really change though.</p>
+<pre><code class="language-r">attendance %&gt;%
+  select(team, team_name, year, total, home, away) %&gt;%
+  distinct() %&gt;%
+  group_by(team) %&gt;%
+  ## adjust attendance on a per-team basis to account for a difference baseline for each team
+  mutate_at(vars(total, home, away), .funs = ~scale(., scale = FALSE) ) %&gt;%
+  ungroup() %&gt;%
+  full_join(standings) %&gt;%
+  group_by(team) %&gt;%
+  mutate_all(.funs = list(last_year = ~lag(.))) %&gt;%
+  filter(sb_winner_last_year == &quot;Won Superbowl&quot;) %&gt;%
+  filter(!is.na(sb_winner_last_year)) %&gt;%
+  ungroup() %&gt;%
+  arrange(team, year) %&gt;%
+  gather(attendance_the_year_after_winning_superbowl, value, total, total_last_year, home, home_last_year, away, away_last_year) %&gt;%
+  ggplot(aes(x = attendance_the_year_after_winning_superbowl, y = value)) + 
+  geom_boxplot() + 
+  ggpubr::stat_compare_means() + 
+  theme_minimal()
+</code></pre>
+<pre><code>## Joining, by = c(&quot;team&quot;, &quot;team_name&quot;, &quot;year&quot;)
+
+## `mutate_all()` ignored the following grouping variables:
+## Column `team`
+## Use `mutate_at(df, vars(-group_cols()), myoperation)` to silence the message.
+</code></pre>
+<p><img src="2020-02-04-tt-football_files/figure-markdown_github/unnamed-chunk-8-1.png" alt=""></p>
+    </div>
+
+    
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2020-02-04-tt-football/2020-02-04-tt-football/&amp;text=" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2020-02-04-tt-football/2020-02-04-tt-football/&amp;t=" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=&amp;body=/post/2020-02-04-tt-football/2020-02-04-tt-football/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2020-02-04-tt-football/2020-02-04-tt-football/&amp;title=" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=%20/post/2020-02-04-tt-football/2020-02-04-tt-football/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/2020-02-04-tt-football/2020-02-04-tt-football/&amp;title=" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="../../../authors/tanner/avatar_hu1a005f78e8b7375a91a9a9622a85bdce_82119_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="../../../">Tanner Koomar</a></h5>
+      <h6 class="card-subtitle">PhD Candidate</h6>
+      <p class="card-text">My research interests include computational genetics, machine learning and science communication</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/tannerkoomar" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/tkoomar" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=opu7O1AAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0003-0777-8678" target="_blank" rel="noopener">
+        <i class="fab fa-orcid"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.researchgate.net/profile/Tanner_Koomar2" target="_blank" rel="noopener">
+        <i class="fab fa-researchgate"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=tanner&#43;koomar" target="_blank" rel="noopener">
+        <i class="fas fa-book-medical"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="../../../js/academic.min.0630fec5958cb075a5a38f042b3ddde6.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="../../../privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="../../../terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    2020 &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
