@@ -7,7 +7,7 @@
     <description>Projects</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Projects</title>
       <link>/project/</link>
     </image>
@@ -19,6 +19,9 @@
       <guid>/project/language-screener/</guid>
       <description>&lt;p&gt;Well-powered genetic studies of any complex trait require large cohorts. Most current methods of assessing language ability have their roots in clinical practice, and require one on one interaction between a subject and an evaluator. Furthermore, these tests are formulated to be sensitive to variations at the low end of the ability spectrum, but cannot differentiate between individuals of average or better ability.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;The study of language genetics needs a rapid, scalable assessment which can detect a wide range of ability levels.&lt;/strong&gt; We are developing a web-based language screening tool composed of a mixture of established and new assessments with an eye to detecting meaningful variation in the language ability of adults.&lt;/p&gt;
+&lt;h2 id=&#34;booth&#34;&gt;Booth&lt;/h2&gt;
+&lt;p&gt;Our first deployment of the language screener was in a soundproof booth in a hospital clinic waiting room. We expect participants to return and take screener multiple times, so a mood survey was included to see how mood might be reflected in performance on the various tasks.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;booth.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Why not an app?&lt;/em&gt; Web-based tools do pose challenges based on the wide array of hardware and software available to consumers, but every phone, tablet and personal computer has access to a web browser, lowering barriers for entry that are imposed by apps and other single-platform software.&lt;/p&gt;
 </description>
     </item>
