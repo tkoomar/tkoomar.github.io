@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gene expression | Tanner Koomar</title>
-    <link>/tags/gene-expression/</link>
-      <atom:link href="/tags/gene-expression/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/gene-expression/</link>
+      <atom:link href="https://tkoomar.github.io/tags/gene-expression/index.xml" rel="self" type="application/rss+xml" />
     <description>gene expression</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Thu, 15 Dec 2016 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>gene expression</title>
-      <link>/tags/gene-expression/</link>
+      <link>https://tkoomar.github.io/tags/gene-expression/</link>
     </image>
     
     <item>
       <title>cerebroViz: an R package for anatomical visualization of spatiotemporal brain data</title>
-      <link>/publication/2017-cerebroviz-paper/</link>
+      <link>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>/publication/2017-cerebroviz-paper/</guid>
+      <guid>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</guid>
       <description></description>
     </item>
     

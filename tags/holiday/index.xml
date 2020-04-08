@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>holiday | Tanner Koomar</title>
-    <link>/tags/holiday/</link>
-      <atom:link href="/tags/holiday/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/holiday/</link>
+      <atom:link href="https://tkoomar.github.io/tags/holiday/index.xml" rel="self" type="application/rss+xml" />
     <description>holiday</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Tue, 20 Nov 2018 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>holiday</title>
-      <link>/tags/holiday/</link>
+      <link>https://tkoomar.github.io/tags/holiday/</link>
     </image>
     
     <item>
       <title>Tidy Tuesday: Thanksgiving Gravy</title>
-      <link>/post/2018-11-20-tt-gravy/</link>
+      <link>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</link>
       <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/post/2018-11-20-tt-gravy/</guid>
+      <guid>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</guid>
       <description>&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-20/thanksgiving_meals.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Parsed with column specification:
@@ -125,8 +125,11 @@ plot_or&lt;/code&gt;&lt;/pre&gt;
     panel.background = element_rect(color = NA, &amp;quot;#faefd1&amp;quot;), 
     panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
     panel.grid.minor = element_blank()
-    )
-plot_totals&lt;/code&gt;&lt;/pre&gt;
+    )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `fun.y` is deprecated. Use `fun` instead.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `fun.ymin` is deprecated. Use `fun.min` instead.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `fun.ymax` is deprecated. Use `fun.max` instead.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_totals&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;line-chart-of-income&#34; class=&#34;section level2&#34;&gt;

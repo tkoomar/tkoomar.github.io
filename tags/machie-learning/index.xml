@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Machie Learning | Tanner Koomar</title>
-    <link>/tags/machie-learning/</link>
-      <atom:link href="/tags/machie-learning/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/machie-learning/</link>
+      <atom:link href="https://tkoomar.github.io/tags/machie-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>Machie Learning</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Thu, 10 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Machie Learning</title>
-      <link>/tags/machie-learning/</link>
+      <link>https://tkoomar.github.io/tags/machie-learning/</link>
     </image>
     
     <item>
       <title>Ensemble Modeling of Neurocognitive Performance Using MRI-Derived Brain Structure Volumes</title>
-      <link>/publication/2019-miccai-paper/</link>
+      <link>https://tkoomar.github.io/publication/2019-miccai-paper/</link>
       <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/2019-miccai-paper/</guid>
+      <guid>https://tkoomar.github.io/publication/2019-miccai-paper/</guid>
       <description></description>
     </item>
     

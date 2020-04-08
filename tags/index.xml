@@ -2,237 +2,237 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | Tanner Koomar</title>
-    <link>/tags/</link>
-      <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/</link>
+      <atom:link href="https://tkoomar.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Tags</title>
-      <link>/tags/</link>
+      <link>https://tkoomar.github.io/tags/</link>
     </image>
     
     <item>
       <title>ggtext</title>
-      <link>/tags/ggtext/</link>
+      <link>https://tkoomar.github.io/tags/ggtext/</link>
       <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/ggtext/</guid>
+      <guid>https://tkoomar.github.io/tags/ggtext/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
+      <link>https://tkoomar.github.io/tags/r/</link>
       <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/r/</guid>
+      <guid>https://tkoomar.github.io/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>adhd</title>
-      <link>/tags/adhd/</link>
+      <link>https://tkoomar.github.io/tags/adhd/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/adhd/</guid>
+      <guid>https://tkoomar.github.io/tags/adhd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>autism</title>
-      <link>/tags/autism/</link>
+      <link>https://tkoomar.github.io/tags/autism/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/autism/</guid>
+      <guid>https://tkoomar.github.io/tags/autism/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bipolar disorder</title>
-      <link>/tags/bipolar-disorder/</link>
+      <link>https://tkoomar.github.io/tags/bipolar-disorder/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/bipolar-disorder/</guid>
+      <guid>https://tkoomar.github.io/tags/bipolar-disorder/</guid>
       <description></description>
     </item>
     
     <item>
       <title>language genetics</title>
-      <link>/tags/language-genetics/</link>
+      <link>https://tkoomar.github.io/tags/language-genetics/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/language-genetics/</guid>
+      <guid>https://tkoomar.github.io/tags/language-genetics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>major depression</title>
-      <link>/tags/major-depression/</link>
+      <link>https://tkoomar.github.io/tags/major-depression/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/major-depression/</guid>
+      <guid>https://tkoomar.github.io/tags/major-depression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>schizophrenia</title>
-      <link>/tags/schizophrenia/</link>
+      <link>https://tkoomar.github.io/tags/schizophrenia/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/schizophrenia/</guid>
+      <guid>https://tkoomar.github.io/tags/schizophrenia/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ABCD</title>
-      <link>/tags/abcd/</link>
+      <link>https://tkoomar.github.io/tags/abcd/</link>
       <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/abcd/</guid>
+      <guid>https://tkoomar.github.io/tags/abcd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Machie Learning</title>
-      <link>/tags/machie-learning/</link>
+      <link>https://tkoomar.github.io/tags/machie-learning/</link>
       <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/machie-learning/</guid>
+      <guid>https://tkoomar.github.io/tags/machie-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MRI</title>
-      <link>/tags/mri/</link>
+      <link>https://tkoomar.github.io/tags/mri/</link>
       <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/mri/</guid>
+      <guid>https://tkoomar.github.io/tags/mri/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gif</title>
-      <link>/tags/gif/</link>
+      <link>https://tkoomar.github.io/tags/gif/</link>
       <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/gif/</guid>
+      <guid>https://tkoomar.github.io/tags/gif/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gridExtra</title>
-      <link>/tags/gridextra/</link>
+      <link>https://tkoomar.github.io/tags/gridextra/</link>
       <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/gridextra/</guid>
+      <guid>https://tkoomar.github.io/tags/gridextra/</guid>
       <description></description>
     </item>
     
     <item>
       <title>map</title>
-      <link>/tags/map/</link>
+      <link>https://tkoomar.github.io/tags/map/</link>
       <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/map/</guid>
+      <guid>https://tkoomar.github.io/tags/map/</guid>
       <description></description>
     </item>
     
     <item>
       <title>twitter</title>
-      <link>/tags/twitter/</link>
+      <link>https://tkoomar.github.io/tags/twitter/</link>
       <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/twitter/</guid>
+      <guid>https://tkoomar.github.io/tags/twitter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nlp</title>
-      <link>/tags/nlp/</link>
+      <link>https://tkoomar.github.io/tags/nlp/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/nlp/</guid>
+      <guid>https://tkoomar.github.io/tags/nlp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>web scraping</title>
-      <link>/tags/web-scraping/</link>
+      <link>https://tkoomar.github.io/tags/web-scraping/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/web-scraping/</guid>
+      <guid>https://tkoomar.github.io/tags/web-scraping/</guid>
       <description></description>
     </item>
     
     <item>
       <title>polygenic risk</title>
-      <link>/tags/polygenic-risk/</link>
+      <link>https://tkoomar.github.io/tags/polygenic-risk/</link>
       <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/polygenic-risk/</guid>
+      <guid>https://tkoomar.github.io/tags/polygenic-risk/</guid>
       <description></description>
     </item>
     
     <item>
       <title>whole genome sequencing</title>
-      <link>/tags/whole-genome-sequencing/</link>
+      <link>https://tkoomar.github.io/tags/whole-genome-sequencing/</link>
       <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/whole-genome-sequencing/</guid>
+      <guid>https://tkoomar.github.io/tags/whole-genome-sequencing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>holiday</title>
-      <link>/tags/holiday/</link>
+      <link>https://tkoomar.github.io/tags/holiday/</link>
       <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/holiday/</guid>
+      <guid>https://tkoomar.github.io/tags/holiday/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cowplot</title>
-      <link>/tags/cowplot/</link>
+      <link>https://tkoomar.github.io/tags/cowplot/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/cowplot/</guid>
+      <guid>https://tkoomar.github.io/tags/cowplot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PCA</title>
-      <link>/tags/pca/</link>
+      <link>https://tkoomar.github.io/tags/pca/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/pca/</guid>
+      <guid>https://tkoomar.github.io/tags/pca/</guid>
       <description></description>
     </item>
     
     <item>
       <title>machine learning</title>
-      <link>/tags/machine-learning/</link>
+      <link>https://tkoomar.github.io/tags/machine-learning/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/machine-learning/</guid>
+      <guid>https://tkoomar.github.io/tags/machine-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>preprint</title>
-      <link>/tags/preprint/</link>
+      <link>https://tkoomar.github.io/tags/preprint/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/preprint/</guid>
+      <guid>https://tkoomar.github.io/tags/preprint/</guid>
       <description></description>
     </item>
     
     <item>
       <title>random forest</title>
-      <link>/tags/random-forest/</link>
+      <link>https://tkoomar.github.io/tags/random-forest/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      <guid>/tags/random-forest/</guid>
+      <guid>https://tkoomar.github.io/tags/random-forest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cloud</title>
-      <link>/tags/cloud/</link>
+      <link>https://tkoomar.github.io/tags/cloud/</link>
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>/tags/cloud/</guid>
+      <guid>https://tkoomar.github.io/tags/cloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>data visualization</title>
-      <link>/tags/data-visualization/</link>
+      <link>https://tkoomar.github.io/tags/data-visualization/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/data-visualization/</guid>
+      <guid>https://tkoomar.github.io/tags/data-visualization/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gene expression</title>
-      <link>/tags/gene-expression/</link>
+      <link>https://tkoomar.github.io/tags/gene-expression/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/gene-expression/</guid>
+      <guid>https://tkoomar.github.io/tags/gene-expression/</guid>
       <description></description>
     </item>
     

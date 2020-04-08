@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>preprint | Tanner Koomar</title>
-    <link>/tags/preprint/</link>
-      <atom:link href="/tags/preprint/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/preprint/</link>
+      <atom:link href="https://tkoomar.github.io/tags/preprint/index.xml" rel="self" type="application/rss+xml" />
     <description>preprint</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Thu, 18 Oct 2018 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>preprint</title>
-      <link>/tags/preprint/</link>
+      <link>https://tkoomar.github.io/tags/preprint/</link>
     </image>
     
     <item>
       <title>Forecasting autism gene discovery with machine learning and genome-scale data</title>
-      <link>/publication/2018-forecasd-preprint/</link>
+      <link>https://tkoomar.github.io/publication/2018-forecasd-preprint/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      <guid>/publication/2018-forecasd-preprint/</guid>
+      <guid>https://tkoomar.github.io/publication/2018-forecasd-preprint/</guid>
       <description></description>
     </item>
     

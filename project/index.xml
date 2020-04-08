@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects | Tanner Koomar</title>
-    <link>/project/</link>
-      <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/project/</link>
+      <atom:link href="https://tkoomar.github.io/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Projects</title>
-      <link>/project/</link>
+      <link>https://tkoomar.github.io/project/</link>
     </image>
     
     <item>
       <title>Web-based Language Screener</title>
-      <link>/project/language-screener/</link>
+      <link>https://tkoomar.github.io/project/language-screener/</link>
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>/project/language-screener/</guid>
+      <guid>https://tkoomar.github.io/project/language-screener/</guid>
       <description>&lt;p&gt;Well-powered genetic studies of any complex trait require large cohorts. Most current methods of assessing language ability have their roots in clinical practice, and require one on one interaction between a subject and an evaluator. Furthermore, these tests are formulated to be sensitive to variations at the low end of the ability spectrum, but cannot differentiate between individuals of average or better ability.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;The study of language genetics needs a rapid, scalable assessment which can detect a wide range of ability levels.&lt;/strong&gt; We are developing a web-based language screening tool composed of a mixture of established and new assessments with an eye to detecting meaningful variation in the language ability of adults.&lt;/p&gt;
 &lt;h2 id=&#34;booth&#34;&gt;Booth&lt;/h2&gt;
@@ -28,9 +28,9 @@
     
     <item>
       <title>Genetics of Language Ability</title>
-      <link>/project/language-wgs/</link>
+      <link>https://tkoomar.github.io/project/language-wgs/</link>
       <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-      <guid>/project/language-wgs/</guid>
+      <guid>https://tkoomar.github.io/project/language-wgs/</guid>
       <description>&lt;p&gt;In this NIDCD/NICHD-supported project, we are performing whole-genome sequencing of a cohort of Iowa children with language impairment (collected by UI collaborator Bruce Tomblin), where we hope to identify genes and mutations involved in the acquisition and use of language. We hope that research in this area will eventually help to further refine the categorization of language pathology so that therapies can be more targeted and effective.&lt;/p&gt;
 </description>
     </item>
