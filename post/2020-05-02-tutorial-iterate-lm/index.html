@@ -657,7 +657,7 @@ This short tutorial covers the basics of making and using a function that takes 
   <div class="article-container">
 
     <div class="article-style">
-      <p>Note that this is not without shortcomings and lacks some flexibility, but it does keep you from having dig deep into how formula’s actually work in R – which many (myself included) confusing in the extreme.</p>
+      <p>Note that this is not without shortcomings and lacks some flexibility, but it does keep you from having dig deep into how formulas actually work in R – which many (myself included) find confusing in the extreme.</p>
 <p>For this example, let’s work with the standard <code>mtcars</code> dataset.</p>
 <pre class="r"><code>head(mtcars)</code></pre>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
@@ -704,15 +704,17 @@ summary(model_1)</code></pre>
 <h2>Iterate (apply) over many dependent and independent variables</h2>
 <div id="first-make-a-big-ol-list-of-the-different-combinations-of-variables-you-want-in-your-models" class="section level4">
 <h4>First, make a big ol’ list of the different combinations of variables you want in your models:</h4>
+</div>
+<div id="now-do-a-nested-apply-over-each-of-those" class="section level4">
+<h4>Now do a nested <code>apply()</code> over each of those</h4>
 <pre class="r"><code>model_list &lt;- apply(left_hand_side, 1, function(lhs){
   apply(right_hand_side, 1,function(rhs){
     lm_caller(LHS = lhs, RHS = rhs, data = mtcars)
   })
 })</code></pre>
 <p>One major downside to munging strings for model specification is that the formula stored in the resulting models will all look identical:</p>
-<pre class="r"><code>model_list[1]</code></pre>
+<pre class="r"><code>model_list[[1]][1:2]</code></pre>
 <pre><code>## [[1]]
-## [[1]][[1]]
 ## 
 ## Call:
 ## lm(formula = formula, data = data)
@@ -722,54 +724,14 @@ summary(model_1)</code></pre>
 ##      37.885       -2.876  
 ## 
 ## 
-## [[1]][[2]]
+## [[2]]
 ## 
 ## Call:
 ## lm(formula = formula, data = data)
 ## 
 ## Coefficients:
 ## (Intercept)         disp  
-##    29.59985     -0.04122  
-## 
-## 
-## [[1]][[3]]
-## 
-## Call:
-## lm(formula = formula, data = data)
-## 
-## Coefficients:
-## (Intercept)           wt  
-##      37.285       -5.344  
-## 
-## 
-## [[1]][[4]]
-## 
-## Call:
-## lm(formula = formula, data = data)
-## 
-## Coefficients:
-## (Intercept)         qsec  
-##      -5.114        1.412  
-## 
-## 
-## [[1]][[5]]
-## 
-## Call:
-## lm(formula = formula, data = data)
-## 
-## Coefficients:
-## (Intercept)         disp           wt  
-##    34.96055     -0.01772     -3.35083  
-## 
-## 
-## [[1]][[6]]
-## 
-## Call:
-## lm(formula = formula, data = data)
-## 
-## Coefficients:
-##  cyl  
-## 2.79</code></pre>
+##    29.59985     -0.04122</code></pre>
 <p>Mapping these models back to their original data is a bit of a pain. There is a way to do it that <em>I</em> find much cleaner, so long as you are willing to. . .</p>
 </div>
 <div id="do-it-tidy" class="section level3">
