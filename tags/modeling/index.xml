@@ -144,46 +144,46 @@ head(model_dat)&lt;/code&gt;&lt;/pre&gt;
 ## 5 am    qsec      &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [2 × 5]&amp;gt; 
 ## 6 am    wt        &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [2 × 5]&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now, with an &lt;code&gt;unnest&lt;/code&gt;, we can access the most relevant parts of each model.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidyr::unnest(model_dat[,-5], model_summary)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 18 x 14
-##    lhs   rhs   model r.squared adj.r.squared  sigma statistic  p.value    df
-##    &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;lis&amp;gt;     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
-##  1 am    cyl   &amp;lt;lm&amp;gt;     0.273         0.249   0.432     11.3  2.15e- 3     2
-##  2 am    cyl … &amp;lt;lm&amp;gt;     0.253         0.229   0.560     10.5  2.84e- 3     1
-##  3 am    disp  &amp;lt;lm&amp;gt;     0.350         0.328   0.409     16.1  3.66e- 4     2
-##  4 am    disp… &amp;lt;lm&amp;gt;     0.482         0.446   0.371     13.5  7.17e- 5     3
-##  5 am    qsec  &amp;lt;lm&amp;gt;     0.0528        0.0213  0.494      1.67 2.06e- 1     2
-##  6 am    wt    &amp;lt;lm&amp;gt;     0.480         0.462   0.366     27.6  1.13e- 5     2
-##  7 hp    cyl   &amp;lt;lm&amp;gt;     0.693         0.683  38.6       67.7  3.48e- 9     2
-##  8 hp    cyl … &amp;lt;lm&amp;gt;     0.939         0.937  40.5      476.   2.23e-20     1
-##  9 hp    disp  &amp;lt;lm&amp;gt;     0.626         0.613  42.6       50.1  7.14e- 8     2
-## 10 hp    disp… &amp;lt;lm&amp;gt;     0.635         0.609  42.9       25.2  4.57e- 7     3
-## 11 hp    qsec  &amp;lt;lm&amp;gt;     0.502         0.485  49.2       30.2  5.77e- 6     2
-## 12 hp    wt    &amp;lt;lm&amp;gt;     0.434         0.415  52.4       23.0  4.15e- 5     2
-## 13 mpg   cyl   &amp;lt;lm&amp;gt;     0.726         0.717   3.21      79.6  6.11e-10     2
-## 14 mpg   cyl … &amp;lt;lm&amp;gt;     0.734         0.725  11.0       85.5  2.02e-10     1
-## 15 mpg   disp  &amp;lt;lm&amp;gt;     0.718         0.709   3.25      76.5  9.38e-10     2
-## 16 mpg   disp… &amp;lt;lm&amp;gt;     0.781         0.766   2.92      51.7  2.74e-10     3
-## 17 mpg   qsec  &amp;lt;lm&amp;gt;     0.175         0.148   5.56       6.38 1.71e- 2     2
-## 18 mpg   wt    &amp;lt;lm&amp;gt;     0.753         0.745   3.05      91.4  1.29e-10     2
-## # … with 5 more variables: logLik &amp;lt;dbl&amp;gt;, AIC &amp;lt;dbl&amp;gt;, BIC &amp;lt;dbl&amp;gt;, deviance &amp;lt;dbl&amp;gt;,
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidyr::unnest(model_dat[,c(-3,-5)], model_summary)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 18 x 13
+##    lhs   rhs   r.squared adj.r.squared  sigma statistic  p.value    df logLik
+##    &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1 am    cyl      0.273         0.249   0.432     11.3  2.15e- 3     2  -17.5
+##  2 am    cyl …    0.253         0.229   0.560     10.5  2.84e- 3     1  -26.3
+##  3 am    disp     0.350         0.328   0.409     16.1  3.66e- 4     2  -15.8
+##  4 am    disp…    0.482         0.446   0.371     13.5  7.17e- 5     3  -12.1
+##  5 am    qsec     0.0528        0.0213  0.494      1.67 2.06e- 1     2  -21.8
+##  6 am    wt       0.480         0.462   0.366     27.6  1.13e- 5     2  -12.2
+##  7 hp    cyl      0.693         0.683  38.6       67.7  3.48e- 9     2 -161. 
+##  8 hp    cyl …    0.939         0.937  40.5      476.   2.23e-20     1 -163. 
+##  9 hp    disp     0.626         0.613  42.6       50.1  7.14e- 8     2 -164. 
+## 10 hp    disp…    0.635         0.609  42.9       25.2  4.57e- 7     3 -164. 
+## 11 hp    qsec     0.502         0.485  49.2       30.2  5.77e- 6     2 -169. 
+## 12 hp    wt       0.434         0.415  52.4       23.0  4.15e- 5     2 -171. 
+## 13 mpg   cyl      0.726         0.717   3.21      79.6  6.11e-10     2  -81.7
+## 14 mpg   cyl …    0.734         0.725  11.0       85.5  2.02e-10     1 -122. 
+## 15 mpg   disp     0.718         0.709   3.25      76.5  9.38e-10     2  -82.1
+## 16 mpg   disp…    0.781         0.766   2.92      51.7  2.74e-10     3  -78.1
+## 17 mpg   qsec     0.175         0.148   5.56       6.38 1.71e- 2     2  -99.3
+## 18 mpg   wt       0.753         0.745   3.05      91.4  1.29e-10     2  -80.0
+## # … with 4 more variables: AIC &amp;lt;dbl&amp;gt;, BIC &amp;lt;dbl&amp;gt;, deviance &amp;lt;dbl&amp;gt;,
 ## #   df.residual &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidyr::unnest(model_dat[,-4], model_coefficient)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 36 x 8
-##    lhs   rhs       model  term         estimate std.error statistic     p.value
-##    &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;list&amp;gt; &amp;lt;chr&amp;gt;           &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;
-##  1 am    cyl       &amp;lt;lm&amp;gt;   (Intercept)  1.31      0.280        4.68  0.0000571  
-##  2 am    cyl       &amp;lt;lm&amp;gt;   cyl         -0.146     0.0435      -3.36  0.00215    
-##  3 am    cyl - 1   &amp;lt;lm&amp;gt;   cyl          0.0498    0.0154       3.24  0.00284    
-##  4 am    disp      &amp;lt;lm&amp;gt;   (Intercept)  0.955     0.155        6.18  0.000000855
-##  5 am    disp      &amp;lt;lm&amp;gt;   disp        -0.00238   0.000593    -4.02  0.000366   
-##  6 am    disp + wt &amp;lt;lm&amp;gt;   (Intercept)  1.60      0.276        5.81  0.00000266 
-##  7 am    disp + wt &amp;lt;lm&amp;gt;   disp         0.000451  0.00117      0.386 0.703      
-##  8 am    disp + wt &amp;lt;lm&amp;gt;   wt          -0.404     0.148       -2.73  0.0108     
-##  9 am    qsec      &amp;lt;lm&amp;gt;   (Intercept)  1.55      0.890        1.74  0.0914     
-## 10 am    qsec      &amp;lt;lm&amp;gt;   qsec        -0.0642    0.0496      -1.29  0.206      
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidyr::unnest(model_dat[,-3:-4], model_coefficient)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 36 x 7
+##    lhs   rhs       term         estimate std.error statistic     p.value
+##    &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;chr&amp;gt;           &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;
+##  1 am    cyl       (Intercept)  1.31      0.280        4.68  0.0000571  
+##  2 am    cyl       cyl         -0.146     0.0435      -3.36  0.00215    
+##  3 am    cyl - 1   cyl          0.0498    0.0154       3.24  0.00284    
+##  4 am    disp      (Intercept)  0.955     0.155        6.18  0.000000855
+##  5 am    disp      disp        -0.00238   0.000593    -4.02  0.000366   
+##  6 am    disp + wt (Intercept)  1.60      0.276        5.81  0.00000266 
+##  7 am    disp + wt disp         0.000451  0.00117      0.386 0.703      
+##  8 am    disp + wt wt          -0.404     0.148       -2.73  0.0108     
+##  9 am    qsec      (Intercept)  1.55      0.890        1.74  0.0914     
+## 10 am    qsec      qsec        -0.0642    0.0496      -1.29  0.206      
 ## # … with 26 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Functions like &lt;code&gt;filter()&lt;/code&gt; and &lt;code&gt;ggplot()&lt;/code&gt; are extremely useful at this point to get a beter feel for what your mnodels are actually saying, bu we will save that for another time.&lt;/p&gt;
+&lt;p&gt;Functions like &lt;code&gt;filter()&lt;/code&gt; and &lt;code&gt;ggplot()&lt;/code&gt; are extremely useful at this point to get a beter feel for what your mnodels are actually saying, but we will save that for another time.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
