@@ -5,7 +5,7 @@
     <link>https://tkoomar.github.io/tags/</link>
       <atom:link href="https://tkoomar.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sat, 02 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Tags</title>
@@ -13,18 +13,50 @@
     </image>
     
     <item>
-      <title>ggtext</title>
-      <link>https://tkoomar.github.io/tags/ggtext/</link>
-      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/tags/ggtext/</guid>
+      <title>lm</title>
+      <link>https://tkoomar.github.io/tags/lm/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/lm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>modeling</title>
+      <link>https://tkoomar.github.io/tags/modeling/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/modeling/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
       <link>https://tkoomar.github.io/tags/r/</link>
-      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
       <guid>https://tkoomar.github.io/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidy</title>
+      <link>https://tkoomar.github.io/tags/tidy/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/tidy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tutorial</title>
+      <link>https://tkoomar.github.io/tags/tutorial/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ggtext</title>
+      <link>https://tkoomar.github.io/tags/ggtext/</link>
+      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/ggtext/</guid>
       <description></description>
     </item>
     
