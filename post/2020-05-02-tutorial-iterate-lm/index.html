@@ -698,6 +698,8 @@ summary(model_1)</code></pre>
 <h2>Iterate (apply) over many dependent and independent variables</h2>
 <div id="first-make-a-big-ol-list-of-the-different-combinations-of-variables-you-want-in-your-models" class="section level4">
 <h4>First, make a big ol’ list of the different combinations of variables you want in your models:</h4>
+<pre class="r"><code>left_hand_side &lt;- data.frame(lhs = c(&#39;mpg&#39;, &#39;hp&#39;, &#39;am&#39;))
+right_hand_side &lt;- data.frame(rhs = c(&#39;cyl&#39;, &#39;disp&#39;, &#39;wt&#39;, &#39;qsec&#39;, &#39;disp + wt&#39;, &#39;cyl - 1&#39;))</code></pre>
 </div>
 <div id="now-do-a-nested-apply-over-each-of-those" class="section level4">
 <h4>Now do a nested <code>apply()</code> over each of those</h4>

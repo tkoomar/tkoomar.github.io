@@ -64,6 +64,8 @@ summary(model_1)&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Iterate (apply) over many dependent and independent variables&lt;/h2&gt;
 &lt;div id=&#34;first-make-a-big-ol-list-of-the-different-combinations-of-variables-you-want-in-your-models&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;First, make a big ol’ list of the different combinations of variables you want in your models:&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;left_hand_side &amp;lt;- data.frame(lhs = c(&amp;#39;mpg&amp;#39;, &amp;#39;hp&amp;#39;, &amp;#39;am&amp;#39;))
+right_hand_side &amp;lt;- data.frame(rhs = c(&amp;#39;cyl&amp;#39;, &amp;#39;disp&amp;#39;, &amp;#39;wt&amp;#39;, &amp;#39;qsec&amp;#39;, &amp;#39;disp + wt&amp;#39;, &amp;#39;cyl - 1&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;now-do-a-nested-apply-over-each-of-those&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Now do a nested &lt;code&gt;apply()&lt;/code&gt; over each of those&lt;/h4&gt;
