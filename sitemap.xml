@@ -3,6 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://tkoomar.github.io/tags/data-visualization/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/project/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/tags/r/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/project/simple-features-for-science/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/tags/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tkoomar.github.io/categories/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
@@ -23,22 +53,7 @@
   </url>
   
   <url>
-    <loc>https://tkoomar.github.io/tags/r/</loc>
-    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</loc>
-    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tkoomar.github.io/tags/</loc>
-    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tkoomar.github.io/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -53,7 +68,7 @@
   </url>
   
   <url>
-    <loc>https://tkoomar.github.io/categories/tutorial/</loc>
+    <loc>https://tkoomar.github.io/categories/tutorials/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -213,11 +228,6 @@
   </url>
   
   <url>
-    <loc>https://tkoomar.github.io/post/2018-12-12-tt-malaria/</loc>
-    <lastmod>2018-12-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tkoomar.github.io/tags/polygenic-risk/</loc>
     <lastmod>2018-12-01T00:00:00+00:00</lastmod>
   </url>
@@ -288,22 +298,12 @@
   </url>
   
   <url>
-    <loc>https://tkoomar.github.io/project/</loc>
-    <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tkoomar.github.io/project/language-screener/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</loc>
-    <lastmod>2016-12-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tkoomar.github.io/tags/data-visualization/</loc>
     <lastmod>2016-12-15T00:00:00+00:00</lastmod>
   </url>
   

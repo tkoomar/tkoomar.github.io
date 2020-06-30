@@ -206,44 +206,6 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -570,8 +532,14 @@
     <div class="article-style">
       
 
-
-<p>This short tutorial covers the basics of making and using a function that takes characters for dependent (LHS) and independent (RHS) …</p>
+<div id="TOC">
+<ul>
+<li><a href="#the-function-lm_caller">The function, <code>lm_caller()</code></a></li>
+<li><a href="#run-the-function-manually">Run the function manually</a></li>
+<li><a href="#iterate-apply-over-many-dependent-and-independent-variables">Iterate (apply) over many dependent and independent variables</a><ul>
+<li><a href="#do-it-tidy">Do it tidy!</a></li>
+</ul></li>
+<li><a href="#plot-from-multiple-models-with-ggplot">Plot …</a></li></li></ul></li></ul></div>
     </div>
     
 
@@ -603,7 +571,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    7 min read
+    8 min read
   </span>
   
 
@@ -615,7 +583,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="../categories/tutorial/">tutorial</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="../categories/tutorials/">tutorials</a></span>
   
 
 </div>

@@ -5,12 +5,28 @@
     <link>https://tkoomar.github.io/tags/</link>
       <atom:link href="https://tkoomar.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sat, 02 May 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Tue, 30 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Tags</title>
       <link>https://tkoomar.github.io/tags/</link>
     </image>
+    
+    <item>
+      <title>data visualization</title>
+      <link>https://tkoomar.github.io/tags/data-visualization/</link>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/data-visualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>https://tkoomar.github.io/tags/r/</link>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/r/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>lm</title>
@@ -25,14 +41,6 @@
       <link>https://tkoomar.github.io/tags/modeling/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
       <guid>https://tkoomar.github.io/tags/modeling/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>https://tkoomar.github.io/tags/r/</link>
-      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/tags/r/</guid>
       <description></description>
     </item>
     
@@ -249,14 +257,6 @@
       <link>https://tkoomar.github.io/tags/cloud/</link>
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
       <guid>https://tkoomar.github.io/tags/cloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>data visualization</title>
-      <link>https://tkoomar.github.io/tags/data-visualization/</link>
-      <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/tags/data-visualization/</guid>
       <description></description>
     </item>
     

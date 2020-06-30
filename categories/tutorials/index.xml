@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tutorials | Tanner Koomar</title>
+    <link>https://tkoomar.github.io/categories/tutorials/</link>
+      <atom:link href="https://tkoomar.github.io/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <description>tutorials</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sat, 02 May 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
+      <title>tutorials</title>
+      <link>https://tkoomar.github.io/categories/tutorials/</link>
+    </image>
+    
+    <item>
+      <title>Simple Iteration over Variables with `lm()`</title>
+      <link>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</guid>
+      <description>&lt;p&gt;Note that this is not without shortcomings and lacks some flexibility, but it does keep you from having dig deep into how formulas actually work in R – which many (myself included) find confusing in the extreme.&lt;/p&gt;
+&lt;p&gt;For this example, let’s work with the standard &lt;code&gt;mtcars&lt;/code&gt; dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(mtcars)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;the-function-lm_caller&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The function, &lt;code&gt;lm_caller()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;The function we will make – &lt;code&gt;lm_caller()&lt;/code&gt; – is rather dull at its core. It just takes in different arguments for the left-hand side (LHS), right-hand side (RHS) and data of an model you want to fit.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm_caller &amp;lt;- function(LHS, RHS, data){
+  formula &amp;lt;- as.formula(paste0(LHS, &amp;quot; ~ &amp;quot;, RHS))
+  output &amp;lt;- lm(formula, data = data)
+  return(output)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;run-the-function-manually&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Run the function manually&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_1 &amp;lt;- lm_caller(LHS = &amp;quot;mpg&amp;quot;, RHS = &amp;quot;disp + wt&amp;quot;, data = mtcars)
+summary(model_1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = formula, data = data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;iterate-apply-over-many-dependent-and-independent-variables&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Iterate (apply) over many dependent and independent variables&lt;/h2&gt;
+&lt;div id=&#34;first-make-a-big-ol-list-of-the-different-combinations-of-variables-you-want-in-your-models&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;First, make a big ol’ list of the different combinations of variables you want in your models:&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;left_hand_side &amp;lt;- data.frame(lhs = c(&amp;#39;mpg&amp;#39;, &amp;#39;hp&amp;#39;, &amp;#39;am&amp;#39;))
+right_hand_side &amp;lt;- data.frame(rhs = c(&amp;#39;cyl&amp;#39;, &amp;#39;disp&amp;#39;, &amp;#39;wt&amp;#39;, &amp;#39;qsec&amp;#39;, &amp;#39;disp + wt&amp;#39;, &amp;#39;cyl - 1&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;now-do-a-nested-apply-over-each-of-those&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Now do a nested &lt;code&gt;apply()&lt;/code&gt; over each of those&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_list &amp;lt;- apply(left_hand_side, 1, function(lhs){
+  apply(right_hand_side, 1,function(rhs){
+    lm_caller(LHS = lhs, RHS = rhs, data = mtcars)
+  })
+})&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;One major downside to munging strings for model specification is that the formula stored in the resulting models will all look identical:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_list[[1]][1:2]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]
+## 
+## Call:
+## lm(formula = formula, data = data)
+## 
+## Coefficients:
+## (Intercept)          cyl  
+##      37.885       -2.876  
+## 
+## 
+## [[2]]
+## 
+## Call:
+## lm(formula = formula, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    29.59985     -0.04122&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mapping these models back to their original data is a bit of a pain. There is a way to do it that &lt;em&gt;I&lt;/em&gt; find much cleaner, so long as you are willing to. . .&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;do-it-tidy&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Do it tidy!&lt;/h3&gt;
+&lt;p&gt;If this approach make sense to you, I would recommend &lt;a href=&#34;https://towardsdatascience.com/functional-programming-in-r-with-purrr-469e597d0229&#34;&gt;this basic tutorial on functional programming with &lt;code&gt;purrr&lt;/code&gt; in R&lt;/a&gt; and &lt;a href=&#34;https://r4ds.had.co.nz/many-models.html&#34;&gt;this book chapter on building many models, utilizing the power of the tidyverse&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;First, make a data frame of all the left- and right-hand sides, so we can keep track of them:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;formulae_dat &amp;lt;- tidyr::crossing(left_hand_side, right_hand_side)
+head(formulae_dat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 2
+##   lhs   rhs      
+##   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;    
+## 1 am    cyl      
+## 2 am    cyl - 1  
+## 3 am    disp     
+## 4 am    disp + wt
+## 5 am    qsec     
+## 6 am    wt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, &lt;em&gt;add&lt;/em&gt; the models to this, with the help of &lt;code&gt;mutate()&lt;/code&gt; and &lt;code&gt;map2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt; we could also change up the dataset as part of this (not sure why you’d want to), but that would require using &lt;code&gt;pmap()&lt;/code&gt; instead of &lt;code&gt;map2&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_dat &amp;lt;- dplyr::mutate(formulae_dat, 
+       model = purrr::map2(lhs, rhs, function(lhs, rhs){
+         lm_caller(LHS = lhs, RHS = rhs, data = mtcars)
+         })
+       )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(model_dat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 3
+##   lhs   rhs       model 
+##   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;list&amp;gt;
+## 1 am    cyl       &amp;lt;lm&amp;gt;  
+## 2 am    cyl - 1   &amp;lt;lm&amp;gt;  
+## 3 am    disp      &amp;lt;lm&amp;gt;  
+## 4 am    disp + wt &amp;lt;lm&amp;gt;  
+## 5 am    qsec      &amp;lt;lm&amp;gt;  
+## 6 am    wt        &amp;lt;lm&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Having models inside of a dataframe might not seem any more helpful, but you can write a function to extract the parts that you really want. Or, rely on &lt;code&gt;broom&lt;/code&gt; for more common models.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt; here I’m using lambda style function specification, rather than the more verbose &lt;code&gt;function(x){}&lt;/code&gt; format.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_dat &amp;lt;- dplyr::mutate(model_dat, 
+              model_summary = purrr::map(model, ~broom::glance(.x)),
+              model_coefficient = purrr::map(model, ~broom::tidy(.x))
+              )
+
+head(model_dat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 5
+##   lhs   rhs       model  model_summary     model_coefficient
+##   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;list&amp;gt; &amp;lt;list&amp;gt;            &amp;lt;list&amp;gt;           
+## 1 am    cyl       &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [2 × 5]&amp;gt; 
+## 2 am    cyl - 1   &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [1 × 5]&amp;gt; 
+## 3 am    disp      &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [2 × 5]&amp;gt; 
+## 4 am    disp + wt &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [3 × 5]&amp;gt; 
+## 5 am    qsec      &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [2 × 5]&amp;gt; 
+## 6 am    wt        &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 × 11]&amp;gt; &amp;lt;tibble [2 × 5]&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, with an &lt;code&gt;unnest&lt;/code&gt;, we can access the most relevant parts of each model.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidyr::unnest(model_dat[,c(-3,-5)], model_summary)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 18 x 13
+##    lhs   rhs   r.squared adj.r.squared  sigma statistic  p.value    df logLik
+##    &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1 am    cyl      0.273         0.249   0.432     11.3  2.15e- 3     2  -17.5
+##  2 am    cyl …    0.253         0.229   0.560     10.5  2.84e- 3     1  -26.3
+##  3 am    disp     0.350         0.328   0.409     16.1  3.66e- 4     2  -15.8
+##  4 am    disp…    0.482         0.446   0.371     13.5  7.17e- 5     3  -12.1
+##  5 am    qsec     0.0528        0.0213  0.494      1.67 2.06e- 1     2  -21.8
+##  6 am    wt       0.480         0.462   0.366     27.6  1.13e- 5     2  -12.2
+##  7 hp    cyl      0.693         0.683  38.6       67.7  3.48e- 9     2 -161. 
+##  8 hp    cyl …    0.939         0.937  40.5      476.   2.23e-20     1 -163. 
+##  9 hp    disp     0.626         0.613  42.6       50.1  7.14e- 8     2 -164. 
+## 10 hp    disp…    0.635         0.609  42.9       25.2  4.57e- 7     3 -164. 
+## 11 hp    qsec     0.502         0.485  49.2       30.2  5.77e- 6     2 -169. 
+## 12 hp    wt       0.434         0.415  52.4       23.0  4.15e- 5     2 -171. 
+## 13 mpg   cyl      0.726         0.717   3.21      79.6  6.11e-10     2  -81.7
+## 14 mpg   cyl …    0.734         0.725  11.0       85.5  2.02e-10     1 -122. 
+## 15 mpg   disp     0.718         0.709   3.25      76.5  9.38e-10     2  -82.1
+## 16 mpg   disp…    0.781         0.766   2.92      51.7  2.74e-10     3  -78.1
+## 17 mpg   qsec     0.175         0.148   5.56       6.38 1.71e- 2     2  -99.3
+## 18 mpg   wt       0.753         0.745   3.05      91.4  1.29e-10     2  -80.0
+## # … with 4 more variables: AIC &amp;lt;dbl&amp;gt;, BIC &amp;lt;dbl&amp;gt;, deviance &amp;lt;dbl&amp;gt;,
+## #   df.residual &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidyr::unnest(model_dat[,-3:-4], model_coefficient)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 36 x 7
+##    lhs   rhs       term         estimate std.error statistic     p.value
+##    &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;chr&amp;gt;           &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;
+##  1 am    cyl       (Intercept)  1.31      0.280        4.68  0.0000571  
+##  2 am    cyl       cyl         -0.146     0.0435      -3.36  0.00215    
+##  3 am    cyl - 1   cyl          0.0498    0.0154       3.24  0.00284    
+##  4 am    disp      (Intercept)  0.955     0.155        6.18  0.000000855
+##  5 am    disp      disp        -0.00238   0.000593    -4.02  0.000366   
+##  6 am    disp + wt (Intercept)  1.60      0.276        5.81  0.00000266 
+##  7 am    disp + wt disp         0.000451  0.00117      0.386 0.703      
+##  8 am    disp + wt wt          -0.404     0.148       -2.73  0.0108     
+##  9 am    qsec      (Intercept)  1.55      0.890        1.74  0.0914     
+## 10 am    qsec      qsec        -0.0642    0.0496      -1.29  0.206      
+## # … with 26 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Functions like &lt;code&gt;filter()&lt;/code&gt; and &lt;code&gt;ggplot()&lt;/code&gt; are extremely useful at this point to get a beter feel for what your mnodels are actually saying, but we will save that for another time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plot-from-multiple-models-with-ggplot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plot from multiple models with ggplot&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse, quietly = T)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✓ ggplot2 3.3.0     ✓ purrr   0.3.3
+## ✓ tibble  3.0.0     ✓ dplyr   1.0.0
+## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_dat %&amp;gt;%
+  unnest(model_coefficient) %&amp;gt;% 
+  mutate(
+    low = estimate - std.error,
+    high = estimate + std.error, 
+    formula = paste(lhs, &amp;quot;~&amp;quot;, rhs)
+  ) %&amp;gt;%
+  ggplot(aes(estimate, term, xmin = low, xmax = high, height = 0)) +
+  geom_vline(xintercept = 0, color = &amp;#39;grey50&amp;#39;) +
+  geom_errorbarh() + 
+  geom_point() +
+  geom_text(aes(label = round(p.value, 3)), nudge_y = 0.33, ) + 
+  facet_wrap(vars(formula), scales = &amp;#39;free&amp;#39;, ncol = 2) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_dat %&amp;gt;%
+  unnest(model_coefficient) %&amp;gt;% 
+  filter(str_detect(rhs, &amp;quot;cyl&amp;quot;)) %&amp;gt;%
+  mutate(
+    low = estimate - std.error,
+    high = estimate + std.error
+  ) %&amp;gt;%
+  ggplot(aes(estimate, term, xmin = low, xmax = high, height = 0)) +
+  geom_vline(xintercept = 0, color = &amp;#39;grey50&amp;#39;) +
+  geom_errorbarh() + 
+  geom_point() +
+  geom_text(aes(label = round(p.value, 3)), nudge_y = 0.33, ) + 
+  facet_grid(rows = vars(lhs), cols = vars(rhs), scales = &amp;#39;free&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;480&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Plotting the “acutal” vs “predicted” (fitted) values takes a bit of work with &lt;code&gt;pivot_longer()&lt;/code&gt;, and is probably best done separately for each outcome variable.&lt;/p&gt;
+&lt;p&gt;Remember that ggplots are actually objects, so we can actually stick them into a dataframe and then plot them later!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_dat &amp;lt;- model_dat %&amp;gt;%
+  mutate(model_resid = map(model, broom::augment)) %&amp;gt;%
+  select(lhs, rhs, model_resid) %&amp;gt;%
+  unnest(model_resid) %&amp;gt;%
+  pivot_longer(cols = c(-starts_with(&amp;quot;.&amp;quot;), -lhs, -rhs), 
+               names_to = &amp;#39;name&amp;#39;, 
+               values_to =&amp;#39;actual&amp;#39;
+               ) %&amp;gt;%
+  filter(lhs == name) %&amp;gt;%
+  nest(data = -lhs) %&amp;gt;%
+  mutate(plot = map2(data, lhs,  ~(
+      ggplot(.x, aes(x = actual, y = .fitted, height = 0)) +
+    geom_point() +
+    facet_wrap(~rhs, scales = &amp;#39;free&amp;#39;) + 
+    labs(title = .y)
+  )))
+
+plot_dat&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 3
+##   lhs   data                plot  
+##   &amp;lt;fct&amp;gt; &amp;lt;list&amp;gt;              &amp;lt;list&amp;gt;
+## 1 am    &amp;lt;tibble [192 × 11]&amp;gt; &amp;lt;gg&amp;gt;  
+## 2 hp    &amp;lt;tibble [192 × 11]&amp;gt; &amp;lt;gg&amp;gt;  
+## 3 mpg   &amp;lt;tibble [192 × 11]&amp;gt; &amp;lt;gg&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_dat$plot&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## [[2]]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-14-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## [[3]]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-14-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

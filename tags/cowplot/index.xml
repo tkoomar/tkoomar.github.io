@@ -37,7 +37,7 @@
 &lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## get all the missing data to NA
 dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &amp;quot;missing&amp;quot;), NA)))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: funs() is soft deprecated as of dplyr 0.8.0
+&lt;pre&gt;&lt;code&gt;## Warning: `funs()` is deprecated as of dplyr 0.8.0.
 ## Please use a list of either functions or lambdas: 
 ## 
 ##   # Simple named list: 
@@ -48,7 +48,8 @@ dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, 
 ## 
 ##   # Using lambdas
 ##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.&lt;/code&gt;&lt;/pre&gt;
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## drop rows and columns with high missing
 dat.comp &amp;lt;- dat %&amp;gt;% select_if( function(x){sum(is.na(x))/length(x) &amp;lt; .15}) %&amp;gt;%
   filter(rowMeans(is.na(.)) &amp;lt; 0.15)

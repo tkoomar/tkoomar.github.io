@@ -206,44 +206,6 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -1192,103 +1154,6 @@
   <div class="media-body">
 
     <h3 class="article-title mb-0 mt-0">
-      <a href="../post/2018-12-12-tt-malaria/" >Tidy Tuesday: Malaria</a>
-    </h3>
-
-    
-    <div class="article-style">
-      
-
-
-
-    </div>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-    
-    Dec 12, 2018
-  </span>
-  
-
-  
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    3 min read
-  </span>
-  
-
-  
-  
-  
-
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="../categories/tidytuesday/">tidytuesday</a></span>
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-    
-    <a href="../post/2018-12-12-tt-malaria/" >
-      <img src="../post/2018-12-12-tt-malaria/featured_hu4524162fb4b95c0ff9a83a18a6f7b883_469327_150x0_resize_lanczos_2.png" alt="">
-    </a>
-    
-  </div>
-</div>
-
-      
-    
-      
-        
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item">
-  <div class="media-body">
-
-    <h3 class="article-title mb-0 mt-0">
       <a href="../post/2018-11-20-tt-gravy/" >Tidy Tuesday: Thanksgiving Gravy</a>
     </h3>
 
@@ -1297,8 +1162,7 @@
       
 
 
-<p>Learn what your gravy eating habits say about you with a fun fall color scheme from the <code>wesanderson</code> package.
-
+<p>Learn what your gravy eating habits say about you with a fun fall color scheme from the <code>wesanderson</code> package. 
     </div>
     
 
@@ -1455,7 +1319,7 @@
     
     
     <a href="../post/2018-11-06-tt-wind-power/" >
-      <img src="../post/2018-11-06-tt-wind-power/featured_hudd11206ee0084b3e9dd8bafeff328aad_558235_150x0_resize_lanczos_2.png" alt="">
+      <img src="../post/2018-11-06-tt-wind-power/featured_hucc7a413828839363a5edfc4405d105c4_571927_150x0_resize_lanczos_2.png" alt="">
     </a>
     
   </div>

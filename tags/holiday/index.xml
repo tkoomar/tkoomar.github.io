@@ -164,8 +164,9 @@ plot_or&lt;/code&gt;&lt;/pre&gt;
     panel.grid = element_line(color = &amp;quot;#fcf7e8&amp;quot;),
     panel.grid.minor = element_blank(),
     plot.title = element_text(size = 15, hjust = 0.5)
-  ) 
-plot_income&lt;/code&gt;&lt;/pre&gt;
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` ungrouping output (override with `.groups` argument)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_income&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;text-boxes&#34; class=&#34;section level2&#34;&gt;

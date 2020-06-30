@@ -346,132 +346,6 @@ dev.off()
     </item>
     
     <item>
-      <title>Tidy Tuesday: Malaria</title>
-      <link>https://tkoomar.github.io/post/2018-12-12-tt-malaria/</link>
-      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2018-12-12-tt-malaria/</guid>
-      <description>&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.3.0 ──&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ✓ ggplot2 3.3.0.9000     ✓ purrr   0.3.3     
-## ✓ tibble  2.1.3          ✓ dplyr   0.8.3     
-## ✓ tidyr   1.0.0          ✓ stringr 1.4.0     
-## ✓ readr   1.3.1          ✓ forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(geojsonio)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Attaching package: &amp;#39;geojsonio&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:base&amp;#39;:
-## 
-##     pretty&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(showtext) ## for google fonts&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Loading required package: sysfonts&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Loading required package: showtextdb&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat_death &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-13/malaria_deaths.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   Entity = col_character(),
-##   Code = col_character(),
-##   Year = col_double(),
-##   `Deaths - Malaria - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)` = col_double()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat_age &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-13/malaria_deaths_age.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Missing column names filled in: &amp;#39;X1&amp;#39; [1]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   entity = col_character(),
-##   code = col_character(),
-##   year = col_double(),
-##   age_group = col_character(),
-##   deaths = col_double()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat_inc &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-13/malaria_inc.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   Entity = col_character(),
-##   Code = col_character(),
-##   Year = col_double(),
-##   `Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)` = col_double()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let’s look at the change over time (increase or in)&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat_death &amp;lt;- dat_death %&amp;gt;% 
-  filter(Year &amp;gt;= 1995,
-         Year &amp;lt;= 2015) %&amp;gt;%
-  mutate(lustrum = cut_number(Year, 4)) %&amp;gt;% 
-  group_by(Code, lustrum) %&amp;gt;% 
-  summarize(
-    &amp;quot;malaria death rate&amp;quot; = cor(`Deaths - Malaria - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)`, Year, method = &amp;quot;p&amp;quot; )
-            )
-dat_inc &amp;lt;- dat_inc %&amp;gt;% 
-  filter(`Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)` != 0) %&amp;gt;%
-  group_by(Code) %&amp;gt;% 
-  rename(
-    &amp;quot;malaria incidence rate&amp;quot; = `Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)`
-            )
-dat_age &amp;lt;- dat_age %&amp;gt;% 
-  filter(year &amp;gt;= 1995,
-         year &amp;lt;= 2015,
-         deaths != 0) %&amp;gt;%
-  mutate(lustrum = cut_number(year, 4)) %&amp;gt;% 
-  group_by(code, lustrum, age_group) %&amp;gt;% 
-  rename(Code = &amp;quot;code&amp;quot;, Year = &amp;quot;year&amp;quot;) %&amp;gt;%
-  summarize(
-    &amp;quot;deaths per age&amp;quot; = cor(deaths, Year, method = &amp;quot;p&amp;quot; )
-            )&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;get-map-of-world&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;get map of world&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;world &amp;lt;- geojson_read(&amp;#39;https://github.com/simonepri/geo-maps/releases/download/v0.6.0/countries-land-10km.geo.json&amp;#39;, what = &amp;quot;sp&amp;quot;)
-w &amp;lt;- sf::st_as_sf(world) %&amp;gt;% rename(&amp;quot;Code&amp;quot; = &amp;quot;A3&amp;quot;)
-dat_w &amp;lt;- w %&amp;gt;% 
-  left_join(dat_death) %&amp;gt;% 
-  left_join(dat_age) %&amp;gt;% 
-  left_join(dat_inc)
-dat_w &amp;lt;- dat_w %&amp;gt;% mutate(
-  lustrum = case_when(
-    lustrum == &amp;quot;[1995,2000]&amp;quot; ~ &amp;quot;1995 - 2000&amp;quot;,
-    lustrum == &amp;quot;(2000,2005]&amp;quot; ~ &amp;quot;2000 - 2005&amp;quot;,
-    lustrum == &amp;quot;(2005,2010]&amp;quot; ~ &amp;quot;2005 - 2010&amp;quot;,
-    lustrum == &amp;quot;(2010,2015]&amp;quot; ~ &amp;quot;2010 - 2015&amp;quot;
-  )
-) %&amp;gt;% filter(!is.na(lustrum))
-font_add_google(&amp;quot;Josefin Sans&amp;quot;)
-showtext_auto(144)
-malaria_plot &amp;lt;- dat_w %&amp;gt;% ggplot(
-  aes(
-    fill = cut_width(`malaria death rate`, center = 0, width = 0.5)
-    )
-  ) +
-  geom_sf(aes(color = is.na(`malaria death rate`)))+ 
-  coord_sf(ndiscr = 0) +
-  theme_void() + 
-  scale_color_manual(values = c(&amp;quot;TRUE&amp;quot; = &amp;quot;#d9e8f5&amp;quot;, &amp;quot;FALSE&amp;quot; = NA), 
-                     guide = &amp;#39;none&amp;#39;) + 
-  scale_fill_brewer(palette = &amp;quot;RdYlGn&amp;quot;, 
-                    direction = -1, 
-                    labels = c(&amp;quot;decrease&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;increase&amp;quot;, &amp;quot;&amp;quot;),
-                    guide = guide_legend(
-                      label.position = &amp;quot;left&amp;quot;, 
-                      override.aes = list(color = NA)) 
-                    ) + 
-  theme(
-    plot.background = element_rect(fill = &amp;quot;#c9dff2&amp;quot;),
-    legend.title = element_blank(),
-    legend.text = element_text(),
-    legend.key = element_blank(),
-    text = element_text(family = &amp;quot;Josefin Sans&amp;quot;, size = 18)
-  ) + 
-  ggtitle(&amp;quot;annual change in malaria mortality rates from 1995 to 2015&amp;quot;, &amp;quot;A #TidyTuesday adventure by @TannerKoomar&amp;quot;) + 
-  facet_wrap(. ~ lustrum, ncol = 2)
-malaria_plot&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../post/2018-12-12-tt-malaria/index_files/figure-html/final-plot-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Tidy Tuesday: USA Wind Power</title>
       <link>https://tkoomar.github.io/post/2018-11-06-tt-wind-power/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
@@ -496,7 +370,7 @@ malaria_plot&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## get all the missing data to NA
 dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &amp;quot;missing&amp;quot;), NA)))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: funs() is soft deprecated as of dplyr 0.8.0
+&lt;pre&gt;&lt;code&gt;## Warning: `funs()` is deprecated as of dplyr 0.8.0.
 ## Please use a list of either functions or lambdas: 
 ## 
 ##   # Simple named list: 
@@ -507,7 +381,8 @@ dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, 
 ## 
 ##   # Using lambdas
 ##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.&lt;/code&gt;&lt;/pre&gt;
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## drop rows and columns with high missing
 dat.comp &amp;lt;- dat %&amp;gt;% select_if( function(x){sum(is.na(x))/length(x) &amp;lt; .15}) %&amp;gt;%
   filter(rowMeans(is.na(.)) &amp;lt; 0.15)

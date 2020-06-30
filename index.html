@@ -206,44 +206,6 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -277,7 +239,7 @@
   <meta property="og:description" content="PhD Candidate"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:square]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:square]"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-05-02T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-06-30T00:00:00&#43;00:00">
   
 
   
@@ -845,6 +807,97 @@
     
 
     <div class=" row js-layout-row project-showcase mt-5">
+      
+
+        
+        
+        
+          
+          
+        
+
+        
+          
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<div class="col-lg-12 project-item isotope-item js-id-data-visualization js-id-R">
+  <div class="row align-items-center">
+    <div class="col-12 col-md-6">
+      <h3 class="article-title mb-0 mt-0"><a href="https://tkoomar.github.io/sffs/index.html" target="_blank" rel="noopener">Simple Features for Science</a></h3>
+
+      
+      <div class="article-style">
+        <p>Simple Features for Science (<code>sffs</code> for short) is a warehouse of vector-based diagrams for use as heatmaps.</p>
+
+      </div>
+      
+
+      <div class="btn-links">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+    <div class="col-12 col-md-6 order-first ">
+      
+      
+      
+      <a href="https://tkoomar.github.io/sffs/index.html" target="_blank" rel="noopener">
+        <img src="./project/simple-features-for-science/featured_hua5315b00c3741146b42daad05ba1ba12_420673_540x0_resize_lanczos_2.png" alt="">
+      </a>
+      
+    </div>
+  </div>
+</div>
+
+        
+
       
 
         
@@ -1796,7 +1849,7 @@
     
     
   <a data-fancybox="gallery-gallery" href="./home/tidytuesday-gallery/gallery/05.png" >
-  <img data-src="./home/tidytuesday-gallery/gallery/05_hudd11206ee0084b3e9dd8bafeff328aad_558235_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="380" height="190">
+  <img data-src="./home/tidytuesday-gallery/gallery/05_hucc7a413828839363a5edfc4405d105c4_571927_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="380" height="190">
   </a>
   
     
@@ -1924,7 +1977,7 @@
           
           
           
-          <a href="./tags/data-visualization/" style="font-size:0.7rem">data visualization</a>
+          <a href="./tags/data-visualization/" style="font-size:1.0626258293464688rem">data visualization</a>
         
           
           
@@ -1979,7 +2032,7 @@
           
           
           
-          <a href="./tags/map/" style="font-size:1.2747483413070624rem">map</a>
+          <a href="./tags/map/" style="font-size:1.0626258293464688rem">map</a>
         
           
           

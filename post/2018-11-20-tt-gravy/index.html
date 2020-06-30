@@ -31,8 +31,7 @@
   <meta name="description" content="
 
 
-Learn what your gravy eating habits say about you with a fun fall color scheme from the wesanderson package.
-">
+Learn what your gravy eating habits say about you with a fun fall color scheme from the wesanderson package. ">
 
   
   <link rel="alternate" hreflang="en-us" href="https://tkoomar.github.io/post/2018-11-20-tt-gravy/">
@@ -210,44 +209,6 @@ Learn what your gravy eating habits say about you with a fun fall color scheme f
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -278,8 +239,7 @@ Learn what your gravy eating habits say about you with a fun fall color scheme f
   <meta property="og:description" content="
 
 
-Learn what your gravy eating habits say about you with a fun fall color scheme from the wesanderson package.
-"><meta property="og:image" content="https://tkoomar.github.io/post/2018-11-20-tt-gravy/featured.png">
+Learn what your gravy eating habits say about you with a fun fall color scheme from the wesanderson package. "><meta property="og:image" content="https://tkoomar.github.io/post/2018-11-20-tt-gravy/featured.png">
   <meta property="twitter:image" content="https://tkoomar.github.io/post/2018-11-20-tt-gravy/featured.png"><meta property="og:locale" content="en-us">
   
     
@@ -335,7 +295,7 @@ Learn what your gravy eating habits say about you with a fun fall color scheme f
       "url": "img/https://tkoomar.github.io/"
     }
   },
-  "description": "\n\n\n\u003cp\u003eLearn what your gravy eating habits say about you with a fun fall color scheme from the \u003ccode\u003ewesanderson\u003c/code\u003e package.\n"
+  "description": "\n\n\n\u003cp\u003eLearn what your gravy eating habits say about you with a fun fall color scheme from the \u003ccode\u003ewesanderson\u003c/code\u003e package. "
 }
 </script>
 
@@ -816,8 +776,9 @@ plot_or</code></pre>
     panel.grid = element_line(color = &quot;#fcf7e8&quot;),
     panel.grid.minor = element_blank(),
     plot.title = element_text(size = 15, hjust = 0.5)
-  ) 
-plot_income</code></pre>
+  ) </code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>plot_income</code></pre>
 <p><img src="../../post/2018-11-20-tt-gravy/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="text-boxes" class="section level2">

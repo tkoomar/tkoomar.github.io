@@ -206,44 +206,6 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -548,7 +510,7 @@
       <h2><a href="../../post/2020-05-02-tutorial-iterate-lm/" >Simple Iteration over Variables with `lm()`</a></h2>
       <div class="article-style">
         
-           This short tutorial covers the basics of making and using a function that takes characters for dependent (LHS) and independent (RHS) variables of interest and converts them into a formula for use in modeling, such as with ‘lm()’.
+            The function, lm_caller() Run the function manually Iterate (apply) over many dependent and independent variables Do it tidy!  Plot from multiple models with ggplot   This short tutorial covers the basics of making and using a function that takes characters for dependent (LHS) and independent (RHS) variables of interest and converts them into a formula for use in modeling, such as with ‘lm()’.
 
         
       </div>

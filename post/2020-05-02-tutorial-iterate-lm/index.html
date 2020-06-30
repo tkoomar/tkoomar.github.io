@@ -31,6 +31,16 @@
   <meta name="description" content="
 
 
+
+The function, lm_caller()
+Run the function manually
+Iterate (apply) over many dependent and independent variables
+Do it tidy!
+
+Plot from multiple models with ggplot
+
+
+
 This short tutorial covers the basics of making and using a function that takes characters for dependent (LHS) and independent (RHS) variables of interest and converts them into a formula for use in modeling, such as with ‘lm()’.
 ">
 
@@ -210,44 +220,6 @@ This short tutorial covers the basics of making and using a function that takes 
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -277,6 +249,16 @@ This short tutorial covers the basics of making and using a function that takes 
   <meta property="og:url" content="https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/">
   <meta property="og:title" content="Simple Iteration over Variables with `lm()` | Tanner Koomar">
   <meta property="og:description" content="
+
+
+
+The function, lm_caller()
+Run the function manually
+Iterate (apply) over many dependent and independent variables
+Do it tidy!
+
+Plot from multiple models with ggplot
+
 
 
 This short tutorial covers the basics of making and using a function that takes characters for dependent (LHS) and independent (RHS) variables of interest and converts them into a formula for use in modeling, such as with ‘lm()’.
@@ -332,7 +314,7 @@ This short tutorial covers the basics of making and using a function that takes 
       "url": "img/https://tkoomar.github.io/"
     }
   },
-  "description": "\n\n\n\u003cp\u003eThis short tutorial covers the basics of making and using a function that takes characters for dependent (LHS) and independent (RHS) variables of interest and converts them into a formula for use in modeling, such as with ‘lm()’.\u003c/p\u003e\n"
+  "description": "\n\n\u003cdiv id=\"TOC\"\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#the-function-lm_caller\"\u003eThe function, \u003ccode\u003elm_caller()\u003c/code\u003e\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#run-the-function-manually\"\u003eRun the function manually\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#iterate-apply-over-many-dependent-and-independent-variables\"\u003eIterate (apply) over many dependent and independent variables\u003c/a\u003e\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#do-it-tidy\"\u003eDo it tidy!\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#plot-from-multiple-models-with-ggplot\"\u003ePlot from multiple models with ggplot\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e\n\n\u003cp\u003eThis short tutorial covers the basics of making and using a function that takes characters for dependent (LHS) and independent (RHS) variables of interest and converts them into a formula for use in modeling, such as with ‘lm()’.\u003c/p\u003e\n"
 }
 </script>
 
@@ -611,7 +593,7 @@ This short tutorial covers the basics of making and using a function that takes 
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    7 min read
+    8 min read
   </span>
   
 
@@ -623,7 +605,7 @@ This short tutorial covers the basics of making and using a function that takes 
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="../../categories/tutorial/">tutorial</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="../../categories/tutorials/">tutorials</a></span>
   
 
 </div>
@@ -822,6 +804,81 @@ head(model_dat)</code></pre>
 <p>Functions like <code>filter()</code> and <code>ggplot()</code> are extremely useful at this point to get a beter feel for what your mnodels are actually saying, but we will save that for another time.</p>
 </div>
 </div>
+<div id="plot-from-multiple-models-with-ggplot" class="section level2">
+<h2>Plot from multiple models with ggplot</h2>
+<pre class="r"><code>library(tidyverse, quietly = T)</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.3
+## ✓ tibble  3.0.0     ✓ dplyr   1.0.0
+## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>model_dat %&gt;%
+  unnest(model_coefficient) %&gt;% 
+  mutate(
+    low = estimate - std.error,
+    high = estimate + std.error, 
+    formula = paste(lhs, &quot;~&quot;, rhs)
+  ) %&gt;%
+  ggplot(aes(estimate, term, xmin = low, xmax = high, height = 0)) +
+  geom_vline(xintercept = 0, color = &#39;grey50&#39;) +
+  geom_errorbarh() + 
+  geom_point() +
+  geom_text(aes(label = round(p.value, 3)), nudge_y = 0.33, ) + 
+  facet_wrap(vars(formula), scales = &#39;free&#39;, ncol = 2) </code></pre>
+<p><img src="../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>model_dat %&gt;%
+  unnest(model_coefficient) %&gt;% 
+  filter(str_detect(rhs, &quot;cyl&quot;)) %&gt;%
+  mutate(
+    low = estimate - std.error,
+    high = estimate + std.error
+  ) %&gt;%
+  ggplot(aes(estimate, term, xmin = low, xmax = high, height = 0)) +
+  geom_vline(xintercept = 0, color = &#39;grey50&#39;) +
+  geom_errorbarh() + 
+  geom_point() +
+  geom_text(aes(label = round(p.value, 3)), nudge_y = 0.33, ) + 
+  facet_grid(rows = vars(lhs), cols = vars(rhs), scales = &#39;free&#39;) </code></pre>
+<p><img src="../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-12-1.png" width="480" /></p>
+<p>Plotting the “acutal” vs “predicted” (fitted) values takes a bit of work with <code>pivot_longer()</code>, and is probably best done separately for each outcome variable.</p>
+<p>Remember that ggplots are actually objects, so we can actually stick them into a dataframe and then plot them later!</p>
+<pre class="r"><code>plot_dat &lt;- model_dat %&gt;%
+  mutate(model_resid = map(model, broom::augment)) %&gt;%
+  select(lhs, rhs, model_resid) %&gt;%
+  unnest(model_resid) %&gt;%
+  pivot_longer(cols = c(-starts_with(&quot;.&quot;), -lhs, -rhs), 
+               names_to = &#39;name&#39;, 
+               values_to =&#39;actual&#39;
+               ) %&gt;%
+  filter(lhs == name) %&gt;%
+  nest(data = -lhs) %&gt;%
+  mutate(plot = map2(data, lhs,  ~(
+      ggplot(.x, aes(x = actual, y = .fitted, height = 0)) +
+    geom_point() +
+    facet_wrap(~rhs, scales = &#39;free&#39;) + 
+    labs(title = .y)
+  )))
+
+plot_dat</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   lhs   data                plot  
+##   &lt;fct&gt; &lt;list&gt;              &lt;list&gt;
+## 1 am    &lt;tibble [192 × 11]&gt; &lt;gg&gt;  
+## 2 hp    &lt;tibble [192 × 11]&gt; &lt;gg&gt;  
+## 3 mpg   &lt;tibble [192 × 11]&gt; &lt;gg&gt;</code></pre>
+<pre class="r"><code>plot_dat$plot</code></pre>
+<pre><code>## [[1]]</code></pre>
+<p><img src="../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre><code>## 
+## [[2]]</code></pre>
+<p><img src="../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<pre><code>## 
+## [[3]]</code></pre>
+<p><img src="../../post/2020-05-02-tutorial-iterate-lm/index_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+</div>
 
     </div>
 
@@ -831,15 +888,15 @@ head(model_dat)</code></pre>
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="../../tags/tidy/">tidy</a>
-  
   <a class="badge badge-light" href="../../tags/lm/">lm</a>
   
   <a class="badge badge-light" href="../../tags/modeling/">modeling</a>
   
-  <a class="badge badge-light" href="../../tags/tutorial/">tutorial</a>
-  
   <a class="badge badge-light" href="../../tags/r/">R</a>
+  
+  <a class="badge badge-light" href="../../tags/tidy/">tidy</a>
+  
+  <a class="badge badge-light" href="../../tags/tutorial/">tutorial</a>
   
 </div>
 

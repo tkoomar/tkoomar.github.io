@@ -5,12 +5,21 @@
     <link>https://tkoomar.github.io/tags/data-visualization/</link>
       <atom:link href="https://tkoomar.github.io/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>data visualization</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Thu, 15 Dec 2016 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Tue, 30 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>data visualization</title>
       <link>https://tkoomar.github.io/tags/data-visualization/</link>
     </image>
+    
+    <item>
+      <title>Simple Features for Science</title>
+      <link>https://tkoomar.github.io/project/simple-features-for-science/</link>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/project/simple-features-for-science/</guid>
+      <description>&lt;p&gt;Simple Features for Science (&lt;code&gt;sffs&lt;/code&gt; for short) is a warehouse of vector-based diagrams for use as heatmaps.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>cerebroViz: an R package for anatomical visualization of spatiotemporal brain data</title>

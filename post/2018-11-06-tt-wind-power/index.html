@@ -210,44 +210,6 @@ This TidyTuesday we explores wind power throughout the USA with a high-contrast 
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -659,7 +621,7 @@ This TidyTuesday we explores wind power throughout the USA with a high-contrast 
 
 <div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 360px;">
   <div style="position: relative">
-    <img src="../../post/2018-11-06-tt-wind-power/featured_hudd11206ee0084b3e9dd8bafeff328aad_558235_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="../../post/2018-11-06-tt-wind-power/featured_hucc7a413828839363a5edfc4405d105c4_571927_720x0_resize_lanczos_2.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -689,7 +651,7 @@ This TidyTuesday we explores wind power throughout the USA with a high-contrast 
 <pre><code>## See spec(...) for full column specifications.</code></pre>
 <pre class="r"><code>## get all the missing data to NA
 dat &lt;- dat %&gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &quot;missing&quot;), NA)))</code></pre>
-<pre><code>## Warning: funs() is soft deprecated as of dplyr 0.8.0
+<pre><code>## Warning: `funs()` is deprecated as of dplyr 0.8.0.
 ## Please use a list of either functions or lambdas: 
 ## 
 ##   # Simple named list: 
@@ -700,7 +662,8 @@ dat &lt;- dat %&gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &quot;mi
 ## 
 ##   # Using lambdas
 ##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.</code></pre>
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
 <pre class="r"><code>## drop rows and columns with high missing
 dat.comp &lt;- dat %&gt;% select_if( function(x){sum(is.na(x))/length(x) &lt; .15}) %&gt;%
   filter(rowMeans(is.na(.)) &lt; 0.15)

@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="PhD Candidate">
+  <meta name="description" content="">
 
   
   <link rel="alternate" hreflang="en-us" href="https://tkoomar.github.io/tutorials/">
@@ -206,49 +206,9 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
-  
-  <link rel="alternate" href="../tutorials/index.xml" type="application/rss+xml" title="Tanner Koomar">
   
 
   <link rel="manifest" href="../index.webmanifest">
@@ -273,10 +233,11 @@
   
   <meta property="og:site_name" content="Tanner Koomar">
   <meta property="og:url" content="https://tkoomar.github.io/tutorials/">
-  <meta property="og:title" content="Tutorials | Tanner Koomar">
-  <meta property="og:description" content="PhD Candidate"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:square]">
+  <meta property="og:title" content=" | Tanner Koomar">
+  <meta property="og:description" content=""><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:square]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:square]"><meta property="og:locale" content="en-us">
   
+    
     
   
 
@@ -284,21 +245,23 @@
 
 
 
-
   
 
 
   
 
 
+  
 
 
 
-  <title>Tutorials | Tanner Koomar</title>
+
+
+  <title> | Tanner Koomar</title>
 
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+<body id="top" data-spy="scroll" data-offset="70" data-target="#navbar-main" >
 
   <aside class="search-results" id="search">
   <div class="container">
@@ -507,6 +470,75 @@
 
 
   
+<span class="js-widget-page d-none"></span>
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="tutorials" class="home-section wg-pages   "  >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
 
 
 
@@ -521,27 +553,134 @@
 
   
 
+
+
+
+
   
-  
-  
+
+
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>Tutorials</h1>
     
+  </div>
+  <div class="col-12 col-lg-8">
+
+    <p>
+<a href="categories/tutorials">View All</a>
+</p>
+
+
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+
+
   
-<div class="universal-wrapper pt-3">
-  <h1>Tutorials</h1>
+
+
+<div class="media stream-item">
+  <div class="media-body">
+
+    <h3 class="article-title mb-0 mt-0">
+      <a href="../post/2020-05-02-tutorial-iterate-lm/" >Simple Iteration over Variables with `lm()`</a>
+    </h3>
+
+    
+    <div class="article-style">
+      
+
+<div id="TOC">
+<ul>
+<li><a href="#the-function-lm_caller">The function, <code>lm_caller()</code></a></li>
+<li><a href="#run-the-function-manually">Run the function manually</a></li>
+<li><a href="#iterate-apply-over-many-dependent-and-independent-variables">Iterate (apply) over many dependent and independent variables</a><ul>
+<li><a href="#do-it-tidy">Do it tidy!</a></li>
+</ul></li>
+<li><a href="#plot-from-multiple-models-with-ggplot">Plot …</a></li></li></ul></li></ul></div>
+    </div>
+    
+
+    <div class="stream-meta article-metadata">
+
+      
+
+      
+        
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 2, 2020
+  </span>
+  
 
   
 
   
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    8 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="../categories/tutorials/">tutorials</a></span>
+  
+
 </div>
 
+      
+    </div>
 
-
-<div class="universal-wrapper">
-  
-  <ul class="list-unstyled">
     
-  </ul>
+
+  </div>
+  <div class="ml-3">
+    
+    
+  </div>
 </div>
+
+      
+    
+
+    
+
+  </div>
+</div>
+
+    </div>
+  </section>
+
+
 
       
 

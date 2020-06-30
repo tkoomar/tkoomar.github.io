@@ -31,7 +31,7 @@
   <meta name="description" content="PhD Candidate">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://tkoomar.github.io/categories/tutorial/">
+  <link rel="alternate" hreflang="en-us" href="../../categories/tutorial/">
 
   
 
@@ -206,44 +206,6 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159221577-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-159221577-1', {});
-
-  
-  document.addEventListener('click', onClickCallback, false);
-</script>
-
-
   
 
 
@@ -255,7 +217,7 @@
   <link rel="icon" type="image/png" href="../../images/icon_hu5364287f43a913080533c93be6775690_13359_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="../../images/icon_hu5364287f43a913080533c93be6775690_13359_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://tkoomar.github.io/categories/tutorial/">
+  <link rel="canonical" href="../../categories/tutorial/">
 
   
   
@@ -272,7 +234,7 @@
   <meta property="twitter:creator" content="@tannerkoomar">
   
   <meta property="og:site_name" content="Tanner Koomar">
-  <meta property="og:url" content="https://tkoomar.github.io/categories/tutorial/">
+  <meta property="og:url" content="/categories/tutorial/">
   <meta property="og:title" content="tutorial | Tanner Koomar">
   <meta property="og:description" content="PhD Candidate"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:square]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:square]"><meta property="og:locale" content="en-us">
@@ -666,6 +628,16 @@
   
   <div class="container">
     <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="../../privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="../../terms/">Terms</a>
+    
+  </p>
   
 
   <p class="powered-by">
