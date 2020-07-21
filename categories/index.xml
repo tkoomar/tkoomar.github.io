@@ -5,7 +5,7 @@
     <link>https://tkoomar.github.io/categories/</link>
       <atom:link href="https://tkoomar.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <description>Categories</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sat, 02 May 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Categories</title>
@@ -13,18 +13,18 @@
     </image>
     
     <item>
-      <title>tutorials</title>
-      <link>https://tkoomar.github.io/categories/tutorials/</link>
-      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/categories/tutorials/</guid>
+      <title>tidytuesday</title>
+      <link>https://tkoomar.github.io/categories/tidytuesday/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/categories/tidytuesday/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tidytuesday</title>
-      <link>https://tkoomar.github.io/categories/tidytuesday/</link>
-      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/categories/tidytuesday/</guid>
+      <title>tutorials</title>
+      <link>https://tkoomar.github.io/categories/tutorials/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/categories/tutorials/</guid>
       <description></description>
     </item>
     

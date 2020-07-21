@@ -5,7 +5,7 @@
     <link>https://tkoomar.github.io/tags/</link>
       <atom:link href="https://tkoomar.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Tue, 30 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Tags</title>
@@ -15,15 +15,31 @@
     <item>
       <title>data visualization</title>
       <link>https://tkoomar.github.io/tags/data-visualization/</link>
-      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
       <guid>https://tkoomar.github.io/tags/data-visualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heatmap</title>
+      <link>https://tkoomar.github.io/tags/heatmap/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/heatmap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>map</title>
+      <link>https://tkoomar.github.io/tags/map/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/tags/map/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
       <link>https://tkoomar.github.io/tags/r/</link>
-      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
       <guid>https://tkoomar.github.io/tags/r/</guid>
       <description></description>
     </item>
@@ -153,14 +169,6 @@
       <link>https://tkoomar.github.io/tags/gridextra/</link>
       <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
       <guid>https://tkoomar.github.io/tags/gridextra/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>map</title>
-      <link>https://tkoomar.github.io/tags/map/</link>
-      <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/tags/map/</guid>
       <description></description>
     </item>
     

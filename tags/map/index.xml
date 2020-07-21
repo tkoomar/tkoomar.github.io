@@ -5,12 +5,238 @@
     <link>https://tkoomar.github.io/tags/map/</link>
       <atom:link href="https://tkoomar.github.io/tags/map/index.xml" rel="self" type="application/rss+xml" />
     <description>map</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sun, 21 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>map</title>
       <link>https://tkoomar.github.io/tags/map/</link>
     </image>
+    
+    <item>
+      <title>Australian Pets</title>
+      <link>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</guid>
+      <description>
+
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#setup&#34;&gt;Setup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#peek-at-the-data&#34;&gt;Peek at the data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#get-a-map&#34;&gt;Get a Map&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#combine-map-and-data&#34;&gt;Combine Map and Data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#combine-rehomed-and-released&#34;&gt;Combine Rehomed and Released&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div id=&#34;setup&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(sf)
+library(ggtext)
+library(patchwork)
+library(showtext)
+font_add_google(&amp;quot;Josefin Sans&amp;quot;, &amp;quot;Josefin Sans&amp;quot;)
+showtext_auto()
+animal_outcomes &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-21/animal_outcomes.csv&amp;#39;) %&amp;gt;%
+  filter(year &amp;lt;= 2015)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;peek-at-the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Peek at the data&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(animal_outcomes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 12
+##    year animal_type outcome   ACT   NSW    NT   QLD    SA   TAS   VIC    WA
+##   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+## 1  1999 Dogs        Reclai…   610  3140   205  1392  2329   516  7130     1
+## 2  1999 Dogs        Rehomed  1245  7525   526  5489  1105   480  4908   137
+## 3  1999 Dogs        Other      12   745   955   860   380   168  1001     6
+## 4  1999 Dogs        Euthan…   360  9221     9  9214  1701   599  5217    18
+## 5  1999 Cats        Reclai…   111   201    22   206   157    31   884     0
+## 6  1999 Cats        Rehomed  1442  3913   269  3901  1055   752  3768    62
+## # … with 1 more variable: Total &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;get-a-map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Get a Map&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;au_sf &amp;lt;- rnaturalearth::ne_states(country = &amp;#39;Australia&amp;#39;, returnclass = &amp;#39;sf&amp;#39;) %&amp;gt;%
+  mutate(state = str_remove(iso_3166_2, &amp;quot;AU-&amp;quot;))
+
+ggplot(au_sf) + 
+  geom_sf() + 
+  theme_minimal() &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-20-tt-australian-pets/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;384&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;get-colors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Get colors&lt;/h4&gt;
+&lt;p&gt;Make a vector of colors for each state/territory.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;state_colors &amp;lt;- au_sf %&amp;gt;%   
+  filter(state %in% colnames(animal_outcomes) &amp;amp; 
+           !is.na(abbrev)) %&amp;gt;%
+  as.data.frame() %&amp;gt;%
+  transmute(name = name, 
+            state = state, 
+            color =  wesanderson::wes_palette(&amp;quot;BottleRocket2&amp;quot;, 
+                                              n = 12, type = &amp;#39;c&amp;#39;)[c(1:6,9,12)] %&amp;gt;% 
+              colorspace::lighten(amount = .2),
+            name_md = glue::glue(&amp;quot;&amp;lt;b style=&amp;#39;color:{color}&amp;#39;&amp;gt;{name}&amp;lt;/b&amp;gt;&amp;quot;)
+            ) &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;combine-map-and-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Combine Map and Data&lt;/h2&gt;
+&lt;p&gt;Because the states / territories need to go into the rows (&lt;code&gt;sf&lt;/code&gt; has 1 row per geometry), we will be pivoting the data longer before we join.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;animal_outcomes_long &amp;lt;- animal_outcomes %&amp;gt;% 
+  select(-Total) %&amp;gt;%
+  pivot_longer(cols = 4:11, 
+               names_to = &amp;#39;state&amp;#39;, 
+               values_to = &amp;#39;count&amp;#39;) %&amp;gt;%
+  pivot_wider(names_from = outcome, 
+              values_from = count) %&amp;gt;%
+  mutate_all(replace_na, 0) %&amp;gt;% 
+  inner_join(state_colors, by = &amp;#39;state&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;combine-rehomed-and-released&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Combine Rehomed and Released&lt;/h2&gt;
+&lt;p&gt;Wild animals are obviously released — rather than rehomed — but both can be viewed as the alternative to being euthanized, so we will combine them. Really not sure what “Other” would mean, so let’s just exclude it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;animal_outcomes_long &amp;lt;- animal_outcomes_long %&amp;gt;%
+  mutate(`Not Euthanized` = (Reclaimed + Rehomed + Released),
+         ratio = (`Not Euthanized` + 1) / (Euthanized + 1)
+         )
+
+animal_outcomes_long[1:5,1:8]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 8
+##    year animal_type state Reclaimed Rehomed Other Euthanized Released
+##   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1  1999 Dogs        ACT         610    1245    12        360        0
+## 2  1999 Dogs        NSW        3140    7525   745       9221        0
+## 3  1999 Dogs        NT          205     526   955          9        0
+## 4  1999 Dogs        QLD        1392    5489   860       9214        0
+## 5  1999 Dogs        SA         2329    1105   380       1701        0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;heatmap_plot &amp;lt;- animal_outcomes_long %&amp;gt;%
+  ggplot(aes(x  = year, y = name_md, fill = ratio)) + 
+    geom_tile() + 
+    scale_fill_fermenter(palette = &amp;#39;Spectral&amp;#39;, 
+                         limits = c(1/16, 16), 
+                         breaks = c(1/16, 1/8, 1/4, 1/2, 1, 2, 4, 8, 16),
+                         trans = &amp;#39;log2&amp;#39;, 
+                         direction = 8, 
+                         show.limits = F,
+                         labels = c(&amp;#39;More\nEuthanizations&amp;#39;, 
+                                    &amp;#39;8 x&amp;#39;, &amp;#39;4 x&amp;#39;, &amp;#39;2 x&amp;#39;, &amp;#39;1 x&amp;#39;, &amp;#39;2 x&amp;#39;, &amp;#39;4 x&amp;#39;, &amp;#39;8 x&amp;#39;,
+                                    &amp;#39;More\nRehomes &amp;amp; Releases&amp;#39;),
+                         guide = guide_colorsteps(title = NULL)
+                         ) + 
+    scale_x_continuous(expand = c(0,0)) + 
+    facet_wrap(~animal_type, ncol = 3) + 
+    labs(title = &amp;quot;Breakdown by Animal Type&amp;quot;) + 
+    theme_bw(base_size = 16) + 
+    theme(
+      plot.title = element_text(hjust = 0.5), 
+      plot.margin = margin(t = 25, b = 0),
+      legend.box.margin = margin(),
+      legend.margin = margin(b = -10),
+      legend.position = &amp;#39;top&amp;#39;,
+      axis.text.y.left = element_markdown(size = 12),
+      panel.border = element_blank(),
+      line = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks.length = unit(0, &amp;#39;pt&amp;#39;), 
+      legend.key.width = unit(100, &amp;#39;pt&amp;#39;),
+      legend.key.height = unit(10, &amp;#39;pt&amp;#39;),
+      strip.background = element_rect(color = NA, 
+                                      fill = &amp;#39;grey95&amp;#39;)
+    ) 
+
+heatmap_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-20-tt-australian-pets/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;au_map &amp;lt;- au_sf %&amp;gt;%   
+  filter(state %in% colnames(animal_outcomes) &amp;amp; 
+           !is.na(abbrev)) %&amp;gt;%
+  ggplot(aes(fill = name)) + 
+  geom_sf(color= &amp;#39;grey40&amp;#39;, size =1/8) + 
+  scale_fill_manual(values = state_colors %&amp;gt;% select(name, color) %&amp;gt;% deframe(),
+                    guide = guide_none()) + 
+  theme_void() + 
+  theme(legend.position = &amp;#39;none&amp;#39;, 
+        legend.key = element_blank(), 
+        plot.margin = margin()
+        )
+
+au_map&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-20-tt-australian-pets/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;line_plot &amp;lt;- animal_outcomes_long %&amp;gt;%
+  group_by(name, year, name_md) %&amp;gt;%
+  summarize(&amp;#39;Not Euthanized&amp;#39; = sum(`Not Euthanized`), 
+            Euthanized = sum(Euthanized), 
+            ratio  = (`Not Euthanized` + 1) / (Euthanized + 1),
+            .groups = &amp;#39;keep&amp;#39;) %&amp;gt;%
+  ggplot(aes(x = year, y = ratio, color = name_md)) + 
+  geom_hline(yintercept = 1, color = &amp;#39;grey35&amp;#39;, size = 1) + 
+  geom_smooth(alpha = 0, size = 1.75) + 
+  scale_color_manual(values = state_colors %&amp;gt;% select(name_md, color) %&amp;gt;% deframe() %&amp;gt;%
+                       alpha(0.85),
+                     name = &amp;#39;State or Territory&amp;#39;) + 
+  scale_y_continuous(limits = c(1/2, 16), 
+                     breaks = c(1/2, 1, 2, 4, 8, 16),
+                     trans = &amp;#39;log2&amp;#39;, 
+                     labels = c(&amp;#39;More\nEuthanizations&amp;#39;,
+                                &amp;#39;1 x&amp;#39;, &amp;#39;2 x&amp;#39;, &amp;#39;4 x&amp;#39;, &amp;#39;8 x&amp;#39;,
+                                &amp;#39;More\nRehomes&amp;#39;), position = &amp;#39;right&amp;#39;) + 
+  labs(title = &amp;#39;Total&amp;#39;) + 
+  theme_bw(base_size = 14) + 
+  theme(
+    plot.title.position = &amp;#39;panel&amp;#39;,
+    plot.margin = margin(), 
+    aspect.ratio = 1, 
+    panel.grid.major = element_line(size = 0.35, color = &amp;#39;grey70&amp;#39;), 
+    panel.border = element_blank(),
+    legend.text = element_markdown(), 
+    legend.key = element_blank(),
+    axis.title = element_blank(),
+    axis.ticks.length = unit(0, &amp;#39;pt&amp;#39;), 
+    legend.key.width = unit(0, &amp;#39;pt&amp;#39;),
+    legend.key.height = unit(0, &amp;#39;pt&amp;#39;), 
+    legend.position = &amp;#39;left&amp;#39;
+  ) 
+
+line_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 3 rows containing non-finite values (stat_smooth).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-20-tt-australian-pets/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;showtext_auto()
+design &amp;lt;- &amp;quot;
+AABBBB
+AABBBB
+CDDDDD
+CDDDDD
+CDDDDD
+
+&amp;quot;
+
+final_plot &amp;lt;- au_map + line_plot +  plot_spacer() + heatmap_plot + 
+  plot_layout(design = design ) + 
+  plot_annotation(title = &amp;#39;Animal Rehomes &amp;amp; Releases in Australia&amp;#39;,
+                  caption = &amp;#39;A #tidytuesday adventure\nDesign by @TannerKoomar\nData from RSPCA&amp;#39;,
+                  subtitle = &amp;#39;1999 - 2015&amp;#39;, 
+                  theme = theme(title = element_text(size = 27, 
+                                                     color = &amp;#39;grey40&amp;#39;, 
+                                                     family = &amp;#39;Josefin Sans&amp;#39;),
+                                plot.subtitle = element_text(size = 20), 
+                                plot.caption = element_text(size = 10), 
+                                text = element_text(size = 10)
+                                )
+                  ) + 
+  theme(axis.text= element_text(size = 8)) &amp;amp;
+  theme(text = element_text(color = &amp;#39;grey40&amp;#39;, family = &amp;#39;Josefin Sans&amp;#39;), 
+        strip.text = element_text(color = &amp;#39;grey40&amp;#39;, family = &amp;#39;Josefin Sans&amp;#39;), 
+        legend.title = element_text(color = &amp;#39;grey40&amp;#39;, family = &amp;#39;Josefin Sans&amp;#39;)
+        ) 
+
+final_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 3 rows containing non-finite values (stat_smooth).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-20-tt-australian-pets/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Tidy Tuesday: How The Housing Price Index Flipped</title>
