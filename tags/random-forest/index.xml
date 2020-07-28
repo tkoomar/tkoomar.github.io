@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>random forest | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/tags/random-forest/</link>
-      <atom:link href="https://tkoomar.github.io/tags/random-forest/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tags/random-forest/</link>
+      <atom:link href="/tags/random-forest/index.xml" rel="self" type="application/rss+xml" />
     <description>random forest</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Thu, 18 Oct 2018 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>random forest</title>
-      <link>https://tkoomar.github.io/tags/random-forest/</link>
+      <link>/tags/random-forest/</link>
     </image>
     
     <item>
       <title>Forecasting autism gene discovery with machine learning and genome-scale data</title>
-      <link>https://tkoomar.github.io/publication/2018-forecasd-preprint/</link>
+      <link>/publication/2018-forecasd-preprint/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2018-forecasd-preprint/</guid>
+      <guid>/publication/2018-forecasd-preprint/</guid>
       <description></description>
     </item>
     

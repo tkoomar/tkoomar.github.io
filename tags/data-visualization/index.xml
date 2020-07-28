@@ -2,21 +2,266 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>data visualization | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/tags/data-visualization/</link>
-      <atom:link href="https://tkoomar.github.io/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tags/data-visualization/</link>
+      <atom:link href="/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>data visualization</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>data visualization</title>
-      <link>https://tkoomar.github.io/tags/data-visualization/</link>
+      <link>/tags/data-visualization/</link>
     </image>
     
     <item>
+      <title>Palmer Penguins</title>
+      <link>/post/tt-palmer-penguins/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/tt-palmer-penguins/</guid>
+      <description>
+
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#load-packages&#34;&gt;Load Packages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#read-in-penguin-diagram&#34;&gt;Read in penguin diagram&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summarize-data&#34;&gt;Summarize data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#simple-plot&#34;&gt;Simple plot&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#customize-plot&#34;&gt;Customize Plot&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div id=&#34;load-packages&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Load Packages&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(palmerpenguins)
+library(ggnewscale)
+library(sf)
+library(patchwork)
+library(showtext)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;read-in-penguin-diagram&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Read in penguin diagram&lt;/h2&gt;
+&lt;p&gt;This is a rough draft of a heatmap diagram specifically for the &lt;a href=&#34;https://allisonhorst.github.io/palmerpenguins/&#34;&gt;&lt;code&gt;{palmerpenguins}&lt;/code&gt;&lt;/a&gt; dataset, and at the time of this writing is living on a development branch of the &lt;em&gt;very&lt;/em&gt; nascent &lt;a href=&#34;https://tkoomar.github.io/sffs/&#34;&gt;Simple Features For Science &lt;code&gt;{sffs}&lt;/code&gt; warehouse / package&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sf_palmer &amp;lt;- read_sf(&amp;quot;https://raw.githubusercontent.com/tkoomar/sffs/palmer/data-raw/sf_palmer/sf_palmer.geojson&amp;quot;)
+
+print(sf_palmer)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Simple feature collection with 9 features and 1 field
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 0.159483 ymin: -1.063218 xmax: 1.369025 ymax: 0.979735
+## CRS:            4326
+## # A tibble: 9 x 2
+##   id                                                                    geometry
+##   &amp;lt;chr&amp;gt;                                                            &amp;lt;POLYGON [°]&amp;gt;
+## 1 background     ((1.037073 -0.844313, 1.037073 -0.844313, 1.037321 -0.843974, …
+## 2 foot           ((1.02272 -0.868436, 1.022712 -0.868446, 1.022607 -0.868572, 1…
+## 3 flipper_lengt… ((0.804533 0.049629, 0.804448 0.049715, 0.804276 0.049887, 0.8…
+## 4 bill_length_mm ((1.260757 0.847204, 1.26037 0.847223, 1.2596 0.847262, 1.2588…
+## 5 bill_depth_mm  ((1.260757 0.847204, 1.26037 0.847223, 1.2596 0.847262, 1.2588…
+## 6 face           ((1.174673 0.856284, 1.174691 0.856296, 1.174724 0.856322, 1.1…
+## 7 body_mass_g    ((0.597523 0.068709, 0.597514 0.068705, 0.597494 0.068696, 0.5…
+## 8 eye            ((0.93493 0.813604, 0.934965 0.813629, 0.935024 0.813671, 0.93…
+## 9 pupil          ((0.940806 0.7871717, 0.940859 0.787341, 0.940897 0.787461, 0.…&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What does it look like? Let’s take a peak:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(sf_palmer) + 
+  geom_sf() + 
+  theme_void()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;192&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;They might not be the most dapper, but I find something about this penguin’s oddly lumpy form to be rather endearing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summarize-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summarize data&lt;/h2&gt;
+&lt;p&gt;As alluded above, this week’s data comes from &lt;a href=&#34;https://allisonhorst.github.io/palmerpenguins/&#34;&gt;&lt;code&gt;{palmerpenguins}&lt;/code&gt;&lt;/a&gt;, which is an alternative to the classic iris toy dataset, featureing everyones favorite antarctic flightless bird!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(penguins)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 8
+##   species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
+##   &amp;lt;fct&amp;gt;   &amp;lt;fct&amp;gt;           &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;            &amp;lt;int&amp;gt;       &amp;lt;int&amp;gt; &amp;lt;fct&amp;gt;
+## 1 Adelie  Torge…           39.1          18.7              181        3750 male 
+## 2 Adelie  Torge…           39.5          17.4              186        3800 fema…
+## 3 Adelie  Torge…           40.3          18                195        3250 fema…
+## 4 Adelie  Torge…           NA            NA                 NA          NA &amp;lt;NA&amp;gt; 
+## 5 Adelie  Torge…           36.7          19.3              193        3450 fema…
+## 6 Adelie  Torge…           39.3          20.6              190        3650 male 
+## # … with 1 more variable: year &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For this plot, we want one diagram/heatmap per species and sex. So, get the median value of each variable at that level. Note that because the scales of the different measurements are rather all over the place, we will first scale each so that values are expressed as standard deviations.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins_scaled &amp;lt;- penguins %&amp;gt;%
+  drop_na() %&amp;gt;%
+  mutate(across(where(is.numeric),  ~scale(.x)[,1]))
+
+penguins_scaled_summary &amp;lt;- penguins_scaled %&amp;gt;%
+  group_by(species, sex) %&amp;gt;%
+  summarize(across(where(is.numeric), median), 
+            .groups = &amp;#39;keep&amp;#39;)
+
+penguins_scaled_summary_long &amp;lt;- penguins_scaled_summary %&amp;gt;%
+  pivot_longer(cols = 3:7,
+  names_to = &amp;#39;id&amp;#39;,
+  values_to = &amp;#39;median_scaled_value&amp;#39;) %&amp;gt;%
+  mutate(sex = if_else(sex == &amp;#39;female&amp;#39;, &amp;#39;♀&amp;#39;, &amp;#39;♂&amp;#39;))
+
+head(penguins_scaled_summary_long)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+## # Groups:   species, sex [2]
+##   species sex   id                median_scaled_value
+##   &amp;lt;fct&amp;gt;   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;                           &amp;lt;dbl&amp;gt;
+## 1 Adelie  ♀     bill_length_mm                -1.28  
+## 2 Adelie  ♀     bill_depth_mm                  0.221 
+## 3 Adelie  ♀     flipper_length_mm             -0.925 
+## 4 Adelie  ♀     body_mass_g                   -1.00  
+## 5 Adelie  ♀     year                          -0.0517
+## 6 Adelie  ♂     bill_length_mm                -0.620&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;background_fill_colors &amp;lt;- c( background = &amp;#39;black&amp;#39;, foot = &amp;#39;sienna1&amp;#39;,
+  face = &amp;#39;white&amp;#39;,eye = &amp;#39;coral1&amp;#39;, pupil = &amp;#39;black&amp;#39;)
+background_color_colors &amp;lt;- c(background = &amp;#39;black&amp;#39;, foot = &amp;#39;sienna4&amp;#39;,
+  face = &amp;#39;white&amp;#39;, eye = &amp;#39;black&amp;#39;, pupil = &amp;#39;black&amp;#39;)
+
+sf_background &amp;lt;- sf_palmer %&amp;gt;%
+anti_join(penguins_scaled_summary_long) %&amp;gt;%
+## This first-draft of the diagram uses the same geometry for the bill length
+## and bill width, so we will just visualize the depth here
+filter(id != &amp;#39;bill_length_mm&amp;#39;) %&amp;gt;%
+mutate(id = as_factor(id))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;id&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+geom_sf(data = sf_background,
+aes(fill = id,
+color = id)
+) +
+scale_fill_manual(values = background_fill_colors) +
+scale_color_manual(values = background_color_colors)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;That looks a bit more like a proper penguin!&lt;/p&gt;
+&lt;p&gt;As you might be able to guess from the axis ticks on this plot, this diagram is actually a geographic map (of sorts). &lt;code&gt;{sffs}&lt;/code&gt; takes advantage of the fact that ggplot will plot any arbitrary shape, so long as it can be expressed like a map (in this case, a &lt;a href=&#34;https://r-spatial.github.io/sf/articles/sf1.html&#34;&gt;simple features &lt;code&gt;{sf}&lt;/code&gt;&lt;/a&gt; object).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;simple-plot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Simple plot&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguin_plot &amp;lt;- sf_palmer %&amp;gt;%
+  inner_join(penguins_scaled_summary_long, 
+             by = &amp;#39;id&amp;#39;) %&amp;gt;%
+  ggplot() +
+  geom_sf(data = sf_background,
+  aes(fill = id,
+  color = id)
+  ) +
+  scale_fill_manual(values = background_fill_colors, 
+                    guide = guide_none()) +
+  scale_color_manual(values = background_color_colors, 
+                     guide = guide_none()) + 
+  new_scale_fill() +
+  new_scale_color() +
+  geom_sf(aes(fill = median_scaled_value), color = &amp;#39;black&amp;#39;) + 
+  facet_grid(sex ~ species)
+
+penguin_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;That isn’t particularly pretty. These penguins deserve to be seen in style, so let’s do some tweaking.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;customize-plot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Customize Plot&lt;/h2&gt;
+&lt;div id=&#34;better-color-scale&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Better color scale&lt;/h4&gt;
+&lt;p&gt;The human eye really isn’t good with continuous color scales. Let’s do a binned scale via &lt;code&gt;scale_fill_fermenter&lt;/code&gt;, and make it a divergent once since we know we scaled our data. We will fit the limits to be symetric around 0.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguin_plot &amp;lt;- penguin_plot + 
+  scale_fill_fermenter(palette = &amp;#39;Spectral&amp;#39;, 
+                       limits = c(-1.5, 1.5), 
+                       n.breaks = 8, 
+                       labels = c(&amp;#39;&amp;lt; 1 SD smaller&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;average&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;&amp;gt; 1 SD larger&amp;#39;), 
+                       guide = guide_colorsteps(
+                         title = element_blank(), 
+                         label.position = &amp;#39;left&amp;#39;,
+                         barheight = 25, 
+                         barwidth = 1/2
+                       )
+                       ) + 
+  theme_void()
+
+penguin_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Looking pretty good, I think we just need to tweak the font face and size.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;font-face-and-size&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Font face and size&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;font_add_google(&amp;quot;M PLUS Rounded 1c&amp;quot;, &amp;quot;M+300&amp;quot;, regular.wt = 300)
+font_add_google(&amp;quot;Krona One&amp;quot;, &amp;quot;K1&amp;quot;)
+font_add_google(&amp;quot;M PLUS Rounded 1c&amp;quot;, &amp;quot;M+100&amp;quot;, regular.wt = 100)
+showtext_auto()
+penguin_plot &amp;lt;- penguin_plot + 
+  theme(
+    legend.position = &amp;#39;left&amp;#39;, 
+    text = element_text(family = &amp;#39;M+300&amp;#39;, color = &amp;#39;#434C5E&amp;#39; ),
+    legend.text = element_text(size = 12, color = &amp;#39;#4C566A&amp;#39;),
+    strip.text.x = element_text( size = 25),
+    strip.text.y = element_text( size = 50, angle = 0)
+  )
+
+penguin_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;other-plot-colors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Other Plot Colors&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguin_plot &amp;lt;- penguin_plot + 
+  theme(plot.background = element_rect(fill= alpha(&amp;quot;#ECEFF4&amp;quot;, 0.5),                     
+                                       color = NA), 
+        panel.background = element_rect(fill = alpha(&amp;quot;#E5E9F0&amp;quot;, 0.5), 
+                                        color = NA)
+          ) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;title_plot &amp;lt;- ggplot() + 
+  annotate(geom = &amp;#39;text&amp;#39;, 
+           label = &amp;#39;Palmer\nPenguins&amp;#39;, 
+           y = 2, x = 2, 
+           size  = 30, 
+           color = &amp;quot;#5E81AC&amp;quot;, 
+           family = &amp;quot;K1&amp;quot;, 
+           hjust = 1, 
+           vjust = 1, 
+           lineheight = 0.55) + 
+  coord_cartesian(xlim = c(0,2), ylim = c(0,2)) + 
+  theme_void() + 
+  theme(plot.caption = element_blank())
+
+text_plot &amp;lt;- ggplot() + 
+  annotate(geom = &amp;#39;text&amp;#39;, 
+           label = &amp;#39;A real-world dataset gaining traction as an alternative to the classic iris dataset for demonstration and teaching.&amp;#39; %&amp;gt;% str_wrap(20), 
+           y = 2, x = 0, 
+           size  = 9.8, 
+           color = &amp;quot;#8FBCBB&amp;quot;, 
+           family = &amp;quot;M+300&amp;quot;, 
+           hjust = 0, 
+           vjust = 1, 
+           lineheight = 0.5) + 
+  coord_cartesian(xlim = c(0,2), ylim = c(0,2)) + 
+  geom_vline(xintercept = -0.1, color = &amp;#39;#81A1C1&amp;#39;, size = 1) + 
+  labs(caption = &amp;quot;A #TidyTuesday adventure\nDesign by @TannerKoomar\nArtwork by @allison_horst&amp;quot;) +
+  theme_void() + 
+  theme(plot.margin = margin(t = 20), 
+        plot.caption = element_text(color = &amp;quot;#8FBCBB&amp;quot;, 
+                                    family = &amp;quot;M+300&amp;quot;, 
+                                    size = 11))
+
+layout &amp;lt;- &amp;quot;
+#111#
+22233
+###33
+&amp;quot;
+penguin_plot + title_plot + text_plot + 
+  plot_layout(design = layout,
+              widths = c(1, 10, 10, 10, 1), 
+              heights = c(30, 12, 1/5)
+              ) &amp;amp; 
+  theme(plot.background = element_rect(fill= &amp;quot;#ECEFF4&amp;quot;,                     
+                                       color = NA)
+          ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggsave(&amp;#39;featured.png&amp;#39;, dpi = 144)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Australian Pets</title>
-      <link>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</link>
+      <link>/post/2020-07-20-tt-australian-pets/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</guid>
+      <guid>/post/2020-07-20-tt-australian-pets/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
@@ -240,18 +485,18 @@ final_plot&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Simple Features for Science</title>
-      <link>https://tkoomar.github.io/project/simple-features-for-science/</link>
+      <link>/project/simple-features-for-science/</link>
       <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/project/simple-features-for-science/</guid>
+      <guid>/project/simple-features-for-science/</guid>
       <description>&lt;p&gt;Simple Features for Science (&lt;code&gt;sffs&lt;/code&gt; for short) is a warehouse of vector-based diagrams for use as heatmaps.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>cerebroViz: an R package for anatomical visualization of spatiotemporal brain data</title>
-      <link>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</link>
+      <link>/publication/2017-cerebroviz-paper/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</guid>
+      <guid>/publication/2017-cerebroviz-paper/</guid>
       <description></description>
     </item>
     

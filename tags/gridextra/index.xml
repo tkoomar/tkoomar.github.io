@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gridExtra | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/tags/gridextra/</link>
-      <atom:link href="https://tkoomar.github.io/tags/gridextra/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tags/gridextra/</link>
+      <atom:link href="/tags/gridextra/index.xml" rel="self" type="application/rss+xml" />
     <description>gridExtra</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sun, 21 Apr 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>gridExtra</title>
-      <link>https://tkoomar.github.io/tags/gridextra/</link>
+      <link>/tags/gridextra/</link>
     </image>
     
     <item>
       <title>Tidy Tuesday: How The Housing Price Index Flipped</title>
-      <link>https://tkoomar.github.io/post/2019-04-21-tt-housing-prices/</link>
+      <link>/post/2019-04-21-tt-housing-prices/</link>
       <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2019-04-21-tt-housing-prices/</guid>
+      <guid>/post/2019-04-21-tt-housing-prices/</guid>
       <description>&lt;p&gt;A look at housing price trends over the last century with a compound infographic.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -347,9 +347,9 @@ dev.off()
     
     <item>
       <title>Tidy Tuesday: Thanksgiving Gravy</title>
-      <link>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</link>
+      <link>/post/2018-11-20-tt-gravy/</link>
       <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</guid>
+      <guid>/post/2018-11-20-tt-gravy/</guid>
       <description>&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-20/thanksgiving_meals.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Parsed with column specification:

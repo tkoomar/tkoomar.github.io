@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gif | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/tags/gif/</link>
-      <atom:link href="https://tkoomar.github.io/tags/gif/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tags/gif/</link>
+      <atom:link href="/tags/gif/index.xml" rel="self" type="application/rss+xml" />
     <description>gif</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Wed, 08 May 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>gif</title>
-      <link>https://tkoomar.github.io/tags/gif/</link>
+      <link>/tags/gif/</link>
     </image>
     
     <item>
       <title>Tidy Tuesday: University Research Funding</title>
-      <link>https://tkoomar.github.io/post/2019-05-08-tt-uni-funding/</link>
+      <link>/post/2019-05-08-tt-uni-funding/</link>
       <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2019-05-08-tt-uni-funding/</guid>
+      <guid>/post/2019-05-08-tt-uni-funding/</guid>
       <description>&lt;p&gt;Animated GIFs showing changes to funding of university research, broken down by speciality.&lt;/p&gt;
 &lt;p&gt;If you take a look at this table raw, it really is quite the mess. It is kind of hard to imagine data that is &lt;em&gt;less&lt;/em&gt; tidy:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
@@ -283,9 +283,9 @@ anim_save(animation = plot_2, filename = &amp;quot;final_plot_2.gif&amp;quot;, w
     
     <item>
       <title>Tidy Tuesday: Milk Production</title>
-      <link>https://tkoomar.github.io/post/2019-03-02-tt-milk-gif/</link>
+      <link>/post/2019-03-02-tt-milk-gif/</link>
       <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2019-03-02-tt-milk-gif/</guid>
+      <guid>/post/2019-03-02-tt-milk-gif/</guid>
       <description>&lt;p&gt;A simple animated gif map.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;

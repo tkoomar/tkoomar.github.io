@@ -2,32 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/authors/</link>
-      <atom:link href="https://tkoomar.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
+    <link>/authors/</link>
+      <atom:link href="/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Authors</title>
-      <link>https://tkoomar.github.io/authors/</link>
+      <link>/authors/</link>
     </image>
-    
-    <item>
-      <title>Tanner Koomar</title>
-      <link>https://tkoomar.github.io/authors/tanner-koomar/</link>
-      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/authors/tanner-koomar/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://tkoomar.github.io/authors/tanner/</link>
-      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/authors/tanner/</guid>
-      <description>&lt;p&gt;I study the genetic intersection of language development and the cognitive functions underlying neuropsychiatric conditions. I rely on a variety of computational and statistical tools like machine learning and cloud infrastructure. I am also passionate about communicating science and the duty of scientists to thoughtfully share their research the rest of society.&lt;/p&gt;
-</description>
-    </item>
     
   </channel>
 </rss>

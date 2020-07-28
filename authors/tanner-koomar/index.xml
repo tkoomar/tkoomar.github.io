@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tanner Koomar</title>
-    <link>https://tkoomar.github.io/authors/tanner-koomar/</link>
-      <atom:link href="https://tkoomar.github.io/authors/tanner-koomar/index.xml" rel="self" type="application/rss+xml" />
+    <link>/authors/tanner-koomar/</link>
+      <atom:link href="/authors/tanner-koomar/index.xml" rel="self" type="application/rss+xml" />
     <description>Tanner Koomar</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Tanner Koomar</title>
-      <link>https://tkoomar.github.io/authors/tanner-koomar/</link>
+      <link>/authors/tanner-koomar/</link>
     </image>
     
     <item>
       <title>Australian Pets</title>
-      <link>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</link>
+      <link>/post/2020-07-20-tt-australian-pets/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</guid>
+      <guid>/post/2020-07-20-tt-australian-pets/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
