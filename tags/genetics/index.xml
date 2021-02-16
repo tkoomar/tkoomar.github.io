@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>genetics | Tanner Koomar</title>
+    <link>https://tkoomar.github.io/tags/genetics/</link>
+      <atom:link href="https://tkoomar.github.io/tags/genetics/index.xml" rel="self" type="application/rss+xml" />
+    <description>genetics</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
+      <title>genetics</title>
+      <link>https://tkoomar.github.io/tags/genetics/</link>
+    </image>
+    
+    <item>
+      <title>VCFdbR: A method for expressing biobank-scale Variant Call Format data in a SQLite database using R</title>
+      <link>https://tkoomar.github.io/publication/2020-vcfdbr/</link>
+      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/publication/2020-vcfdbr/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

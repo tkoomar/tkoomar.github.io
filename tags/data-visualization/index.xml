@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>data visualization | Tanner Koomar</title>
-    <link>/tags/data-visualization/</link>
-      <atom:link href="/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/data-visualization/</link>
+      <atom:link href="https://tkoomar.github.io/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>data visualization</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>data visualization</title>
-      <link>/tags/data-visualization/</link>
+      <link>https://tkoomar.github.io/tags/data-visualization/</link>
     </image>
     
     <item>
       <title>Palmer Penguins</title>
-      <link>/post/tt-palmer-penguins/</link>
+      <link>https://tkoomar.github.io/post/tt-palmer-penguins/</link>
       <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/tt-palmer-penguins/</guid>
+      <guid>https://tkoomar.github.io/post/tt-palmer-penguins/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
@@ -259,9 +259,9 @@ penguin_plot + title_plot + text_plot +
     
     <item>
       <title>Australian Pets</title>
-      <link>/post/2020-07-20-tt-australian-pets/</link>
+      <link>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-07-20-tt-australian-pets/</guid>
+      <guid>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
@@ -484,19 +484,10 @@ final_plot&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
-      <title>Simple Features for Science</title>
-      <link>/project/simple-features-for-science/</link>
-      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>/project/simple-features-for-science/</guid>
-      <description>&lt;p&gt;Simple Features for Science (&lt;code&gt;sffs&lt;/code&gt; for short) is a warehouse of vector-based diagrams for use as heatmaps.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>cerebroViz: an R package for anatomical visualization of spatiotemporal brain data</title>
-      <link>/publication/2017-cerebroviz-paper/</link>
+      <link>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>/publication/2017-cerebroviz-paper/</guid>
+      <guid>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</guid>
       <description></description>
     </item>
     

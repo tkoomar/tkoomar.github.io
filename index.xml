@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tanner Koomar</title>
-    <link>/</link>
-      <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/</link>
+      <atom:link href="https://tkoomar.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Tanner Koomar</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Thu, 28 Jun 2018 00:00:00 +0100</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Tanner Koomar</title>
-      <link>/</link>
+      <link>https://tkoomar.github.io/</link>
     </image>
     
     <item>
       <title>Palmer Penguins</title>
-      <link>/post/tt-palmer-penguins/</link>
+      <link>https://tkoomar.github.io/post/tt-palmer-penguins/</link>
       <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/tt-palmer-penguins/</guid>
+      <guid>https://tkoomar.github.io/post/tt-palmer-penguins/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
@@ -259,9 +259,9 @@ penguin_plot + title_plot + text_plot +
     
     <item>
       <title>Australian Pets</title>
-      <link>/post/2020-07-20-tt-australian-pets/</link>
+      <link>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-07-20-tt-australian-pets/</guid>
+      <guid>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
@@ -484,19 +484,18 @@ final_plot&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
-      <title>Simple Features for Science</title>
-      <link>/project/simple-features-for-science/</link>
-      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>/project/simple-features-for-science/</guid>
-      <description>&lt;p&gt;Simple Features for Science (&lt;code&gt;sffs&lt;/code&gt; for short) is a warehouse of vector-based diagrams for use as heatmaps.&lt;/p&gt;
-</description>
+      <title>VCFdbR: A method for expressing biobank-scale Variant Call Format data in a SQLite database using R</title>
+      <link>https://tkoomar.github.io/publication/2020-vcfdbr/</link>
+      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://tkoomar.github.io/publication/2020-vcfdbr/</guid>
+      <description></description>
     </item>
     
     <item>
       <title>Simple Iteration over Variables with `lm()`</title>
-      <link>/post/2020-05-02-tutorial-iterate-lm/</link>
+      <link>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-05-02-tutorial-iterate-lm/</guid>
+      <guid>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</guid>
       <description>&lt;p&gt;Note that this is not without shortcomings and lacks some flexibility, but it does keep you from having dig deep into how formulas actually work in R – which many (myself included) find confusing in the extreme.&lt;/p&gt;
 &lt;p&gt;For this example, let’s work with the standard &lt;code&gt;mtcars&lt;/code&gt; dataset.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(mtcars)&lt;/code&gt;&lt;/pre&gt;
@@ -748,9 +747,9 @@ plot_dat&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Tidy Tuesday: NFL Stadium Attendance</title>
-      <link>/post/2020-02-04-tt-football/</link>
+      <link>https://tkoomar.github.io/post/2020-02-04-tt-football/</link>
       <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-04-tt-football/</guid>
+      <guid>https://tkoomar.github.io/post/2020-02-04-tt-football/</guid>
       <description>&lt;p&gt;Dip into the new &lt;code&gt;ggttext&lt;/code&gt; package to get some rich text formatting in a plot&amp;rsquo;s title. Also: sports.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -973,25 +972,25 @@ standings %&amp;gt;%
     
     <item>
       <title>Genetic Intersections of Language and Neuropsychiatric Conditions</title>
-      <link>/publication/2020-language-review-paper/</link>
+      <link>https://tkoomar.github.io/publication/2020-language-review-paper/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/publication/2020-language-review-paper/</guid>
+      <guid>https://tkoomar.github.io/publication/2020-language-review-paper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ensemble Modeling of Neurocognitive Performance Using MRI-Derived Brain Structure Volumes</title>
-      <link>/publication/2019-miccai-paper/</link>
+      <link>https://tkoomar.github.io/publication/2019-miccai-paper/</link>
       <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/2019-miccai-paper/</guid>
+      <guid>https://tkoomar.github.io/publication/2019-miccai-paper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tidy Tuesday: University Research Funding</title>
-      <link>/post/2019-05-08-tt-uni-funding/</link>
+      <link>https://tkoomar.github.io/post/2019-05-08-tt-uni-funding/</link>
       <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-05-08-tt-uni-funding/</guid>
+      <guid>https://tkoomar.github.io/post/2019-05-08-tt-uni-funding/</guid>
       <description>&lt;p&gt;Animated GIFs showing changes to funding of university research, broken down by speciality.&lt;/p&gt;
 &lt;p&gt;If you take a look at this table raw, it really is quite the mess. It is kind of hard to imagine data that is &lt;em&gt;less&lt;/em&gt; tidy:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
@@ -1258,9 +1257,9 @@ anim_save(animation = plot_2, filename = &amp;quot;final_plot_2.gif&amp;quot;, w
     
     <item>
       <title>Tidy Tuesday: How The Housing Price Index Flipped</title>
-      <link>/post/2019-04-21-tt-housing-prices/</link>
+      <link>https://tkoomar.github.io/post/2019-04-21-tt-housing-prices/</link>
       <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-04-21-tt-housing-prices/</guid>
+      <guid>https://tkoomar.github.io/post/2019-04-21-tt-housing-prices/</guid>
       <description>&lt;p&gt;A look at housing price trends over the last century with a compound infographic.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1591,9 +1590,9 @@ dev.off()
     
     <item>
       <title>Tidy Tuesday: Milk Production</title>
-      <link>/post/2019-03-02-tt-milk-gif/</link>
+      <link>https://tkoomar.github.io/post/2019-03-02-tt-milk-gif/</link>
       <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-03-02-tt-milk-gif/</guid>
+      <guid>https://tkoomar.github.io/post/2019-03-02-tt-milk-gif/</guid>
       <description>&lt;p&gt;A simple animated gif map.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1716,9 +1715,9 @@ anim_save(animation = map_anim,
     
     <item>
       <title>Tidy Tuesday: R Tweets</title>
-      <link>/post/2019-02-13-tt-rstats-tweets/</link>
+      <link>https://tkoomar.github.io/post/2019-02-13-tt-rstats-tweets/</link>
       <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-02-13-tt-rstats-tweets/</guid>
+      <guid>https://tkoomar.github.io/post/2019-02-13-tt-rstats-tweets/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;
 &lt;a href=&#34;#make-some-new-columns&#34;&gt;make some new columns&lt;/a&gt;
@@ -2014,9 +2013,9 @@ grid.arrange(
     
     <item>
       <title>Tidy Tuesday: Infinitives in Medium Posts</title>
-      <link>/post/2019-01-05-tt-medium/</link>
+      <link>https://tkoomar.github.io/post/2019-01-05-tt-medium/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-01-05-tt-medium/</guid>
+      <guid>https://tkoomar.github.io/post/2019-01-05-tt-medium/</guid>
       <description>&lt;p&gt;Some light web-scraping and natual language processing reveals how different parts of speech may hint at an author&amp;rsquo;s intent (and impact).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2627,17 +2626,17 @@ dev.off()
     
     <item>
       <title>Whole-genome sequencing in a family with twin boys with autism and intellectual disability suggests multimodal polygenic risk</title>
-      <link>/publication/2018-case-study-asd/</link>
+      <link>https://tkoomar.github.io/publication/2018-case-study-asd/</link>
       <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
-      <guid>/publication/2018-case-study-asd/</guid>
+      <guid>https://tkoomar.github.io/publication/2018-case-study-asd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tidy Tuesday: Thanksgiving Gravy</title>
-      <link>/post/2018-11-20-tt-gravy/</link>
+      <link>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</link>
       <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/post/2018-11-20-tt-gravy/</guid>
+      <guid>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</guid>
       <description>&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-20/thanksgiving_meals.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Parsed with column specification:
@@ -2884,9 +2883,9 @@ cowplot::ggdraw(final_plot) +
     
     <item>
       <title>Tidy Tuesday: USA Wind Power</title>
-      <link>/post/2018-11-06-tt-wind-power/</link>
+      <link>https://tkoomar.github.io/post/2018-11-06-tt-wind-power/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/post/2018-11-06-tt-wind-power/</guid>
+      <guid>https://tkoomar.github.io/post/2018-11-06-tt-wind-power/</guid>
       <description>&lt;div id=&#34;load-data&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Load Data&lt;/h4&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
@@ -3081,35 +3080,17 @@ ggdraw(final.plot) +
     
     <item>
       <title>Forecasting autism gene discovery with machine learning and genome-scale data</title>
-      <link>/publication/2018-forecasd-preprint/</link>
+      <link>https://tkoomar.github.io/publication/2018-forecasd-preprint/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      <guid>/publication/2018-forecasd-preprint/</guid>
+      <guid>https://tkoomar.github.io/publication/2018-forecasd-preprint/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Privacy Policy</title>
-      <link>/privacy/</link>
-      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
-      <guid>/privacy/</guid>
-      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Terms</title>
-      <link>/terms/</link>
-      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
-      <guid>/terms/</guid>
-      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Web-based Language Screener</title>
-      <link>/project/language-screener/</link>
+      <link>https://tkoomar.github.io/project/language-screener/</link>
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>/project/language-screener/</guid>
+      <guid>https://tkoomar.github.io/project/language-screener/</guid>
       <description>&lt;p&gt;Well-powered genetic studies of any complex trait require large cohorts. Most current methods of assessing language ability have their roots in clinical practice, and require one on one interaction between a subject and an evaluator. Furthermore, these tests are formulated to be sensitive to variations at the low end of the ability spectrum, but cannot differentiate between individuals of average or better ability.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;The study of language genetics needs a rapid, scalable assessment which can detect a wide range of ability levels.&lt;/strong&gt; We are developing a web-based language screening tool composed of a mixture of established and new assessments with an eye to detecting meaningful variation in the language ability of adults.&lt;/p&gt;
 &lt;h2 id=&#34;booth&#34;&gt;Booth&lt;/h2&gt;
@@ -3121,42 +3102,42 @@ ggdraw(final.plot) +
     
     <item>
       <title>cerebroViz: an R package for anatomical visualization of spatiotemporal brain data</title>
-      <link>/publication/2017-cerebroviz-paper/</link>
+      <link>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>/publication/2017-cerebroviz-paper/</guid>
+      <guid>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Genetics of Language Ability</title>
-      <link>/project/language-wgs/</link>
+      <link>https://tkoomar.github.io/project/language-wgs/</link>
       <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-      <guid>/project/language-wgs/</guid>
+      <guid>https://tkoomar.github.io/project/language-wgs/</guid>
       <description>&lt;p&gt;In this NIDCD/NICHD-supported project, we are performing whole-genome sequencing of a cohort of Iowa children with language impairment (collected by UI collaborator Bruce Tomblin), where we hope to identify genes and mutations involved in the acquisition and use of language. We hope that research in this area will eventually help to further refine the categorization of language pathology so that therapies can be more targeted and effective.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title></title>
-      <link>/about/</link>
+      <link>https://tkoomar.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/about/</guid>
+      <guid>https://tkoomar.github.io/about/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>/tidytuesday/</link>
+      <link>https://tkoomar.github.io/tidytuesday/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/tidytuesday/</guid>
+      <guid>https://tkoomar.github.io/tidytuesday/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>/tutorials/</link>
+      <link>https://tkoomar.github.io/tutorials/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/tutorials/</guid>
+      <guid>https://tkoomar.github.io/tutorials/</guid>
       <description></description>
     </item>
     

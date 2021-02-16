@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tidytuesday | Tanner Koomar</title>
-    <link>/categories/tidytuesday/</link>
-      <atom:link href="/categories/tidytuesday/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/categories/tidytuesday/</link>
+      <atom:link href="https://tkoomar.github.io/categories/tidytuesday/index.xml" rel="self" type="application/rss+xml" />
     <description>tidytuesday</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>tidytuesday</title>
-      <link>/categories/tidytuesday/</link>
+      <link>https://tkoomar.github.io/categories/tidytuesday/</link>
     </image>
     
     <item>
       <title>Palmer Penguins</title>
-      <link>/post/tt-palmer-penguins/</link>
+      <link>https://tkoomar.github.io/post/tt-palmer-penguins/</link>
       <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/tt-palmer-penguins/</guid>
+      <guid>https://tkoomar.github.io/post/tt-palmer-penguins/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
@@ -259,9 +259,9 @@ penguin_plot + title_plot + text_plot +
     
     <item>
       <title>Australian Pets</title>
-      <link>/post/2020-07-20-tt-australian-pets/</link>
+      <link>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-07-20-tt-australian-pets/</guid>
+      <guid>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
@@ -485,9 +485,9 @@ final_plot&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Tidy Tuesday: NFL Stadium Attendance</title>
-      <link>/post/2020-02-04-tt-football/</link>
+      <link>https://tkoomar.github.io/post/2020-02-04-tt-football/</link>
       <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-04-tt-football/</guid>
+      <guid>https://tkoomar.github.io/post/2020-02-04-tt-football/</guid>
       <description>&lt;p&gt;Dip into the new &lt;code&gt;ggttext&lt;/code&gt; package to get some rich text formatting in a plot&amp;rsquo;s title. Also: sports.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -710,9 +710,9 @@ standings %&amp;gt;%
     
     <item>
       <title>Tidy Tuesday: University Research Funding</title>
-      <link>/post/2019-05-08-tt-uni-funding/</link>
+      <link>https://tkoomar.github.io/post/2019-05-08-tt-uni-funding/</link>
       <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-05-08-tt-uni-funding/</guid>
+      <guid>https://tkoomar.github.io/post/2019-05-08-tt-uni-funding/</guid>
       <description>&lt;p&gt;Animated GIFs showing changes to funding of university research, broken down by speciality.&lt;/p&gt;
 &lt;p&gt;If you take a look at this table raw, it really is quite the mess. It is kind of hard to imagine data that is &lt;em&gt;less&lt;/em&gt; tidy:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
@@ -979,9 +979,9 @@ anim_save(animation = plot_2, filename = &amp;quot;final_plot_2.gif&amp;quot;, w
     
     <item>
       <title>Tidy Tuesday: How The Housing Price Index Flipped</title>
-      <link>/post/2019-04-21-tt-housing-prices/</link>
+      <link>https://tkoomar.github.io/post/2019-04-21-tt-housing-prices/</link>
       <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-04-21-tt-housing-prices/</guid>
+      <guid>https://tkoomar.github.io/post/2019-04-21-tt-housing-prices/</guid>
       <description>&lt;p&gt;A look at housing price trends over the last century with a compound infographic.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1312,9 +1312,9 @@ dev.off()
     
     <item>
       <title>Tidy Tuesday: Milk Production</title>
-      <link>/post/2019-03-02-tt-milk-gif/</link>
+      <link>https://tkoomar.github.io/post/2019-03-02-tt-milk-gif/</link>
       <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-03-02-tt-milk-gif/</guid>
+      <guid>https://tkoomar.github.io/post/2019-03-02-tt-milk-gif/</guid>
       <description>&lt;p&gt;A simple animated gif map.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1437,9 +1437,9 @@ anim_save(animation = map_anim,
     
     <item>
       <title>Tidy Tuesday: R Tweets</title>
-      <link>/post/2019-02-13-tt-rstats-tweets/</link>
+      <link>https://tkoomar.github.io/post/2019-02-13-tt-rstats-tweets/</link>
       <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-02-13-tt-rstats-tweets/</guid>
+      <guid>https://tkoomar.github.io/post/2019-02-13-tt-rstats-tweets/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;
 &lt;a href=&#34;#make-some-new-columns&#34;&gt;make some new columns&lt;/a&gt;
@@ -1735,9 +1735,9 @@ grid.arrange(
     
     <item>
       <title>Tidy Tuesday: Infinitives in Medium Posts</title>
-      <link>/post/2019-01-05-tt-medium/</link>
+      <link>https://tkoomar.github.io/post/2019-01-05-tt-medium/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-01-05-tt-medium/</guid>
+      <guid>https://tkoomar.github.io/post/2019-01-05-tt-medium/</guid>
       <description>&lt;p&gt;Some light web-scraping and natual language processing reveals how different parts of speech may hint at an author&amp;rsquo;s intent (and impact).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2348,9 +2348,9 @@ dev.off()
     
     <item>
       <title>Tidy Tuesday: Thanksgiving Gravy</title>
-      <link>/post/2018-11-20-tt-gravy/</link>
+      <link>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</link>
       <pubDate>Tue, 20 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/post/2018-11-20-tt-gravy/</guid>
+      <guid>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</guid>
       <description>&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-20/thanksgiving_meals.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Parsed with column specification:
@@ -2597,9 +2597,9 @@ cowplot::ggdraw(final_plot) +
     
     <item>
       <title>Tidy Tuesday: USA Wind Power</title>
-      <link>/post/2018-11-06-tt-wind-power/</link>
+      <link>https://tkoomar.github.io/post/2018-11-06-tt-wind-power/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/post/2018-11-06-tt-wind-power/</guid>
+      <guid>https://tkoomar.github.io/post/2018-11-06-tt-wind-power/</guid>
       <description>&lt;div id=&#34;load-data&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Load Data&lt;/h4&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;

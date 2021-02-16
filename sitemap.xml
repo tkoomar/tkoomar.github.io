@@ -3,360 +3,360 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://tkoomar.github.io/categories/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/data-visualization/</loc>
+    <loc>https://tkoomar.github.io/tags/data-visualization/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/heatmap/</loc>
+    <loc>https://tkoomar.github.io/tags/heatmap/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/tt-palmer-penguins/</loc>
+    <loc>https://tkoomar.github.io/post/tt-palmer-penguins/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>https://tkoomar.github.io/post/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/r/</loc>
+    <loc>https://tkoomar.github.io/tags/r/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://tkoomar.github.io/tags/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/tidytuesday/</loc>
+    <loc>https://tkoomar.github.io/</loc>
     <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/tanner/</loc>
+    <loc>https://tkoomar.github.io/categories/tidytuesday/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/authors/tanner/</loc>
     <lastmod>2020-07-20T16:35:02-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2020-07-20-tt-australian-pets/</loc>
+    <loc>https://tkoomar.github.io/post/2020-07-20-tt-australian-pets/</loc>
     <lastmod>2020-07-20T16:35:02-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/</loc>
+    <loc>https://tkoomar.github.io/authors/</loc>
     <lastmod>2020-07-20T16:35:02-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/map/</loc>
+    <loc>https://tkoomar.github.io/tags/map/</loc>
     <lastmod>2020-07-20T16:35:02-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/tanner-koomar/</loc>
+    <loc>https://tkoomar.github.io/authors/tanner-koomar/</loc>
     <lastmod>2020-07-20T16:35:02-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+    <loc>https://tkoomar.github.io/publication_types/2/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/simple-features-for-science/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+    <loc>https://tkoomar.github.io/tags/genetics/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/lm/</loc>
+    <loc>https://tkoomar.github.io/publication_types/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/publication/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/tags/vcf/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/publication/2020-vcfdbr/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/tags/whole-genome-sequencing/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/tags/lm/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/modeling/</loc>
+    <loc>https://tkoomar.github.io/tags/modeling/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2020-05-02-tutorial-iterate-lm/</loc>
+    <loc>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/tidy/</loc>
+    <loc>https://tkoomar.github.io/tags/tidy/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/tutorial/</loc>
+    <loc>https://tkoomar.github.io/tags/tutorial/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/tutorials/</loc>
+    <loc>https://tkoomar.github.io/categories/tutorials/</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/ggtext/</loc>
+    <loc>https://tkoomar.github.io/tags/ggtext/</loc>
     <lastmod>2020-02-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2020-02-04-tt-football/</loc>
+    <loc>https://tkoomar.github.io/post/2020-02-04-tt-football/</loc>
     <lastmod>2020-02-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/2/</loc>
+    <loc>https://tkoomar.github.io/tags/adhd/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/adhd/</loc>
+    <loc>https://tkoomar.github.io/tags/autism/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/autism/</loc>
+    <loc>https://tkoomar.github.io/tags/bipolar-disorder/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/bipolar-disorder/</loc>
+    <loc>https://tkoomar.github.io/publication/2020-language-review-paper/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/2020-language-review-paper/</loc>
+    <loc>https://tkoomar.github.io/tags/language-genetics/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/language-genetics/</loc>
+    <loc>https://tkoomar.github.io/tags/major-depression/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/major-depression/</loc>
+    <loc>https://tkoomar.github.io/tags/schizophrenia/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/</loc>
-    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/</loc>
-    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/schizophrenia/</loc>
-    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication_types/1/</loc>
+    <loc>https://tkoomar.github.io/publication_types/1/</loc>
     <lastmod>2019-10-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/abcd/</loc>
+    <loc>https://tkoomar.github.io/tags/abcd/</loc>
     <lastmod>2019-10-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/2019-miccai-paper/</loc>
+    <loc>https://tkoomar.github.io/publication/2019-miccai-paper/</loc>
     <lastmod>2019-10-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/machie-learning/</loc>
+    <loc>https://tkoomar.github.io/tags/machie-learning/</loc>
     <lastmod>2019-10-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/mri/</loc>
+    <loc>https://tkoomar.github.io/tags/mri/</loc>
     <lastmod>2019-10-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/gif/</loc>
+    <loc>https://tkoomar.github.io/tags/gif/</loc>
     <lastmod>2019-05-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2019-05-08-tt-uni-funding/</loc>
+    <loc>https://tkoomar.github.io/post/2019-05-08-tt-uni-funding/</loc>
     <lastmod>2019-05-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/gridextra/</loc>
+    <loc>https://tkoomar.github.io/tags/gridextra/</loc>
     <lastmod>2019-04-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2019-04-21-tt-housing-prices/</loc>
+    <loc>https://tkoomar.github.io/post/2019-04-21-tt-housing-prices/</loc>
     <lastmod>2019-04-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2019-03-02-tt-milk-gif/</loc>
+    <loc>https://tkoomar.github.io/post/2019-03-02-tt-milk-gif/</loc>
     <lastmod>2019-03-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2019-02-13-tt-rstats-tweets/</loc>
+    <loc>https://tkoomar.github.io/post/2019-02-13-tt-rstats-tweets/</loc>
     <lastmod>2019-02-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/twitter/</loc>
+    <loc>https://tkoomar.github.io/tags/twitter/</loc>
     <lastmod>2019-02-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/nlp/</loc>
+    <loc>https://tkoomar.github.io/tags/nlp/</loc>
     <lastmod>2019-01-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2019-01-05-tt-medium/</loc>
+    <loc>https://tkoomar.github.io/post/2019-01-05-tt-medium/</loc>
     <lastmod>2019-01-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/web-scraping/</loc>
+    <loc>https://tkoomar.github.io/tags/web-scraping/</loc>
     <lastmod>2019-01-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/polygenic-risk/</loc>
+    <loc>https://tkoomar.github.io/tags/polygenic-risk/</loc>
     <lastmod>2018-12-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/whole-genome-sequencing/</loc>
+    <loc>https://tkoomar.github.io/publication/2018-case-study-asd/</loc>
     <lastmod>2018-12-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/2018-case-study-asd/</loc>
-    <lastmod>2018-12-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/holiday/</loc>
+    <loc>https://tkoomar.github.io/tags/holiday/</loc>
     <lastmod>2018-11-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2018-11-20-tt-gravy/</loc>
+    <loc>https://tkoomar.github.io/post/2018-11-20-tt-gravy/</loc>
     <lastmod>2018-11-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/cowplot/</loc>
+    <loc>https://tkoomar.github.io/tags/cowplot/</loc>
     <lastmod>2018-11-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/pca/</loc>
+    <loc>https://tkoomar.github.io/tags/pca/</loc>
     <lastmod>2018-11-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2018-11-06-tt-wind-power/</loc>
+    <loc>https://tkoomar.github.io/post/2018-11-06-tt-wind-power/</loc>
     <lastmod>2018-11-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/3/</loc>
+    <loc>https://tkoomar.github.io/publication_types/3/</loc>
     <lastmod>2018-10-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/2018-forecasd-preprint/</loc>
+    <loc>https://tkoomar.github.io/publication/2018-forecasd-preprint/</loc>
     <lastmod>2018-10-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/machine-learning/</loc>
+    <loc>https://tkoomar.github.io/tags/machine-learning/</loc>
     <lastmod>2018-10-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/preprint/</loc>
+    <loc>https://tkoomar.github.io/tags/preprint/</loc>
     <lastmod>2018-10-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/random-forest/</loc>
+    <loc>https://tkoomar.github.io/tags/random-forest/</loc>
     <lastmod>2018-10-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/privacy/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/terms/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/cloud/</loc>
+    <loc>https://tkoomar.github.io/tags/cloud/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/language-screener/</loc>
+    <loc>https://tkoomar.github.io/project/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/2017-cerebroviz-paper/</loc>
+    <loc>https://tkoomar.github.io/project/language-screener/</loc>
+    <lastmod>2017-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</loc>
     <lastmod>2016-12-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/gene-expression/</loc>
+    <loc>https://tkoomar.github.io/tags/gene-expression/</loc>
     <lastmod>2016-12-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/language-wgs/</loc>
+    <loc>https://tkoomar.github.io/project/language-wgs/</loc>
     <lastmod>2015-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/about/</loc>
+    <loc>https://tkoomar.github.io/about/</loc>
   </url>
   
   <url>
-    <loc>/tidytuesday/</loc>
+    <loc>https://tkoomar.github.io/tidytuesday/</loc>
   </url>
   
   <url>
-    <loc>/tutorials/</loc>
+    <loc>https://tkoomar.github.io/tutorials/</loc>
   </url>
   
 </urlset>

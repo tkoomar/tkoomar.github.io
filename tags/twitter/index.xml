@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>twitter | Tanner Koomar</title>
-    <link>/tags/twitter/</link>
-      <atom:link href="/tags/twitter/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/twitter/</link>
+      <atom:link href="https://tkoomar.github.io/tags/twitter/index.xml" rel="self" type="application/rss+xml" />
     <description>twitter</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Wed, 13 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Wed, 13 Feb 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>twitter</title>
-      <link>/tags/twitter/</link>
+      <link>https://tkoomar.github.io/tags/twitter/</link>
     </image>
     
     <item>
       <title>Tidy Tuesday: R Tweets</title>
-      <link>/post/2019-02-13-tt-rstats-tweets/</link>
+      <link>https://tkoomar.github.io/post/2019-02-13-tt-rstats-tweets/</link>
       <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-02-13-tt-rstats-tweets/</guid>
+      <guid>https://tkoomar.github.io/post/2019-02-13-tt-rstats-tweets/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;
 &lt;a href=&#34;#make-some-new-columns&#34;&gt;make some new columns&lt;/a&gt;

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cloud | Tanner Koomar</title>
-    <link>/tags/cloud/</link>
-      <atom:link href="/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://tkoomar.github.io/tags/cloud/</link>
+      <atom:link href="https://tkoomar.github.io/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
     <description>cloud</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2020</copyright><lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>cloud</title>
-      <link>/tags/cloud/</link>
+      <link>https://tkoomar.github.io/tags/cloud/</link>
     </image>
     
     <item>
       <title>Web-based Language Screener</title>
-      <link>/project/language-screener/</link>
+      <link>https://tkoomar.github.io/project/language-screener/</link>
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>/project/language-screener/</guid>
+      <guid>https://tkoomar.github.io/project/language-screener/</guid>
       <description>&lt;p&gt;Well-powered genetic studies of any complex trait require large cohorts. Most current methods of assessing language ability have their roots in clinical practice, and require one on one interaction between a subject and an evaluator. Furthermore, these tests are formulated to be sensitive to variations at the low end of the ability spectrum, but cannot differentiate between individuals of average or better ability.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;The study of language genetics needs a rapid, scalable assessment which can detect a wide range of ability levels.&lt;/strong&gt; We are developing a web-based language screening tool composed of a mixture of established and new assessments with an eye to detecting meaningful variation in the language ability of adults.&lt;/p&gt;
 &lt;h2 id=&#34;booth&#34;&gt;Booth&lt;/h2&gt;
