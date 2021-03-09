@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tutorials | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/categories/tutorials/</link>
-      <atom:link href="https://tkoomar.github.io/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <link>/categories/tutorials/</link>
+      <atom:link href="/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <description>tutorials</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Sat, 02 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>tutorials</title>
-      <link>https://tkoomar.github.io/categories/tutorials/</link>
+      <link>/categories/tutorials/</link>
     </image>
     
     <item>
       <title>Simple Iteration over Variables with `lm()`</title>
-      <link>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</link>
+      <link>/post/2020-05-02-tutorial-iterate-lm/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2020-05-02-tutorial-iterate-lm/</guid>
+      <guid>/post/2020-05-02-tutorial-iterate-lm/</guid>
       <description>&lt;p&gt;Note that this is not without shortcomings and lacks some flexibility, but it does keep you from having dig deep into how formulas actually work in R – which many (myself included) find confusing in the extreme.&lt;/p&gt;
 &lt;p&gt;For this example, let’s work with the standard &lt;code&gt;mtcars&lt;/code&gt; dataset.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(mtcars)&lt;/code&gt;&lt;/pre&gt;

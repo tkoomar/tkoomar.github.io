@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>schizophrenia | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/tags/schizophrenia/</link>
-      <atom:link href="https://tkoomar.github.io/tags/schizophrenia/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tags/schizophrenia/</link>
+      <atom:link href="/tags/schizophrenia/index.xml" rel="self" type="application/rss+xml" />
     <description>schizophrenia</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>schizophrenia</title>
-      <link>https://tkoomar.github.io/tags/schizophrenia/</link>
+      <link>/tags/schizophrenia/</link>
     </image>
     
     <item>
       <title>Genetic Intersections of Language and Neuropsychiatric Conditions</title>
-      <link>https://tkoomar.github.io/publication/2020-language-review-paper/</link>
+      <link>/publication/2020-language-review-paper/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2020-language-review-paper/</guid>
+      <guid>/publication/2020-language-review-paper/</guid>
       <description></description>
     </item>
     

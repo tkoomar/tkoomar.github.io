@@ -2,61 +2,61 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/publication/</link>
-      <atom:link href="https://tkoomar.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
+    <link>/publication/</link>
+      <atom:link href="/publication/index.xml" rel="self" type="application/rss+xml" />
     <description>Publications</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Publications</title>
-      <link>https://tkoomar.github.io/publication/</link>
+      <link>/publication/</link>
     </image>
     
     <item>
       <title>VCFdbR: A method for expressing biobank-scale Variant Call Format data in a SQLite database using R</title>
-      <link>https://tkoomar.github.io/publication/2020-vcfdbr/</link>
+      <link>/publication/2020-vcfdbr/</link>
       <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2020-vcfdbr/</guid>
+      <guid>/publication/2020-vcfdbr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Genetic Intersections of Language and Neuropsychiatric Conditions</title>
-      <link>https://tkoomar.github.io/publication/2020-language-review-paper/</link>
+      <link>/publication/2020-language-review-paper/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2020-language-review-paper/</guid>
+      <guid>/publication/2020-language-review-paper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ensemble Modeling of Neurocognitive Performance Using MRI-Derived Brain Structure Volumes</title>
-      <link>https://tkoomar.github.io/publication/2019-miccai-paper/</link>
+      <link>/publication/2019-miccai-paper/</link>
       <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2019-miccai-paper/</guid>
+      <guid>/publication/2019-miccai-paper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Whole-genome sequencing in a family with twin boys with autism and intellectual disability suggests multimodal polygenic risk</title>
-      <link>https://tkoomar.github.io/publication/2018-case-study-asd/</link>
+      <link>/publication/2018-case-study-asd/</link>
       <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2018-case-study-asd/</guid>
+      <guid>/publication/2018-case-study-asd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Forecasting autism gene discovery with machine learning and genome-scale data</title>
-      <link>https://tkoomar.github.io/publication/2018-forecasd-preprint/</link>
+      <link>/publication/2018-forecasd-preprint/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2018-forecasd-preprint/</guid>
+      <guid>/publication/2018-forecasd-preprint/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cerebroViz: an R package for anatomical visualization of spatiotemporal brain data</title>
-      <link>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</link>
+      <link>/publication/2017-cerebroviz-paper/</link>
       <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/publication/2017-cerebroviz-paper/</guid>
+      <guid>/publication/2017-cerebroviz-paper/</guid>
       <description></description>
     </item>
     

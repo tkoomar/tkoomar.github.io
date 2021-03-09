@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nlp | Tanner Koomar</title>
-    <link>https://tkoomar.github.io/tags/nlp/</link>
-      <atom:link href="https://tkoomar.github.io/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tags/nlp/</link>
+      <atom:link href="/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
     <description>nlp</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>nlp</title>
-      <link>https://tkoomar.github.io/tags/nlp/</link>
+      <link>/tags/nlp/</link>
     </image>
     
     <item>
       <title>Tidy Tuesday: Infinitives in Medium Posts</title>
-      <link>https://tkoomar.github.io/post/2019-01-05-tt-medium/</link>
+      <link>/post/2019-01-05-tt-medium/</link>
       <pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate>
-      <guid>https://tkoomar.github.io/post/2019-01-05-tt-medium/</guid>
+      <guid>/post/2019-01-05-tt-medium/</guid>
       <description>&lt;p&gt;Some light web-scraping and natual language processing reveals how different parts of speech may hint at an author&amp;rsquo;s intent (and impact).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
