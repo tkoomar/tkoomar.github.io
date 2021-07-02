@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SPARK | Tanner Koomar</title>
+    <link>/tags/spark/</link>
+      <atom:link href="/tags/spark/index.xml" rel="self" type="application/rss+xml" />
+    <description>SPARK</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Mon, 01 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
+      <title>SPARK</title>
+      <link>/tags/spark/</link>
+    </image>
+    
+    <item>
+      <title>Avoidant restrictive food intake disorder in autism</title>
+      <link>/project/autism-arfid/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>/project/autism-arfid/</guid>
+      <description>&lt;p&gt;In this SPARK Research Match study, a survey of over a thousand families were asked about the eating habits of both parents and children. The first large scale study of its kind in the context of autism, it found that up to 22% of autisic children may be at risk for the under-diagnosed condition Avoidant Restrictive Food Intake Disorder (ARFID). Several risk factors for ARFID were also linked to restrictive and repetative behaviors.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

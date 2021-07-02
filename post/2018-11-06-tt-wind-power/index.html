@@ -604,7 +604,7 @@ This TidyTuesday we explores wind power throughout the USA with a high-contrast 
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    5 min read
+    4 min read
   </span>
   
 
@@ -641,7 +641,7 @@ This TidyTuesday we explores wind power throughout the USA with a high-contrast 
 
 <div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 360px;">
   <div style="position: relative">
-    <img src="../../post/2018-11-06-tt-wind-power/featured_hucc7a413828839363a5edfc4405d105c4_571927_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="../../post/2018-11-06-tt-wind-power/featured_hu548bbf1b5e590eaccd49270515cffb0c_564023_720x0_resize_lanczos_2.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -653,38 +653,12 @@ This TidyTuesday we explores wind power throughout the USA with a high-contrast 
     <div class="article-style">
       <div id="load-data" class="section level4">
 <h4>Load Data</h4>
-<pre class="r"><code>dat &lt;- read_csv(&quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_double(),
-##   faa_ors = col_character(),
-##   faa_asn = col_character(),
-##   t_state = col_character(),
-##   t_county = col_character(),
-##   t_fips = col_character(),
-##   p_name = col_character(),
-##   t_manu = col_character(),
-##   t_model = col_character(),
-##   t_img_date = col_character(),
-##   t_img_srce = col_character()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<pre class="r"><code>## get all the missing data to NA
-dat &lt;- dat %&gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &quot;missing&quot;), NA)))</code></pre>
-<pre><code>## Warning: `funs()` is deprecated as of dplyr 0.8.0.
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
-<pre class="r"><code>## drop rows and columns with high missing
+<pre class="r"><code>dat &lt;- read_csv(&quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&quot;)
+
+## get all the missing data to NA
+dat &lt;- dat %&gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &quot;missing&quot;), NA)))
+
+## drop rows and columns with high missing rate
 dat.comp &lt;- dat %&gt;% select_if( function(x){sum(is.na(x))/length(x) &lt; .15}) %&gt;%
   filter(rowMeans(is.na(.)) &lt; 0.15)
 
@@ -694,25 +668,31 @@ dat.p.num &lt;- dat.comp %&gt;% group_by(p_name) %&gt;%
   summarise_all(.funs = function(x){mean(x, na.rm = T)}) %&gt;% 
   ungroup %&gt;% select(-p_name) %&gt;% filter(rowSums(is.na(.)) == 0) %&gt;%
   filter(xlong &lt; 100 &amp; xlong &gt; -125 &amp; ylat &gt; 20) %&gt;% ## remove some geographic outliers
-  filter(t_cap &gt; 0 &amp; t_cap &lt; 6000) </code></pre>
+  filter(t_cap &gt; 0) </code></pre>
 </div>
 <div id="reduce-dimensionality" class="section level2">
 <h2>Reduce Dimensionality</h2>
 <div id="do-a-pca" class="section level3">
 <h3>Do a PCA</h3>
-<p>Looks like PC1 makes up the bul of the difference, and it is due to turbine rotor sweep area</p>
+<p>Looks like PC1 makes up the bulk of the difference, and it is due to turbine rotor sweep area</p>
 <pre class="r"><code>dat.pca &lt;- prcomp(dat.p.num, center = TRUE, scale. = TRUE)
 
-summary(dat.pca)</code></pre>
-<pre><code>## Importance of components:
-##                           PC1    PC2     PC3     PC4     PC5     PC6    PC7
-## Standard deviation     2.3420 1.3762 1.00832 0.98379 0.94979 0.86079 0.7040
-## Proportion of Variance 0.4571 0.1578 0.08473 0.08065 0.07517 0.06175 0.0413
-## Cumulative Proportion  0.4571 0.6149 0.69963 0.78028 0.85546 0.91720 0.9585
-##                            PC8     PC9    PC10    PC11    PC12
-## Standard deviation     0.53133 0.35791 0.27616 0.10600 0.01020
-## Proportion of Variance 0.02353 0.01067 0.00636 0.00094 0.00001
-## Cumulative Proportion  0.98202 0.99270 0.99905 0.99999 1.00000</code></pre>
+broom::tidy(dat.pca, &#39;d&#39;)</code></pre>
+<pre><code>## # A tibble: 12 x 4
+##       PC std.dev percent cumulative
+##    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+##  1     1  2.34   0.456        0.456
+##  2     2  1.38   0.158        0.615
+##  3     3  1.01   0.0846       0.699
+##  4     4  0.983  0.0806       0.780
+##  5     5  0.950  0.0753       0.855
+##  6     6  0.860  0.0617       0.917
+##  7     7  0.704  0.0413       0.958
+##  8     8  0.537  0.0240       0.982
+##  9     9  0.355  0.0105       0.993
+## 10    10  0.278  0.00645      0.999
+## 11    11  0.109  0.001        1.00 
+## 12    12  0.0102 0.00001      1</code></pre>
 <pre class="r"><code>dat.pca$rotation %&gt;% as.data.frame() %&gt;% rownames_to_column() %&gt;%
   ggplot(aes(y = PC1, x = rowname)) + 
   geom_col()</code></pre>
@@ -725,11 +705,6 @@ summary(dat.pca)</code></pre>
   ggplot(aes(x = xlong, ylat, color = PC1, size = p_cap, alpha = t_cap)) +
   scale_color_viridis_c() + 
   geom_point()</code></pre>
-<pre><code>## Warning: `as.tibble()` is deprecated as of tibble 2.0.0.
-## Please use `as_tibble()` instead.
-## The signature and semantics have changed, see `?as_tibble`.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="cluster" class="section level3">
@@ -745,19 +720,38 @@ dat.k &lt;- dat.pca$x %&gt;% as.tibble %&gt;%
     k6 = kmeans(., 6)$cluster
   ) %&gt;% bind_cols(dat.p.num)</code></pre>
 </div>
+<div id="summary-of-clusters" class="section level3">
+<h3>Summary of Clusters</h3>
+<pre class="r"><code>dat.k %&gt;%
+  group_by(k6) %&gt;%
+  select(-matches(&#39;^PC|k\\d&#39;)) %&gt;%
+  summarise_all(list(.median = median, .mad = mad))%&gt;%
+  gather(key, value, -k6) %&gt;%
+  separate(key, into = c(&#39;measure&#39;, &#39;stat&#39;), &#39;\\.&#39;) %&gt;%
+  mutate(measure = str_remove(measure, &quot;_$&quot;), 
+    k6 = as.factor(k6)) %&gt;%
+  spread(stat, value) %&gt;%
+  ggplot(aes(x = k6, y = median, color = k6)) + 
+  geom_errorbar(aes(ymin = median-3*mad, ymax = median+3*mad)) + 
+  geom_point() + 
+  facet_wrap(~measure, scales = &#39;free&#39;)+ 
+  theme_minimal() + 
+  scale_color_brewer(palette = &quot;Set1&quot;, guide = guide_none())</code></pre>
+<p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+</div>
 <div id="cluster-plots" class="section level3">
 <h3>Cluster Plots</h3>
 <pre class="r"><code>dat.k %&gt;% 
   ggplot(aes(x = xlong, ylat, color = as.character(k6), size = p_cap, alpha = t_cap)) +
-  scale_color_brewer(palette = &quot;Dark2&quot;) + 
+  scale_color_brewer(palette = &quot;Set1&quot;) + 
   geom_point()</code></pre>
-<p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>dat.k %&gt;% 
   ggplot(aes(x = xlong, ylat, color = as.character(k6), size = p_cap, alpha = t_cap)) +
-  scale_color_brewer(palette = &quot;Dark2&quot;)+ 
+  scale_color_brewer(palette = &quot;Set1&quot;)+ 
   geom_point() + 
   facet_wrap(~ as.character(k6), nrow = 3)</code></pre>
-<p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
 </div>
 </div>
 <div id="make-a-pretty-map-under-the-data" class="section level2">
@@ -776,7 +770,7 @@ invert &lt;- function(M) {
 us &lt;- c(left = -125, bottom = 25.75, right = -67, top = 49)
 m &lt;- get_stamenmap(us, zoom = 5, maptype = &quot;toner-lite&quot;) 
 ggmap(invert(m))</code></pre>
-<p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="plots" class="section level2">
 <h2>Plots</h2>
@@ -820,20 +814,9 @@ plot.all &lt;- ggmap(invert(m), extent = &#39;device&#39;) +
         panel.background = element_rect(fill = NULL))</code></pre>
 <div id="squish-together" class="section level3">
 <h3>Squish together</h3>
-<pre class="r"><code>library(cowplot)</code></pre>
-<pre><code>## 
-## ********************************************************</code></pre>
-<pre><code>## Note: As of version 1.0.0, cowplot does not change the</code></pre>
-<pre><code>##   default ggplot2 theme anymore. To recover the previous</code></pre>
-<pre><code>##   behavior, execute:
-##   theme_set(theme_cowplot())</code></pre>
-<pre><code>## ********************************************************</code></pre>
-<pre><code>## 
-## Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggmap&#39;:
-## 
-##     theme_nothing</code></pre>
-<pre class="r"><code>final.plot &lt;- plot_grid(plotlist = list(plot.points, plot.all, plot.density), nrow = 1, rel_widths = c(.25,1,.25))
+<pre class="r"><code>library(cowplot)
+
+final.plot &lt;- plot_grid(plotlist = list(plot.points, plot.all, plot.density), nrow = 1, rel_widths = c(.25,1,.25))
 ggdraw(final.plot) + 
   theme(plot.background = element_rect(fill = &quot;black&quot;, color = 
 &quot;black&quot;))</code></pre>
