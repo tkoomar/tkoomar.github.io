@@ -5,12 +5,20 @@
     <link>/tags/genetics/</link>
       <atom:link href="/tags/genetics/index.xml" rel="self" type="application/rss+xml" />
     <description>genetics</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>genetics</title>
       <link>/tags/genetics/</link>
     </image>
+    
+    <item>
+      <title>Estimating the Prevalence and Genetic Risk Mechanisms of ARFID in a Large Autism Cohort</title>
+      <link>/publication/2021-arfid-paper/</link>
+      <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/2021-arfid-paper/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>VCFdbR: A method for expressing biobank-scale Variant Call Format data in a SQLite database using R</title>

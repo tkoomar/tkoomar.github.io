@@ -13,230 +13,254 @@
     </image>
     
     <item>
-      <title>Bechdel Test</title>
-      <link>/post/tt-bechdel/</link>
-      <pubDate>Tue, 09 Mar 2021 00:00:00 +0000</pubDate>
-      <guid>/post/tt-bechdel/</guid>
+      <title>Estimating the Prevalence and Genetic Risk Mechanisms of ARFID in a Large Autism Cohort</title>
+      <link>/publication/2021-arfid-paper/</link>
+      <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/2021-arfid-paper/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Palmer Penguins</title>
+      <link>/post/tt-palmer-penguins/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/tt-palmer-penguins/</guid>
       <description>
 
 &lt;div id=&#34;TOC&#34;&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#load-packages&#34;&gt;Load Packages&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#read-in-data&#34;&gt;Read in data&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#top-plot&#34;&gt;Top Plot&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#annotate-it&#34;&gt;Annotate it&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#bottom-plot&#34;&gt;Bottom Plot&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#plots-assemble&#34;&gt;Plots Assemble!&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#read-in-penguin-diagram&#34;&gt;Read in penguin diagram&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summarize-data&#34;&gt;Summarize data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#simple-plot&#34;&gt;Simple plot&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#customize-plot&#34;&gt;Customize Plot&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 
 &lt;div id=&#34;load-packages&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Load Packages&lt;/h2&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(palmerpenguins)
+library(ggnewscale)
+library(sf)
 library(patchwork)
-library(showtext)
-font_add_google(&amp;quot;Righteous&amp;quot;, &amp;quot;Righteous&amp;quot;)
-showtext_auto()&lt;/code&gt;&lt;/pre&gt;
+library(showtext)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;read-in-data&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Read in data&lt;/h2&gt;
-&lt;p&gt;There’s a miscalculation where the obscure Frozen (2010) has the same reported box office as the Disney musical Frozen (2013). I’m too lazy to look up what its real box office was, so I just removed it.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;movies_detail &amp;lt;- readr::read_csv(&amp;#39;https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-03-09/movies.csv?raw=true&amp;#39;, na = c(&amp;quot;NA&amp;quot;, &amp;quot;#N/A&amp;quot;)) %&amp;gt;%
-  mutate(binary = binary == &amp;quot;PASS&amp;quot;) %&amp;gt;%
-  filter(!(year == 2010 &amp;amp; title == &amp;quot;Frozen&amp;quot;))
+&lt;div id=&#34;read-in-penguin-diagram&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Read in penguin diagram&lt;/h2&gt;
+&lt;p&gt;This is a rough draft of a heatmap diagram specifically for the &lt;a href=&#34;https://allisonhorst.github.io/palmerpenguins/&#34;&gt;&lt;code&gt;{palmerpenguins}&lt;/code&gt;&lt;/a&gt; dataset, and at the time of this writing is living on a development branch of the &lt;em&gt;very&lt;/em&gt; nascent &lt;a href=&#34;https://tkoomar.github.io/sffs/&#34;&gt;Simple Features For Science &lt;code&gt;{sffs}&lt;/code&gt; warehouse / package&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sf_palmer &amp;lt;- read_sf(&amp;quot;https://raw.githubusercontent.com/tkoomar/sffs/palmer/data-raw/sf_palmer/sf_palmer.geojson&amp;quot;)
 
-movies &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-09/raw_bechdel.csv&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+print(sf_palmer)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Simple feature collection with 9 features and 1 field
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 0.159483 ymin: -1.063218 xmax: 1.369025 ymax: 0.979735
+## CRS:            4326
+## # A tibble: 9 x 2
+##   id                                                                    geometry
+##   &amp;lt;chr&amp;gt;                                                            &amp;lt;POLYGON [°]&amp;gt;
+## 1 background     ((1.037073 -0.844313, 1.037073 -0.844313, 1.037321 -0.843974, …
+## 2 foot           ((1.02272 -0.868436, 1.022712 -0.868446, 1.022607 -0.868572, 1…
+## 3 flipper_lengt… ((0.804533 0.049629, 0.804448 0.049715, 0.804276 0.049887, 0.8…
+## 4 bill_length_mm ((1.260757 0.847204, 1.26037 0.847223, 1.2596 0.847262, 1.2588…
+## 5 bill_depth_mm  ((1.260757 0.847204, 1.26037 0.847223, 1.2596 0.847262, 1.2588…
+## 6 face           ((1.174673 0.856284, 1.174691 0.856296, 1.174724 0.856322, 1.1…
+## 7 body_mass_g    ((0.597523 0.068709, 0.597514 0.068705, 0.597494 0.068696, 0.5…
+## 8 eye            ((0.93493 0.813604, 0.934965 0.813629, 0.935024 0.813671, 0.93…
+## 9 pupil          ((0.940806 0.7871717, 0.940859 0.787341, 0.940897 0.787461, 0.…&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What does it look like? Let’s take a peak:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(sf_palmer) + 
+  geom_sf() + 
+  theme_void()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;192&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;They might not be the most dapper, but I find something about this penguin’s oddly lumpy form to be rather endearing.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;top-plot&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Top Plot&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_pct_lustrum &amp;lt;- movies_detail %&amp;gt;%
-  drop_na(domgross_2013) %&amp;gt;%
-  mutate(lustrum = cut_width(year, 5, boundary = 1975)) %&amp;gt;%
-  group_by(lustrum) %&amp;gt;%
-  arrange(desc(domgross_2013)) %&amp;gt;%
-  mutate(rank = rank(domgross_2013))  %&amp;gt;%
-  mutate(rank = rank/max(rank)) %&amp;gt;%
-  mutate(pct_gross = domgross_2013/sum(domgross_2013)) %&amp;gt;%
-  filter(rank &amp;gt;= 0.9) %&amp;gt;%
-  summarize(
-    pct_lustrum = mean(binary, na.rm =T), 
-    pct_lustrum_gross = sum(pct_gross)
-    ) %&amp;gt;%
-  ungroup() 
+&lt;div id=&#34;summarize-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summarize data&lt;/h2&gt;
+&lt;p&gt;As alluded above, this week’s data comes from &lt;a href=&#34;https://allisonhorst.github.io/palmerpenguins/&#34;&gt;&lt;code&gt;{palmerpenguins}&lt;/code&gt;&lt;/a&gt;, which is an alternative to the classic iris toy dataset, featureing everyones favorite antarctic flightless bird!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(penguins)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 8
+##   species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
+##   &amp;lt;fct&amp;gt;   &amp;lt;fct&amp;gt;           &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;            &amp;lt;int&amp;gt;       &amp;lt;int&amp;gt; &amp;lt;fct&amp;gt;
+## 1 Adelie  Torge…           39.1          18.7              181        3750 male 
+## 2 Adelie  Torge…           39.5          17.4              186        3800 fema…
+## 3 Adelie  Torge…           40.3          18                195        3250 fema…
+## 4 Adelie  Torge…           NA            NA                 NA          NA &amp;lt;NA&amp;gt; 
+## 5 Adelie  Torge…           36.7          19.3              193        3450 fema…
+## 6 Adelie  Torge…           39.3          20.6              190        3650 male 
+## # … with 1 more variable: year &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For this plot, we want one diagram/heatmap per species and sex. So, get the median value of each variable at that level. Note that because the scales of the different measurements are rather all over the place, we will first scale each so that values are expressed as standard deviations.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins_scaled &amp;lt;- penguins %&amp;gt;%
+  drop_na() %&amp;gt;%
+  mutate(across(where(is.numeric),  ~scale(.x)[,1]))
 
-top_pct_year &amp;lt;- movies_detail %&amp;gt;%
-  drop_na(domgross_2013) %&amp;gt;%
-  mutate(lustrum = cut_width(year, 5, boundary = 1975)) %&amp;gt;%
-  group_by(year, lustrum) %&amp;gt;%
-  mutate(rank = rank(domgross_2013)) %&amp;gt;%
-  mutate(rank = rank/max(rank)) %&amp;gt;%
-  mutate(pct_gross = domgross_2013/sum(domgross_2013)) %&amp;gt;%
-  filter(rank &amp;gt;= 0.75) %&amp;gt;%
-  summarize(
-    pct_year = mean(binary, na.rm =T), 
-    pct_year_gross = sum(pct_gross)
-    ) %&amp;gt;%
-  ungroup() 
+penguins_scaled_summary &amp;lt;- penguins_scaled %&amp;gt;%
+  group_by(species, sex) %&amp;gt;%
+  summarize(across(where(is.numeric), median), 
+            .groups = &amp;#39;keep&amp;#39;)
 
-p1 &amp;lt;- top_pct_lustrum %&amp;gt;%
-  inner_join(top_pct_year) %&amp;gt;%
-  ggplot(aes(x = year)) + 
-  geom_col(
-    aes(y = pct_lustrum_gross), 
-    fill = &amp;#39;grey90&amp;#39;, width = 1, alpha = 1/2
-  ) + 
-  geom_point(aes(y = pct_year), 
-    shape = 3, 
-    size = 3, 
-    color = &amp;#39;grey70&amp;#39;) + 
-  geom_line(aes(y = pct_lustrum), color = &amp;#39;grey20&amp;#39;) + 
-  theme_minimal(base_size = 14, base_family = &amp;quot;sans&amp;quot;) + 
-  scale_x_continuous(expand = expansion(add = c(1,5))) + 
-  scale_y_continuous(labels = scales::label_percent()) + 
-  labs(
-    y = NULL,
-    x = &amp;#39;top grossing movies of half-decade (bold pass test)&amp;#39;) + 
+penguins_scaled_summary_long &amp;lt;- penguins_scaled_summary %&amp;gt;%
+  pivot_longer(cols = 3:7,
+  names_to = &amp;#39;id&amp;#39;,
+  values_to = &amp;#39;median_scaled_value&amp;#39;) %&amp;gt;%
+  mutate(sex = if_else(sex == &amp;#39;female&amp;#39;, &amp;#39;♀&amp;#39;, &amp;#39;♂&amp;#39;))
+
+head(penguins_scaled_summary_long)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+## # Groups:   species, sex [2]
+##   species sex   id                median_scaled_value
+##   &amp;lt;fct&amp;gt;   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;                           &amp;lt;dbl&amp;gt;
+## 1 Adelie  ♀     bill_length_mm                -1.28  
+## 2 Adelie  ♀     bill_depth_mm                  0.221 
+## 3 Adelie  ♀     flipper_length_mm             -0.925 
+## 4 Adelie  ♀     body_mass_g                   -1.00  
+## 5 Adelie  ♀     year                          -0.0517
+## 6 Adelie  ♂     bill_length_mm                -0.620&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;background_fill_colors &amp;lt;- c( background = &amp;#39;black&amp;#39;, foot = &amp;#39;sienna1&amp;#39;,
+  face = &amp;#39;white&amp;#39;,eye = &amp;#39;coral1&amp;#39;, pupil = &amp;#39;black&amp;#39;)
+background_color_colors &amp;lt;- c(background = &amp;#39;black&amp;#39;, foot = &amp;#39;sienna4&amp;#39;,
+  face = &amp;#39;white&amp;#39;, eye = &amp;#39;black&amp;#39;, pupil = &amp;#39;black&amp;#39;)
+
+sf_background &amp;lt;- sf_palmer %&amp;gt;%
+anti_join(penguins_scaled_summary_long) %&amp;gt;%
+## This first-draft of the diagram uses the same geometry for the bill length
+## and bill width, so we will just visualize the depth here
+filter(id != &amp;#39;bill_length_mm&amp;#39;) %&amp;gt;%
+mutate(id = as_factor(id))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;id&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+geom_sf(data = sf_background,
+aes(fill = id,
+color = id)
+) +
+scale_fill_manual(values = background_fill_colors) +
+scale_color_manual(values = background_color_colors)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;That looks a bit more like a proper penguin!&lt;/p&gt;
+&lt;p&gt;As you might be able to guess from the axis ticks on this plot, this diagram is actually a geographic map (of sorts). &lt;code&gt;{sffs}&lt;/code&gt; takes advantage of the fact that ggplot will plot any arbitrary shape, so long as it can be expressed like a map (in this case, a &lt;a href=&#34;https://r-spatial.github.io/sf/articles/sf1.html&#34;&gt;simple features &lt;code&gt;{sf}&lt;/code&gt;&lt;/a&gt; object).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;simple-plot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Simple plot&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguin_plot &amp;lt;- sf_palmer %&amp;gt;%
+  inner_join(penguins_scaled_summary_long, 
+             by = &amp;#39;id&amp;#39;) %&amp;gt;%
+  ggplot() +
+  geom_sf(data = sf_background,
+  aes(fill = id,
+  color = id)
+  ) +
+  scale_fill_manual(values = background_fill_colors, 
+                    guide = guide_none()) +
+  scale_color_manual(values = background_color_colors, 
+                     guide = guide_none()) + 
+  new_scale_fill() +
+  new_scale_color() +
+  geom_sf(aes(fill = median_scaled_value), color = &amp;#39;black&amp;#39;) + 
+  facet_grid(sex ~ species)
+
+penguin_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;That isn’t particularly pretty. These penguins deserve to be seen in style, so let’s do some tweaking.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;customize-plot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Customize Plot&lt;/h2&gt;
+&lt;div id=&#34;better-color-scale&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Better color scale&lt;/h4&gt;
+&lt;p&gt;The human eye really isn’t good with continuous color scales. Let’s do a binned scale via &lt;code&gt;scale_fill_fermenter&lt;/code&gt;, and make it a divergent once since we know we scaled our data. We will fit the limits to be symetric around 0.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguin_plot &amp;lt;- penguin_plot + 
+  scale_fill_fermenter(palette = &amp;#39;Spectral&amp;#39;, 
+                       limits = c(-1.5, 1.5), 
+                       n.breaks = 8, 
+                       labels = c(&amp;#39;&amp;lt; 1 SD smaller&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;average&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;&amp;#39;, &amp;#39;&amp;gt; 1 SD larger&amp;#39;), 
+                       guide = guide_colorsteps(
+                         title = element_blank(), 
+                         label.position = &amp;#39;left&amp;#39;,
+                         barheight = 25, 
+                         barwidth = 1/2
+                       )
+                       ) + 
+  theme_void()
+
+penguin_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Looking pretty good, I think we just need to tweak the font face and size.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;font-face-and-size&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Font face and size&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;font_add_google(&amp;quot;M PLUS Rounded 1c&amp;quot;, &amp;quot;M+300&amp;quot;, regular.wt = 300)
+font_add_google(&amp;quot;Krona One&amp;quot;, &amp;quot;K1&amp;quot;)
+font_add_google(&amp;quot;M PLUS Rounded 1c&amp;quot;, &amp;quot;M+100&amp;quot;, regular.wt = 100)
+showtext_auto()
+penguin_plot &amp;lt;- penguin_plot + 
   theme(
-    axis.title = 
-      element_text(
-        family = &amp;quot;Righteous&amp;quot;, 
-        face = &amp;#39;bold&amp;#39;, 
-        hjust = 0, 
-        size = 16, 
-        color = &amp;#39;orangered2&amp;#39;,
-        ), 
-    panel.grid.major.y = element_blank(), 
-    panel.grid.minor.y = element_blank()
+    legend.position = &amp;#39;left&amp;#39;, 
+    text = element_text(family = &amp;#39;M+300&amp;#39;, color = &amp;#39;#434C5E&amp;#39; ),
+    legend.text = element_text(size = 12, color = &amp;#39;#4C566A&amp;#39;),
+    strip.text.x = element_text( size = 25),
+    strip.text.y = element_text( size = 50, angle = 0)
   )
 
-p1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2021-03-09-tt-bechdel/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;div id=&#34;annotate-it&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Annotate it&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p1 &amp;lt;- p1 + 
-  annotate(
-    geom = &amp;#39;curve&amp;#39;,
-    xend = 1984.75, yend = .01, x = 1982, y = 0.5,
-    curvature = 0.15,ncp = 9, lwd = 1/2,
-    arrow = arrow(length = unit(1/2, &amp;#39;lines&amp;#39;)), 
-    color = &amp;#39;orangered1&amp;#39;
-    )  + 
-  annotate(
-    geom = &amp;#39;text&amp;#39;, 
-    family = &amp;quot;Righteous&amp;quot;,
-    x = 1981, 
-    y = 0.51, 
-    size= 4.25,
-    label = &amp;quot;The year Alison Bechdel proposed her now famous test was in the midst of a decade-long drought for female representation in popular movies&amp;quot; %&amp;gt;%
-      str_wrap(30), hjust = 0, vjust = 0, color = &amp;#39;orangered1&amp;#39;
-  ) + 
-  geom_vline(
-    xintercept = 1980,
-    color = &amp;#39;grey80&amp;#39;, 
-    alpha = 1/2,
-    lty = 2, 
-    size = 1
-  ) + 
-  annotate(
-    geom = &amp;#39;text&amp;#39;,
-    x = 1979.85, 
-    y = 0.80, 
-    label = &amp;#39;data before this date is sparse and less accurate&amp;#39;, 
-    angle = 90, 
-    hjust = 1/2,
-    vjust = 0,
-    size = 2.75,
-    color = &amp;#39;grey80&amp;#39;
-  ) + 
-  annotate(
-    geom = &amp;#39;text&amp;#39;,
-    x = 1970.05, 
-    y = .358,
-    hjust = 0, 
-    vjust = 1, 
-    color = &amp;#39;grey30&amp;#39;,
-    size = 2.75, 
-    label = &amp;#39;top 10% grossing movies in \nhalf-decade which pass test&amp;#39;
-  ) + 
-  annotate(
-    geom = &amp;#39;curve&amp;#39;,
-    xend = 1970.2, yend = .98, x = 1971, y = 0.9,
-    curvature = 0.15, ncp = 9, lwd = 1/2,
-    arrow = arrow(length = unit(1/3, &amp;#39;lines&amp;#39;)), 
-    color = &amp;#39;grey70&amp;#39;
-    )  + 
-  annotate(
-    geom = &amp;#39;text&amp;#39;,
-    x = 1971, 
-    y = .89,
-    hjust = 0, 
-    vjust = 1, 
-    color = &amp;#39;grey70&amp;#39;,
-    size = 2.75, 
-    label = &amp;#39;top 50% grossing movies in\nyear which pass test&amp;#39;
-  ) + 
-  annotate(
-    geom = &amp;#39;text&amp;#39;, 
-    color = &amp;#39;grey75&amp;#39;, 
-    x = 1975.75, 
-    y = 0.46, 
-    hjust = 0, 
-    vjust = 1,
-    size = 2.5, 
-    label = &amp;#39;percent USA box office for\ntop 10% grossing movies&amp;#39;
-  )
-  
-
-p1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2021-03-09-tt-bechdel/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+penguin_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;bottom-plot&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Bottom Plot&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p2 &amp;lt;- movies_detail %&amp;gt;%
-  drop_na(domgross_2013) %&amp;gt;%
-  mutate(lustrum = cut_width(year, 5, boundary = 1975)) %&amp;gt;%
-  group_by(lustrum) %&amp;gt;%
-  mutate(rank = rank(domgross_2013)) %&amp;gt;%
-  mutate(rank = rank/max(rank)) %&amp;gt;%
-  arrange(desc(rank)) %&amp;gt;%
-  slice(1:5) %&amp;gt;%
-  select(lustrum, title, binary) %&amp;gt;%
-  mutate(
-    title = title %&amp;gt;%
-      str_replace(&amp;quot;&amp;amp;#39;&amp;quot;, &amp;quot;&amp;#39;&amp;quot;) %&amp;gt;%
-      str_remove_all(&amp;quot;Star Wars: Episode .*- &amp;quot;) %&amp;gt;%
-      str_remove_all(&amp;quot;The Lord of the Rings: &amp;quot;) 
-  ) %&amp;gt;%
-  mutate(
-    rank = rank(str_length(title), ties.method = &amp;#39;first&amp;#39;), 
-    title = str_wrap(title, width = 25)
-    ) %&amp;gt;%
-  ggplot(aes(x = lustrum, y = rank)) + 
-  geom_text(aes(label = title, color = binary), 
-    hjust = 0, vjust = 1, size = 3, lineheight = 3/4) + 
-  theme_void(base_family = &amp;quot;sans&amp;quot;) + 
-  scale_x_discrete(expand = expansion(add = c(1/5,8/5))) + 
-  scale_y_discrete(expand = expansion(add = c(3/5,1/5))) + 
-  scale_color_manual(
-    values = c(&amp;#39;TRUE&amp;#39; = &amp;#39;grey20&amp;#39;, &amp;#39;FALSE&amp;#39; = &amp;#39;grey65&amp;#39;), 
-    guide = guide_none()) + 
-  labs(
-    caption = &amp;quot;A #TidyTuesday adventure by @tannerkoomar\nData from @FiveThirtyEight&amp;quot;
-  )
+&lt;div id=&#34;other-plot-colors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Other Plot Colors&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguin_plot &amp;lt;- penguin_plot + 
+  theme(plot.background = element_rect(fill= alpha(&amp;quot;#ECEFF4&amp;quot;, 0.5),                     
+                                       color = NA), 
+        panel.background = element_rect(fill = alpha(&amp;quot;#E5E9F0&amp;quot;, 0.5), 
+                                        color = NA)
+          ) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;title_plot &amp;lt;- ggplot() + 
+  annotate(geom = &amp;#39;text&amp;#39;, 
+           label = &amp;#39;Palmer\nPenguins&amp;#39;, 
+           y = 2, x = 2, 
+           size  = 30, 
+           color = &amp;quot;#5E81AC&amp;quot;, 
+           family = &amp;quot;K1&amp;quot;, 
+           hjust = 1, 
+           vjust = 1, 
+           lineheight = 0.55) + 
+  coord_cartesian(xlim = c(0,2), ylim = c(0,2)) + 
+  theme_void() + 
+  theme(plot.caption = element_blank())
 
-p2&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2021-03-09-tt-bechdel/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;plots-assemble&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Plots Assemble!&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;final_plot &amp;lt;- wrap_plots(
-  list(p1, p2), ncol = 1, heights = c(4, 1)
-  )
+text_plot &amp;lt;- ggplot() + 
+  annotate(geom = &amp;#39;text&amp;#39;, 
+           label = &amp;#39;A real-world dataset gaining traction as an alternative to the classic iris dataset for demonstration and teaching.&amp;#39; %&amp;gt;% str_wrap(20), 
+           y = 2, x = 0, 
+           size  = 9.8, 
+           color = &amp;quot;#8FBCBB&amp;quot;, 
+           family = &amp;quot;M+300&amp;quot;, 
+           hjust = 0, 
+           vjust = 1, 
+           lineheight = 0.5) + 
+  coord_cartesian(xlim = c(0,2), ylim = c(0,2)) + 
+  geom_vline(xintercept = -0.1, color = &amp;#39;#81A1C1&amp;#39;, size = 1) + 
+  labs(caption = &amp;quot;A #TidyTuesday adventure\nDesign by @TannerKoomar\nArtwork by @allison_horst&amp;quot;) +
+  theme_void() + 
+  theme(plot.margin = margin(t = 20), 
+        plot.caption = element_text(color = &amp;quot;#8FBCBB&amp;quot;, 
+                                    family = &amp;quot;M+300&amp;quot;, 
+                                    size = 11))
 
-final_plot&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2021-03-09-tt-bechdel/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+layout &amp;lt;- &amp;quot;
+#111#
+22233
+###33
+&amp;quot;
+penguin_plot + title_plot + text_plot + 
+  plot_layout(design = layout,
+              widths = c(1, 10, 10, 10, 1), 
+              heights = c(30, 12, 1/5)
+              ) &amp;amp; 
+  theme(plot.background = element_rect(fill= &amp;quot;#ECEFF4&amp;quot;,                     
+                                       color = NA)
+          ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2020-07-27-tt-palmer-penguins/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggsave(&amp;#39;featured.png&amp;#39;, dpi = 144)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -2872,12 +2896,38 @@ cowplot::ggdraw(final_plot) +
       <guid>/post/2018-11-06-tt-wind-power/</guid>
       <description>&lt;div id=&#34;load-data&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Load Data&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&amp;quot;)
-
-## get all the missing data to NA
-dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &amp;quot;missing&amp;quot;), NA)))
-
-## drop rows and columns with high missing rate
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   faa_ors = col_character(),
+##   faa_asn = col_character(),
+##   t_state = col_character(),
+##   t_county = col_character(),
+##   t_fips = col_character(),
+##   p_name = col_character(),
+##   t_manu = col_character(),
+##   t_model = col_character(),
+##   t_img_date = col_character(),
+##   t_img_srce = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## get all the missing data to NA
+dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &amp;quot;missing&amp;quot;), NA)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `funs()` is deprecated as of dplyr 0.8.0.
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## drop rows and columns with high missing
 dat.comp &amp;lt;- dat %&amp;gt;% select_if( function(x){sum(is.na(x))/length(x) &amp;lt; .15}) %&amp;gt;%
   filter(rowMeans(is.na(.)) &amp;lt; 0.15)
 
@@ -2887,31 +2937,25 @@ dat.p.num &amp;lt;- dat.comp %&amp;gt;% group_by(p_name) %&amp;gt;%
   summarise_all(.funs = function(x){mean(x, na.rm = T)}) %&amp;gt;% 
   ungroup %&amp;gt;% select(-p_name) %&amp;gt;% filter(rowSums(is.na(.)) == 0) %&amp;gt;%
   filter(xlong &amp;lt; 100 &amp;amp; xlong &amp;gt; -125 &amp;amp; ylat &amp;gt; 20) %&amp;gt;% ## remove some geographic outliers
-  filter(t_cap &amp;gt; 0) &lt;/code&gt;&lt;/pre&gt;
+  filter(t_cap &amp;gt; 0 &amp;amp; t_cap &amp;lt; 6000) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;reduce-dimensionality&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Reduce Dimensionality&lt;/h2&gt;
 &lt;div id=&#34;do-a-pca&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Do a PCA&lt;/h3&gt;
-&lt;p&gt;Looks like PC1 makes up the bulk of the difference, and it is due to turbine rotor sweep area&lt;/p&gt;
+&lt;p&gt;Looks like PC1 makes up the bul of the difference, and it is due to turbine rotor sweep area&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.pca &amp;lt;- prcomp(dat.p.num, center = TRUE, scale. = TRUE)
 
-broom::tidy(dat.pca, &amp;#39;d&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 12 x 4
-##       PC std.dev percent cumulative
-##    &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
-##  1     1  2.34   0.456        0.456
-##  2     2  1.38   0.158        0.615
-##  3     3  1.01   0.0846       0.699
-##  4     4  0.983  0.0806       0.780
-##  5     5  0.950  0.0753       0.855
-##  6     6  0.860  0.0617       0.917
-##  7     7  0.704  0.0413       0.958
-##  8     8  0.537  0.0240       0.982
-##  9     9  0.355  0.0105       0.993
-## 10    10  0.278  0.00645      0.999
-## 11    11  0.109  0.001        1.00 
-## 12    12  0.0102 0.00001      1&lt;/code&gt;&lt;/pre&gt;
+summary(dat.pca)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Importance of components:
+##                           PC1    PC2     PC3     PC4     PC5     PC6    PC7
+## Standard deviation     2.3420 1.3762 1.00832 0.98379 0.94979 0.86079 0.7040
+## Proportion of Variance 0.4571 0.1578 0.08473 0.08065 0.07517 0.06175 0.0413
+## Cumulative Proportion  0.4571 0.6149 0.69963 0.78028 0.85546 0.91720 0.9585
+##                            PC8     PC9    PC10    PC11    PC12
+## Standard deviation     0.53133 0.35791 0.27616 0.10600 0.01020
+## Proportion of Variance 0.02353 0.01067 0.00636 0.00094 0.00001
+## Cumulative Proportion  0.98202 0.99270 0.99905 0.99999 1.00000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.pca$rotation %&amp;gt;% as.data.frame() %&amp;gt;% rownames_to_column() %&amp;gt;%
   ggplot(aes(y = PC1, x = rowname)) + 
   geom_col()&lt;/code&gt;&lt;/pre&gt;
@@ -2924,6 +2968,11 @@ broom::tidy(dat.pca, &amp;#39;d&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
   ggplot(aes(x = xlong, ylat, color = PC1, size = p_cap, alpha = t_cap)) +
   scale_color_viridis_c() + 
   geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `as.tibble()` is deprecated as of tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;cluster&#34; class=&#34;section level3&#34;&gt;
@@ -2939,38 +2988,19 @@ dat.k &amp;lt;- dat.pca$x %&amp;gt;% as.tibble %&amp;gt;%
     k6 = kmeans(., 6)$cluster
   ) %&amp;gt;% bind_cols(dat.p.num)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;summary-of-clusters&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Summary of Clusters&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.k %&amp;gt;%
-  group_by(k6) %&amp;gt;%
-  select(-matches(&amp;#39;^PC|k\\d&amp;#39;)) %&amp;gt;%
-  summarise_all(list(.median = median, .mad = mad))%&amp;gt;%
-  gather(key, value, -k6) %&amp;gt;%
-  separate(key, into = c(&amp;#39;measure&amp;#39;, &amp;#39;stat&amp;#39;), &amp;#39;\\.&amp;#39;) %&amp;gt;%
-  mutate(measure = str_remove(measure, &amp;quot;_$&amp;quot;), 
-    k6 = as.factor(k6)) %&amp;gt;%
-  spread(stat, value) %&amp;gt;%
-  ggplot(aes(x = k6, y = median, color = k6)) + 
-  geom_errorbar(aes(ymin = median-3*mad, ymax = median+3*mad)) + 
-  geom_point() + 
-  facet_wrap(~measure, scales = &amp;#39;free&amp;#39;)+ 
-  theme_minimal() + 
-  scale_color_brewer(palette = &amp;quot;Set1&amp;quot;, guide = guide_none())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
 &lt;div id=&#34;cluster-plots&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Cluster Plots&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.k %&amp;gt;% 
   ggplot(aes(x = xlong, ylat, color = as.character(k6), size = p_cap, alpha = t_cap)) +
-  scale_color_brewer(palette = &amp;quot;Set1&amp;quot;) + 
+  scale_color_brewer(palette = &amp;quot;Dark2&amp;quot;) + 
   geom_point()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.k %&amp;gt;% 
   ggplot(aes(x = xlong, ylat, color = as.character(k6), size = p_cap, alpha = t_cap)) +
-  scale_color_brewer(palette = &amp;quot;Set1&amp;quot;)+ 
+  scale_color_brewer(palette = &amp;quot;Dark2&amp;quot;)+ 
   geom_point() + 
   facet_wrap(~ as.character(k6), nrow = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;make-a-pretty-map-under-the-data&#34; class=&#34;section level2&#34;&gt;
@@ -2989,7 +3019,7 @@ invert &amp;lt;- function(M) {
 us &amp;lt;- c(left = -125, bottom = 25.75, right = -67, top = 49)
 m &amp;lt;- get_stamenmap(us, zoom = 5, maptype = &amp;quot;toner-lite&amp;quot;) 
 ggmap(invert(m))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plots&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Plots&lt;/h2&gt;
@@ -3033,9 +3063,20 @@ plot.all &amp;lt;- ggmap(invert(m), extent = &amp;#39;device&amp;#39;) +
         panel.background = element_rect(fill = NULL))&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;squish-together&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Squish together&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(cowplot)
-
-final.plot &amp;lt;- plot_grid(plotlist = list(plot.points, plot.all, plot.density), nrow = 1, rel_widths = c(.25,1,.25))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(cowplot)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## ********************************************************&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Note: As of version 1.0.0, cowplot does not change the&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   default ggplot2 theme anymore. To recover the previous&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   behavior, execute:
+##   theme_set(theme_cowplot())&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ********************************************************&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;cowplot&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:ggmap&amp;#39;:
+## 
+##     theme_nothing&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;final.plot &amp;lt;- plot_grid(plotlist = list(plot.points, plot.all, plot.density), nrow = 1, rel_widths = c(.25,1,.25))
 ggdraw(final.plot) + 
   theme(plot.background = element_rect(fill = &amp;quot;black&amp;quot;, color = 
 &amp;quot;black&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
@@ -3068,15 +3109,6 @@ ggdraw(final.plot) +
       <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
       <guid>/terms/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Avoidant restrictive food intake disorder in autism</title>
-      <link>/project/autism-arfid/</link>
-      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/project/autism-arfid/</guid>
-      <description>&lt;p&gt;In this SPARK Research Match study, a survey of over a thousand families were asked about the eating habits of both parents and children. The first large scale study of its kind in the context of autism, it found that up to 22% of autisic children may be at risk for the under-diagnosed condition Avoidant Restrictive Food Intake Disorder (ARFID). Several risk factors for ARFID were also linked to restrictive and repetative behaviors.&lt;/p&gt;
 </description>
     </item>
     

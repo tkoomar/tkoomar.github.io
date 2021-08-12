@@ -19,12 +19,38 @@
       <guid>/post/2018-11-06-tt-wind-power/</guid>
       <description>&lt;div id=&#34;load-data&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Load Data&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&amp;quot;)
-
-## get all the missing data to NA
-dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &amp;quot;missing&amp;quot;), NA)))
-
-## drop rows and columns with high missing rate
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- read_csv(&amp;quot;https://github.com/rfordatascience/tidytuesday/raw/master/data/2018/2018-11-06/us_wind.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   faa_ors = col_character(),
+##   faa_asn = col_character(),
+##   t_state = col_character(),
+##   t_county = col_character(),
+##   t_fips = col_character(),
+##   p_name = col_character(),
+##   t_manu = col_character(),
+##   t_model = col_character(),
+##   t_img_date = col_character(),
+##   t_img_srce = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## get all the missing data to NA
+dat &amp;lt;- dat %&amp;gt;% mutate_all(.funs = funs(replace(., . %in% c(-9999, &amp;quot;missing&amp;quot;), NA)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `funs()` is deprecated as of dplyr 0.8.0.
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## drop rows and columns with high missing
 dat.comp &amp;lt;- dat %&amp;gt;% select_if( function(x){sum(is.na(x))/length(x) &amp;lt; .15}) %&amp;gt;%
   filter(rowMeans(is.na(.)) &amp;lt; 0.15)
 
@@ -34,31 +60,25 @@ dat.p.num &amp;lt;- dat.comp %&amp;gt;% group_by(p_name) %&amp;gt;%
   summarise_all(.funs = function(x){mean(x, na.rm = T)}) %&amp;gt;% 
   ungroup %&amp;gt;% select(-p_name) %&amp;gt;% filter(rowSums(is.na(.)) == 0) %&amp;gt;%
   filter(xlong &amp;lt; 100 &amp;amp; xlong &amp;gt; -125 &amp;amp; ylat &amp;gt; 20) %&amp;gt;% ## remove some geographic outliers
-  filter(t_cap &amp;gt; 0) &lt;/code&gt;&lt;/pre&gt;
+  filter(t_cap &amp;gt; 0 &amp;amp; t_cap &amp;lt; 6000) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;reduce-dimensionality&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Reduce Dimensionality&lt;/h2&gt;
 &lt;div id=&#34;do-a-pca&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Do a PCA&lt;/h3&gt;
-&lt;p&gt;Looks like PC1 makes up the bulk of the difference, and it is due to turbine rotor sweep area&lt;/p&gt;
+&lt;p&gt;Looks like PC1 makes up the bul of the difference, and it is due to turbine rotor sweep area&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.pca &amp;lt;- prcomp(dat.p.num, center = TRUE, scale. = TRUE)
 
-broom::tidy(dat.pca, &amp;#39;d&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 12 x 4
-##       PC std.dev percent cumulative
-##    &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
-##  1     1  2.34   0.456        0.456
-##  2     2  1.38   0.158        0.615
-##  3     3  1.01   0.0846       0.699
-##  4     4  0.983  0.0806       0.780
-##  5     5  0.950  0.0753       0.855
-##  6     6  0.860  0.0617       0.917
-##  7     7  0.704  0.0413       0.958
-##  8     8  0.537  0.0240       0.982
-##  9     9  0.355  0.0105       0.993
-## 10    10  0.278  0.00645      0.999
-## 11    11  0.109  0.001        1.00 
-## 12    12  0.0102 0.00001      1&lt;/code&gt;&lt;/pre&gt;
+summary(dat.pca)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Importance of components:
+##                           PC1    PC2     PC3     PC4     PC5     PC6    PC7
+## Standard deviation     2.3420 1.3762 1.00832 0.98379 0.94979 0.86079 0.7040
+## Proportion of Variance 0.4571 0.1578 0.08473 0.08065 0.07517 0.06175 0.0413
+## Cumulative Proportion  0.4571 0.6149 0.69963 0.78028 0.85546 0.91720 0.9585
+##                            PC8     PC9    PC10    PC11    PC12
+## Standard deviation     0.53133 0.35791 0.27616 0.10600 0.01020
+## Proportion of Variance 0.02353 0.01067 0.00636 0.00094 0.00001
+## Cumulative Proportion  0.98202 0.99270 0.99905 0.99999 1.00000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.pca$rotation %&amp;gt;% as.data.frame() %&amp;gt;% rownames_to_column() %&amp;gt;%
   ggplot(aes(y = PC1, x = rowname)) + 
   geom_col()&lt;/code&gt;&lt;/pre&gt;
@@ -71,6 +91,11 @@ broom::tidy(dat.pca, &amp;#39;d&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
   ggplot(aes(x = xlong, ylat, color = PC1, size = p_cap, alpha = t_cap)) +
   scale_color_viridis_c() + 
   geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `as.tibble()` is deprecated as of tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;cluster&#34; class=&#34;section level3&#34;&gt;
@@ -86,38 +111,19 @@ dat.k &amp;lt;- dat.pca$x %&amp;gt;% as.tibble %&amp;gt;%
     k6 = kmeans(., 6)$cluster
   ) %&amp;gt;% bind_cols(dat.p.num)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;summary-of-clusters&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Summary of Clusters&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.k %&amp;gt;%
-  group_by(k6) %&amp;gt;%
-  select(-matches(&amp;#39;^PC|k\\d&amp;#39;)) %&amp;gt;%
-  summarise_all(list(.median = median, .mad = mad))%&amp;gt;%
-  gather(key, value, -k6) %&amp;gt;%
-  separate(key, into = c(&amp;#39;measure&amp;#39;, &amp;#39;stat&amp;#39;), &amp;#39;\\.&amp;#39;) %&amp;gt;%
-  mutate(measure = str_remove(measure, &amp;quot;_$&amp;quot;), 
-    k6 = as.factor(k6)) %&amp;gt;%
-  spread(stat, value) %&amp;gt;%
-  ggplot(aes(x = k6, y = median, color = k6)) + 
-  geom_errorbar(aes(ymin = median-3*mad, ymax = median+3*mad)) + 
-  geom_point() + 
-  facet_wrap(~measure, scales = &amp;#39;free&amp;#39;)+ 
-  theme_minimal() + 
-  scale_color_brewer(palette = &amp;quot;Set1&amp;quot;, guide = guide_none())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
 &lt;div id=&#34;cluster-plots&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Cluster Plots&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.k %&amp;gt;% 
   ggplot(aes(x = xlong, ylat, color = as.character(k6), size = p_cap, alpha = t_cap)) +
-  scale_color_brewer(palette = &amp;quot;Set1&amp;quot;) + 
+  scale_color_brewer(palette = &amp;quot;Dark2&amp;quot;) + 
   geom_point()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat.k %&amp;gt;% 
   ggplot(aes(x = xlong, ylat, color = as.character(k6), size = p_cap, alpha = t_cap)) +
-  scale_color_brewer(palette = &amp;quot;Set1&amp;quot;)+ 
+  scale_color_brewer(palette = &amp;quot;Dark2&amp;quot;)+ 
   geom_point() + 
   facet_wrap(~ as.character(k6), nrow = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-5-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;make-a-pretty-map-under-the-data&#34; class=&#34;section level2&#34;&gt;
@@ -136,7 +142,7 @@ invert &amp;lt;- function(M) {
 us &amp;lt;- c(left = -125, bottom = 25.75, right = -67, top = 49)
 m &amp;lt;- get_stamenmap(us, zoom = 5, maptype = &amp;quot;toner-lite&amp;quot;) 
 ggmap(invert(m))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2018-11-06-tt-wind-power/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plots&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Plots&lt;/h2&gt;
@@ -180,9 +186,20 @@ plot.all &amp;lt;- ggmap(invert(m), extent = &amp;#39;device&amp;#39;) +
         panel.background = element_rect(fill = NULL))&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;squish-together&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Squish together&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(cowplot)
-
-final.plot &amp;lt;- plot_grid(plotlist = list(plot.points, plot.all, plot.density), nrow = 1, rel_widths = c(.25,1,.25))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(cowplot)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## ********************************************************&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Note: As of version 1.0.0, cowplot does not change the&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   default ggplot2 theme anymore. To recover the previous&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   behavior, execute:
+##   theme_set(theme_cowplot())&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ********************************************************&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;cowplot&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:ggmap&amp;#39;:
+## 
+##     theme_nothing&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;final.plot &amp;lt;- plot_grid(plotlist = list(plot.points, plot.all, plot.density), nrow = 1, rel_widths = c(.25,1,.25))
 ggdraw(final.plot) + 
   theme(plot.background = element_rect(fill = &amp;quot;black&amp;quot;, color = 
 &amp;quot;black&amp;quot;))&lt;/code&gt;&lt;/pre&gt;

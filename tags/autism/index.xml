@@ -5,12 +5,20 @@
     <link>/tags/autism/</link>
       <atom:link href="/tags/autism/index.xml" rel="self" type="application/rss+xml" />
     <description>autism</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>autism</title>
       <link>/tags/autism/</link>
     </image>
+    
+    <item>
+      <title>Estimating the Prevalence and Genetic Risk Mechanisms of ARFID in a Large Autism Cohort</title>
+      <link>/publication/2021-arfid-paper/</link>
+      <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/2021-arfid-paper/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Genetic Intersections of Language and Neuropsychiatric Conditions</title>
@@ -34,15 +42,6 @@
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
       <guid>/publication/2018-forecasd-preprint/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>Avoidant restrictive food intake disorder in autism</title>
-      <link>/project/autism-arfid/</link>
-      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/project/autism-arfid/</guid>
-      <description>&lt;p&gt;In this SPARK Research Match study, a survey of over a thousand families were asked about the eating habits of both parents and children. The first large scale study of its kind in the context of autism, it found that up to 22% of autisic children may be at risk for the under-diagnosed condition Avoidant Restrictive Food Intake Disorder (ARFID). Several risk factors for ARFID were also linked to restrictive and repetative behaviors.&lt;/p&gt;
-</description>
     </item>
     
   </channel>

@@ -5,21 +5,12 @@
     <link>/project/</link>
       <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Mon, 01 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>2021</copyright><lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:square]</url>
       <title>Projects</title>
       <link>/project/</link>
     </image>
-    
-    <item>
-      <title>Avoidant restrictive food intake disorder in autism</title>
-      <link>/project/autism-arfid/</link>
-      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/project/autism-arfid/</guid>
-      <description>&lt;p&gt;In this SPARK Research Match study, a survey of over a thousand families were asked about the eating habits of both parents and children. The first large scale study of its kind in the context of autism, it found that up to 22% of autisic children may be at risk for the under-diagnosed condition Avoidant Restrictive Food Intake Disorder (ARFID). Several risk factors for ARFID were also linked to restrictive and repetative behaviors.&lt;/p&gt;
-</description>
-    </item>
     
     <item>
       <title>Web-based Language Screener</title>

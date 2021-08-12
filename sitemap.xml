@@ -4,61 +4,96 @@
   
   <url>
     <loc>/authors/tanner/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication_types/2/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/arfid/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/authors/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/tt-bechdel/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <loc>/tags/autism/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <loc>/publication/2021-arfid-paper/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/data-visualization/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <loc>/tags/genetics/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <loc>/publication_types/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <loc>/publication/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/spark/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/tanner-koomar/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/tidytuesday/</loc>
-    <lastmod>2021-03-09T00:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/2020-07-20-tt-australian-pets/</loc>
-    <lastmod>2020-07-20T16:35:02-05:00</lastmod>
+    <loc>/tags/data-visualization/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/heatmap/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/tt-palmer-penguins/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tidytuesday/</loc>
+    <lastmod>2020-07-27T20:40:36-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-07-20-tt-australian-pets/</loc>
     <lastmod>2020-07-20T16:35:02-05:00</lastmod>
   </url>
   
@@ -68,23 +103,8 @@
   </url>
   
   <url>
-    <loc>/publication_types/2/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/genetics/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication_types/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+    <loc>/authors/tanner-koomar/</loc>
+    <lastmod>2020-07-20T16:35:02-05:00</lastmod>
   </url>
   
   <url>
@@ -144,11 +164,6 @@
   
   <url>
     <loc>/tags/adhd/</loc>
-    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/autism/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -328,22 +343,12 @@
   </url>
   
   <url>
-    <loc>/project/autism-arfid/</loc>
-    <lastmod>2018-01-01T00:00:00+00:00</lastmod>
+    <loc>/tags/cloud/</loc>
+    <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/project/</loc>
-    <lastmod>2018-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/spark/</loc>
-    <lastmod>2018-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/cloud/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
